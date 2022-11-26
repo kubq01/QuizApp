@@ -3,6 +3,7 @@ package com.example.QuizApp.data.users;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -10,6 +11,7 @@ import javax.persistence.Table;
 @Table(name = "Admin")
 @Data
 @NoArgsConstructor
+@DiscriminatorValue("ADMIN")
 public class Admin extends User {
 
     public Admin(int id, String firstName,

@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -12,6 +13,7 @@ import javax.persistence.Table;
 @Table(name = "ABCDExercise")
 @Data
 @NoArgsConstructor
+@DiscriminatorValue("ABCD")
 public class ABCDExercise extends Exercise {
 
     private String answerA;

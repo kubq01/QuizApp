@@ -7,10 +7,13 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@MappedSuperclass
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name="descriminatorColumn")
 public abstract class User {
 
     @Id

@@ -3,21 +3,19 @@ package com.example.QuizApp.data.users;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "Student")
 @Data
 @NoArgsConstructor
+@DiscriminatorValue("STUDENT")
 public class Student extends User {
 
-    private String studentClass;    //TODO czy zrobić klase jako liste studentów???
+    private String studentClass;    //TODO czy zrobić klase jako liste studentów???, ja bym to zostawil jako pole bo bedzie prosciej logike zapytan zrobic
 
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "id", insertable=false, updatable=false)
     private Teacher teacher;
 
     public Teacher getTeacher() {
