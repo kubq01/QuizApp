@@ -23,7 +23,7 @@ public class ABCDExercise extends Exercise {
     private short correctAnswer;
     private short chosenAnswer;
 
-    public ABCDExercise(int id, String question, int points, boolean correct,
+    public ABCDExercise(Long id, String question, int points, boolean correct,
                         String answerA, String answerB, String answerC,
                         String answerD, short correctAnswer, short chosenAnswer) {
         super(id, question, points, correct);

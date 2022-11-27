@@ -18,7 +18,7 @@ public class WrittenExercise extends Exercise {
     private String answer;
     private int pointsGained;
 
-    public WrittenExercise(int id, String question, int points, boolean correct, String answer, int pointsGained) {
+    public WrittenExercise(Long id, String question, int points, boolean correct, String answer, int pointsGained) {
         super(id, question, points, correct);
         this.answer = answer;
         this.pointsGained = pointsGained;

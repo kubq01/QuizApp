@@ -28,4 +28,9 @@ public class ExerciseService {
     {
         return repo.findByType(type.name());
     }
+
+    public Boolean deleteById(Long id){
+        repo.deleteById(id);
+        return true;
+    }
 }

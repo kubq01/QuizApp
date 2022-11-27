@@ -10,13 +10,13 @@ import java.util.List;
 @Service
 public class QuizService {
 
+    QuizRepository repo;
+
     @Autowired
     public QuizService(QuizRepository repo) {
         this.repo = repo;
 
     }
-
-    QuizRepository repo;
 
     public List<Quiz> showAll()
     {
