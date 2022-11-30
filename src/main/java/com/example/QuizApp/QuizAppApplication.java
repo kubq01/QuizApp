@@ -42,12 +42,12 @@ public class QuizAppApplication {
 	@Bean
 	CommandLineRunner run(QuizService quizService, ExerciseService exerciseService) {
 		return args -> {
-			Exercise ex1 = new ABCDExercise(1L,"ABCD",2,
+			/*Exercise ex1 = new ABCDExercise(1L,"ABCD",2,
 					false,"a","b","c","d", (short) 2, (short) 2);
 			Exercise ex2 = new WrittenExercise(2L,"written",
 					6,false,"ans",3);
 			exerciseService.insert(ex1);
-			exerciseService.insert(ex2);
+			exerciseService.insert(ex2);*/
 		};
 	}
 

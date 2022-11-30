@@ -2,16 +2,15 @@ package com.example.QuizApp.data.exercises;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name="descriminatorColumn")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "exerciseType")
@@ -25,7 +24,7 @@ public abstract class Exercise {    //TODO sposób na spisywanie poprawnych odpo
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String question;
-    private int points;
-    private boolean correct;    //use Boolean instead? three-state?
+    private Integer points;
+
 
 }

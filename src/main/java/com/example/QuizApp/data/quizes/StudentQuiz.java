@@ -5,18 +5,18 @@ import com.example.QuizApp.data.exercises.Exercise;
 import com.example.QuizApp.data.exercises.WrittenExercise;
 import com.example.QuizApp.data.users.Student;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "studentQuiz")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @DiscriminatorValue("STUDENT")
 public class StudentQuiz extends Quiz {
 
-    public StudentQuiz(int id, int mark, Student student, ABCDExercise abcdExercise, WrittenExercise writtenExercise) {
-        super(id, mark, student,abcdExercise, writtenExercise);
-    }
 }

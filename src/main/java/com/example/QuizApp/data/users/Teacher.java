@@ -1,20 +1,19 @@
 package com.example.QuizApp.data.users;
 
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Teacher")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @DiscriminatorValue("TEACHER")
 public class Teacher extends User{
 
-    public Teacher(int id, String firstName, String LastName, String login, String password) {
-        super(id, firstName, LastName, login, password);
-    }
 }
