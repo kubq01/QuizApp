@@ -1,5 +1,6 @@
 package com.example.QuizApp.data.users;
 
+import com.example.QuizApp.data.Class.Class;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -17,6 +18,18 @@ public class Student extends User {
     @ManyToOne
     @JoinColumn(name = "id", insertable=false, updatable=false)
     private Teacher teacher;
+
+    @ManyToOne
+    @JoinColumn(name = "students_class_id")
+    private Class studentsClass;
+
+    public Class getStudentsClass() {
+        return studentsClass;
+    }
+
+    public void setStudentsClass(Class studentsClass) {
+        this.studentsClass = studentsClass;
+    }
 
     public Teacher getTeacher() {
         return teacher;
