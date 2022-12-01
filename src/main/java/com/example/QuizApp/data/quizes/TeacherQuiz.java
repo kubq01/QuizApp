@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "TeacherQuiz")
@@ -30,6 +31,19 @@ public class TeacherQuiz extends Quiz {
     @JoinColumn(name = "id", insertable=false, updatable=false)
     private Teacher teacher;
 
+    private String subject;
 
 
+    public TeacherQuiz(Boolean countsToAvg, Teacher teacher, String subject) {
+        this.countsToAvg = countsToAvg;
+        this.teacher = teacher;
+        this.subject = subject;
+    }
+
+    public TeacherQuiz(Set<Exercise> exercises, Boolean countsToAvg, Teacher teacher, String subject) {
+        super(exercises);
+        this.countsToAvg = countsToAvg;
+        this.teacher = teacher;
+        this.subject = subject;
+    }
 }

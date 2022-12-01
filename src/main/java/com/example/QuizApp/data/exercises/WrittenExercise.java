@@ -18,11 +18,16 @@ import javax.persistence.Table;
 @DiscriminatorValue("WRITTEN")
 public class WrittenExercise extends Exercise {
 
-    private String answer;
+    private String studentAnswer;
 
 
-    public WrittenExercise(Long id, String question, int points, boolean correct, int pointsGained, String answer) {
-        super(id, question, points, correct, pointsGained);
-        this.answer = answer;
+    public WrittenExercise(Long id, String question, int points, int pointsGained, String answer) {
+        super(id, question, points, pointsGained);
+        this.studentAnswer = answer;
+    }
+
+    public WrittenExercise(String question, Integer points, Integer pointsGained, String answer) {
+        super(question, points, pointsGained);
+        this.studentAnswer = answer;
     }
 }

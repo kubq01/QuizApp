@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "studentQuiz")
@@ -19,4 +20,7 @@ import javax.persistence.*;
 @DiscriminatorValue("STUDENT")
 public class StudentQuiz extends Quiz {
 
+    public StudentQuiz(Set<Exercise> exercises) {
+        super(exercises);
+    }
 }

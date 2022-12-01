@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -25,6 +26,11 @@ public abstract class Exercise {    //TODO sposób na spisywanie poprawnych odpo
     private Long id;
     private String question;
     private Integer points;
+    private Integer pointsGained;
 
-
+    public Exercise(String question, Integer points, Integer pointsGained) {
+        this.question = question;
+        this.points = points;
+        this.pointsGained = pointsGained;
+    }
 }
