@@ -21,12 +21,8 @@ public class ABCDExercise extends Exercise {
     private Short correctAnswer;
     private Short chosenAnswer;
 
-    public ABCDExercise(Long id, String question,
-                        Integer points, String answerA,
-                        String answerB, String answerC,
-                        String answerD, Short correctAnswer,
-                        Short chosenAnswer) {
-        super(id, question, points);
+    public ABCDExercise(String question, Integer points, Integer pointsGained, String answerA, String answerB, String answerC, String answerD, Short correctAnswer, Short chosenAnswer) {
+        super(question, points, pointsGained);
         this.answerA = answerA;
         this.answerB = answerB;
         this.answerC = answerC;
