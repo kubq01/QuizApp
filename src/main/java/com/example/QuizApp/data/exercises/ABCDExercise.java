@@ -22,12 +22,11 @@ public class ABCDExercise extends Exercise {
     private Short chosenAnswer;
 
     public ABCDExercise(Long id, String question,
-                        int points, boolean correct,
-                        int pointsGained, String answerA,
+                        Integer points, String answerA,
                         String answerB, String answerC,
-                        String answerD, short correctAnswer,
-                        short chosenAnswer) {
-        super(id, question, points, correct, pointsGained);
+                        String answerD, Short correctAnswer,
+                        Short chosenAnswer) {
+        super(id, question, points);
         this.answerA = answerA;
         this.answerB = answerB;
         this.answerC = answerC;

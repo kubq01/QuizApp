@@ -20,9 +20,8 @@ public class WrittenExercise extends Exercise {
 
     private String answer;
 
-
-    public WrittenExercise(Long id, String question, int points, boolean correct, int pointsGained, String answer) {
-        super(id, question, points, correct, pointsGained);
+    public WrittenExercise(Long id, String question, Integer points, String answer) {
+        super(id, question, points);
         this.answer = answer;
     }
 }

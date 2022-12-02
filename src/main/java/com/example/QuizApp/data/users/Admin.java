@@ -17,8 +17,7 @@ import javax.persistence.Table;
 @DiscriminatorValue("ADMIN")
 public class Admin extends User {
 
-    public Admin(int id, String firstName,
-                 String LastName, String login, String password) {
+    public Admin(Long id, String firstName, String LastName, String login, String password) {
         super(id, firstName, LastName, login, password);
     }
 }

@@ -18,4 +18,9 @@ public class Student extends User {
     @ManyToOne
     @JoinColumn(name = "students_class_id")
     private Class studentsClass;
+
+    public Student(Long id, String firstName, String LastName, String login, String password, Class studentsClass) {
+        super(id, firstName, LastName, login, password);
+        this.studentsClass = studentsClass;
+    }
 }
