@@ -3,6 +3,7 @@ package com.example.QuizApp.data.quizes;
 import com.example.QuizApp.data.exercises.ABCDExercise;
 import com.example.QuizApp.data.exercises.Exercise;
 import com.example.QuizApp.data.exercises.WrittenExercise;
+import com.example.QuizApp.data.users.Teacher;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.*;
@@ -32,7 +33,10 @@ public abstract class Quiz {
     @OneToMany(orphanRemoval = true)
     private Set<Exercise> exercises = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "quiz", orphanRemoval = true)
-    private Set<QuizResult> quizResults = new LinkedHashSet<>();
+  //  @OneToMany(mappedBy = "quiz", orphanRemoval = true)
+   // private Set<QuizResult> quizResults = new LinkedHashSet<>();
 
+    public Quiz(Set<Exercise> exercises) {
+        this.exercises = exercises;
+    }
 }
