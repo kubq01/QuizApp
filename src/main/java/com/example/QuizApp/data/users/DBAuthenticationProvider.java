@@ -26,7 +26,6 @@ public class DBAuthenticationProvider implements AuthenticationProvider {
         if (passwordEncoder.matches(givenPassword, password)){
             UsernamePasswordAuthenticationToken token =
                     new UsernamePasswordAuthenticationToken(username, password, userDetails.getAuthorities());
-            token.setDetails(userDetails.getUser());
             return token;
         }
         else {
