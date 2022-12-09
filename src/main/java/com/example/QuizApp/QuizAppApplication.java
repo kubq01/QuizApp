@@ -43,16 +43,23 @@ public class QuizAppApplication {
 	}*/
 
 	@Bean
-	CommandLineRunner run(UserService service) {
+	CommandLineRunner run(UserService service, ExerciseService exerciseService) {
 		return args -> {
-			Admin admin = new Admin(null, "Bartosz", "Walaszek", "abcd", "efgh");
+			Admin admin = new Admin(null, "Bartosz",
+					"Walaszek",
+					"abcd",
+					"efgh");
 			service.insert(admin);
-			/*Exercise ex1 = new ABCDExercise(1L,"ABCD",2,
-					false,"a","b","c","d", (short) 2, (short) 2);
-			Exercise ex2 = new WrittenExercise(2L,"written",
-					6,false,"ans",3);
+			Exercise ex1 = new ABCDExercise("A",
+					2,
+					2,
+					"A",
+					"B",
+					"C",
+					"D",
+					(short) 1,
+					(short) 1);
 			exerciseService.insert(ex1);
-			exerciseService.insert(ex2);*/
 		};
 	}
 
