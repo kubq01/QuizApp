@@ -1,7 +1,6 @@
 package com.example.QuizApp.data.users;
 
 import com.example.QuizApp.data.Class.Class;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

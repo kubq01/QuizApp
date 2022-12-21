@@ -1,22 +1,23 @@
 package com.example.QuizApp.data.quizes;
 
 import com.example.QuizApp.data.exercises.Exercise;
-import com.example.QuizApp.data.exercises.ExerciseType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class QuizService {
 
-    QuizRepository repo;
+    private final QuizRepository repo;
 
     @Autowired
     public QuizService(QuizRepository repo) {
         this.repo = repo;
-
     }
+
 
     public List<Quiz> showAll()
     {
