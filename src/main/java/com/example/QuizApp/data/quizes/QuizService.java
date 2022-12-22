@@ -28,9 +28,8 @@ public class QuizService {
        return repo.findAll();
     }
 
-    public void insert(Quiz quiz)
-    {
-       repo.save(quiz);
+    public Quiz insert(Quiz quiz) {
+       return repo.save(quiz);
     }
 
     public List<Quiz> showByType(QuizType type)
@@ -48,10 +47,9 @@ public class QuizService {
         repo.deleteAll();
     }
 
-    public List<Quiz> showWithoutExercises(int classID)
+    public List<Quiz> showByClass(int classID)
     {
-            List<Quiz> list = repo.findByClassId(classID);
-            return list;
+         return repo.findByClassId(classID);
     }
 
     public Quiz showSafeByID(Long quizID)

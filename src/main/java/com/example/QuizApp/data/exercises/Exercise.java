@@ -29,8 +29,6 @@ public abstract class Exercise {    //TODO sposób na spisywanie poprawnych odpo
     private Integer points;
     private Integer pointsGained;
 
-    @Getter(AccessLevel.NONE)
-    @Setter(AccessLevel.NONE)
     @ManyToOne
     @JoinColumn(name = "quiz_id")
     private Quiz quiz;

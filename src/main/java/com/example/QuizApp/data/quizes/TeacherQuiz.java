@@ -3,12 +3,14 @@ package com.example.QuizApp.data.quizes;
 import com.example.QuizApp.data.Class.Class;
 import com.example.QuizApp.data.exercises.Exercise;
 import com.example.QuizApp.data.users.Teacher;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Set;
 
 @Entity
@@ -25,8 +27,13 @@ public class TeacherQuiz extends Quiz {
      */
     private Boolean countsToAvg;
 
-    //private LocalDateTime start;
-    //private LocalDateTime end;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "startTime")
+    private Date startTime;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "deadline")
+    private Date deadline;
+
     private Integer quizTimeInMinutes;
 
     @ManyToOne
@@ -38,6 +45,14 @@ public class TeacherQuiz extends Quiz {
     @ManyToOne
     @JoinColumn(name = "students_class_id")
     private Class studentsClass;
+
+    public Date getDeadline() {
+        return deadline;
+    }
+
+    public void setDeadline(Date deadline) {
+        this.deadline = deadline;
+    }
 
 
     public TeacherQuiz(Boolean countsToAvg, Teacher teacher, String subject, Class studentClass) {

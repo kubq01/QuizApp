@@ -1,33 +1,50 @@
 package com.example.QuizApp.data.quizes;
 
 import com.example.QuizApp.data.exercises.Exercise;
-import com.example.QuizApp.data.exercises.ExerciseType;
+import com.example.QuizApp.data.exercises.ExerciseService;
+import com.example.QuizApp.data.wrappers.QuizExerciseWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/quiz")
 public class QuizController {
 
-    private final QuizService service;
+    private final QuizService quizService;
+    private final ExerciseService exerciseService;
 
     @Autowired
-    public QuizController(QuizService service){
-        this.service = service;
+    public QuizController(QuizService service, ExerciseService exerciseService){
+        this.quizService = service;
+        this.exerciseService = exerciseService;
+    }
+
+    @PostMapping("/teacher/add")
+    public TeacherQuiz addTeacherQuiz(@RequestBody QuizExerciseWrapper wrapper){
+        TeacherQuiz newQuiz = (TeacherQuiz) wrapper.getQuiz();
+        List<Exercise> exercises = wrapper.getExerciseList();
+        TeacherQuiz addedQuiz = (TeacherQuiz) quizService.insert(newQuiz);
+        //TODO Jeśli nie będzie działać to prawdopodobnie przez to, że quiz nie ma id, wymaga sprawdzenia.
+        for (Exercise newExercise: exercises){
+            newExercise.setQuiz(addedQuiz);
+            exerciseService.insert(newExercise);
+        }
+        return newQuiz;
     }
 
     @GetMapping("/list")
     public List<Quiz> getAllQuizes(){
-        return service.showAll();
+        return quizService.showAll();
     }
 
     @GetMapping("/type")
     public List<Quiz> getAllQuizesByType(@RequestParam(name = "type") String quizType){
         try {
             QuizType type = QuizType.valueOf(quizType);
-            return service.showByType(type);
+            return quizService.showByType(type);
         }
         catch (IllegalArgumentException exception){
             exception.printStackTrace();
@@ -36,10 +53,10 @@ public class QuizController {
     }
 
     @GetMapping("/class")
-    public List<Quiz> getQuizesWithoutunnecessaryData(@RequestParam(name = "class") int classID)
+    public List<Quiz> getByClassId(@RequestParam(name = "class") int classID)
     {
         try {
-            return service.showWithoutExercises(classID);
+            return quizService.showByClass(classID);
         }
         catch (IllegalArgumentException exception){
             exception.printStackTrace();
@@ -51,7 +68,7 @@ public class QuizController {
     public Quiz getSafeByID(@RequestParam(name = "quizID") Long quizID)
     {
         try {
-            return service.showSafeByID(quizID);
+            return quizService.showSafeByID(quizID);
         }
         catch (IllegalArgumentException exception){
             exception.printStackTrace();
@@ -60,13 +77,13 @@ public class QuizController {
     }
 
     @PostMapping("/insert")
-    public Quiz insertExercise(@RequestBody Quiz newQuiz){
-        service.insert(newQuiz);
+    public Quiz insertQuiz(@RequestBody Quiz newQuiz){
+        quizService.insert(newQuiz);
         return newQuiz;
     }
 
     @DeleteMapping("/delete")
-    public Boolean deleteExercise(@RequestParam(name = "id") Long id){
-        return service.deleteById(id);
+    public Boolean deleteQuiz(@RequestParam(name = "id") Long id){
+        return quizService.deleteById(id);
     }
 }
