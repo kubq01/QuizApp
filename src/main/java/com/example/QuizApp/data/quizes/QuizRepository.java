@@ -17,5 +17,8 @@ public interface QuizRepository extends JpaRepository<Quiz,Long> {
     @Query("Select u from Quiz u where descriminator_column = :type")
     List<Quiz> findByType(@Param("type") String type);
 
+    @Query("Select u from Quiz u where descriminator_column = TeacherQuiz and students_class_id = :ID")
+    List<Quiz> findByClassId(@Param("ID") int ID);
+
 }
 

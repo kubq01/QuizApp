@@ -32,6 +32,18 @@ public class ExerciseController {
         }
     }
 
+    @GetMapping("/ID")
+    public Exercise getExerciseForStudent(@RequestParam(name = "ID") Long id)
+    {
+        Exercise exercise = exerciseService.getExerciseForStudent(id);
+        if(exercise!=null)
+        {
+            return exercise;
+        }else {
+            return null; //TODO: przerobic na error
+        }
+    }
+
     @PostMapping("/insert")
     public Exercise insertExercise(@RequestBody Exercise newExercise){
         exerciseService.insert(newExercise);

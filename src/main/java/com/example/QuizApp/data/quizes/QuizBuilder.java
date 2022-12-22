@@ -1,5 +1,6 @@
 package com.example.QuizApp.data.quizes;
 
+import com.example.QuizApp.data.Class.Class;
 import com.example.QuizApp.data.exercises.ABCDExercise;
 import com.example.QuizApp.data.exercises.Exercise;
 import com.example.QuizApp.data.users.Teacher;
@@ -15,8 +16,8 @@ public class QuizBuilder {
         return new StudentQuiz(exercises);
     }
 
-    public TeacherQuiz makeTeacherQuiz(Set<Exercise> exercises, Boolean countsToAvg, Teacher teacher, String subject)
+    public TeacherQuiz makeTeacherQuiz(Set<Exercise> exercises, Boolean countsToAvg, Teacher teacher, String subject, Class studentClass)
     {
-        return new TeacherQuiz(exercises,countsToAvg,teacher,subject);
+        return new TeacherQuiz(exercises,countsToAvg,teacher,subject,studentClass);
     }
 }

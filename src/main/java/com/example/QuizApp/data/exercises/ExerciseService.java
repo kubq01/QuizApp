@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ExerciseService {
@@ -32,5 +33,26 @@ public class ExerciseService {
     public Boolean deleteById(Long id){
         repo.deleteById(id);
         return true;
+    }
+
+    public Exercise getExerciseForStudent(Long ID)
+    {
+        Optional<Exercise> exercise = repo.findById(ID);
+        if(exercise.isPresent())
+        {
+            if(exercise.get() instanceof ABCDExercise)
+            {
+                ((ABCDExercise) exercise.get()).hideCorrectAnswer();
+            }
+
+            return exercise.get();
+        }
+
+        return null;
+    }
+
+    public void deleteAll()
+    {
+        repo.deleteAll();
     }
 }

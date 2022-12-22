@@ -22,8 +22,11 @@ public class Class {
     @Column(name = "id", nullable = false)
     private Long id;
 
+    /*
     @OneToMany(mappedBy = "studentsClass", orphanRemoval = true)
     private Set<Student> students = new LinkedHashSet<>();
+
+     */
 
 
 }
