@@ -3,10 +3,7 @@ package com.example.QuizApp;
 import com.example.QuizApp.data.Class.Class;
 import com.example.QuizApp.data.Class.ClassService;
 import com.example.QuizApp.data.exercises.*;
-import com.example.QuizApp.data.quizes.Quiz;
-import com.example.QuizApp.data.quizes.QuizService;
-import com.example.QuizApp.data.quizes.StudentQuiz;
-import com.example.QuizApp.data.quizes.TeacherQuiz;
+import com.example.QuizApp.data.quizes.*;
 import com.example.QuizApp.data.users.Admin;
 import com.example.QuizApp.data.users.Student;
 import com.example.QuizApp.data.users.Teacher;
@@ -49,7 +46,7 @@ public class QuizAppApplication {
 	}*/
 
 	@Bean
-	CommandLineRunner run(UserService service, ExerciseService exerciseService, QuizService quizService, ClassService classService) {
+	CommandLineRunner run(UserService service, ExerciseService exerciseService, QuizService quizService, ClassService classService,QuizResultService quizResultService) {
 		return args -> {
 			service.deleteAll();
 			quizService.deleteAll();
@@ -71,6 +68,11 @@ public class QuizAppApplication {
 					"student",
 					"student",studentClass);
 			service.insert(student);
+			Student student2 = new Student("Bartosz nr2",
+					"Walaszek nr2",
+					"password",
+					"login",studentClass);
+			service.insert(student2);
 			Exercise ex1 = new ABCDExercise("A",
 					2,
 					2,
@@ -94,6 +96,14 @@ public class QuizAppApplication {
 			quizService.insert(quiz);
 			Quiz quiz2 = new TeacherQuiz(null,false,teacher,"sub",studentClass2);
 			quizService.insert(quiz2);
+
+			QuizResult quizResult = new QuizResult(4.5F,QuizStatus.SUBMITTED,30,quiz,student);
+			quizResultService.insert(quizResult);
+			QuizResult quizResult2 = new QuizResult(5.5F,QuizStatus.GRADED,10,quiz2,student);
+			quizResultService.insert(quizResult2);
+			QuizResult quizResult3 = new QuizResult(2.5F,QuizStatus.GRADED,150,quiz2,student2);
+			quizResultService.insert(quizResult3);
+
 		};
 	}
 

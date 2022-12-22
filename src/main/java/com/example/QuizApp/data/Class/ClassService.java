@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ClassService {
 
-    ClassRepository repo;
+    private ClassRepository repo;
 
     @Autowired
     public ClassService(ClassRepository repo)

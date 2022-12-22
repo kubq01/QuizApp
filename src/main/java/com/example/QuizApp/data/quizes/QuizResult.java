@@ -1,5 +1,6 @@
 package com.example.QuizApp.data.quizes;
 
+import com.example.QuizApp.data.users.Student;
 import lombok.*;
 
 import javax.persistence.*;
@@ -19,8 +20,20 @@ public class QuizResult {
     private QuizStatus status;
     private Integer pointsGained;
 
+
     @ManyToOne
     @JoinColumn(name = "quiz_id")
     private Quiz quiz;
 
+    @ManyToOne
+    @JoinColumn(name = "student_id")
+    private Student student;
+
+    public QuizResult(Float mark, QuizStatus status, Integer pointsGained, Quiz quiz, Student student) {
+        this.mark = mark;
+        this.status = status;
+        this.pointsGained = pointsGained;
+        this.quiz = quiz;
+        this.student = student;
+    }
 }
