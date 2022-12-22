@@ -1,5 +1,6 @@
 package com.example.QuizApp.data.exercises;
 
+import com.example.QuizApp.data.quizes.Quiz;
 import lombok.*;
 
 import javax.persistence.DiscriminatorValue;
@@ -21,8 +22,8 @@ public class ABCDExercise extends Exercise {
     private Short correctAnswer;
     private Short chosenAnswer;
 
-    public ABCDExercise(String question, Integer points, Integer pointsGained, String answerA, String answerB, String answerC, String answerD, Short correctAnswer, Short chosenAnswer) {
-        super(question, points, pointsGained);
+    public ABCDExercise(Quiz quiz, String question, Integer points, Integer pointsGained, String answerA, String answerB, String answerC, String answerD, Short correctAnswer, Short chosenAnswer) {
+        super(question, points, pointsGained, quiz);
         this.answerA = answerA;
         this.answerB = answerB;
         this.answerC = answerC;

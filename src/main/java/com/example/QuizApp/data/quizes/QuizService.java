@@ -51,15 +51,6 @@ public class QuizService {
     public List<Quiz> showWithoutExercises(int classID)
     {
             List<Quiz> list = repo.findByClassId(classID);
-
-            for(Quiz quiz : list)
-            {
-                quiz.hideExercises();
-
-                if(quiz instanceof TeacherQuiz)
-                    ((TeacherQuiz) quiz).hideTeacher();
-            }
-
             return list;
     }
 

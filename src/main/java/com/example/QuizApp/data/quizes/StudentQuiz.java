@@ -20,7 +20,4 @@ import java.util.Set;
 @DiscriminatorValue("STUDENT")
 public class StudentQuiz extends Quiz {
 
-    public StudentQuiz(Set<Exercise> exercises) {
-        super(exercises);
-    }
 }

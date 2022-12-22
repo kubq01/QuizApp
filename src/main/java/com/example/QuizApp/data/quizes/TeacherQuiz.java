@@ -1,23 +1,18 @@
 package com.example.QuizApp.data.quizes;
 
 import com.example.QuizApp.data.Class.Class;
-import com.example.QuizApp.data.exercises.ABCDExercise;
 import com.example.QuizApp.data.exercises.Exercise;
-import com.example.QuizApp.data.exercises.WrittenExercise;
-import com.example.QuizApp.data.users.Student;
 import com.example.QuizApp.data.users.Teacher;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
-@Table(name = "TeacherQuiz")
+@Table(name = "teacher_quiz")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -30,8 +25,8 @@ public class TeacherQuiz extends Quiz {
      */
     private Boolean countsToAvg;
 
-    private LocalDateTime start;
-    private LocalDateTime end;
+    //private LocalDateTime start;
+    //private LocalDateTime end;
     private Integer quizTimeInMinutes;
 
     @ManyToOne
@@ -45,22 +40,22 @@ public class TeacherQuiz extends Quiz {
     private Class studentsClass;
 
 
-    public TeacherQuiz(Boolean countsToAvg, Teacher teacher, String subject) {
+    public TeacherQuiz(Boolean countsToAvg, Teacher teacher, String subject, Class studentClass) {
         this.countsToAvg = countsToAvg;
         this.teacher = teacher;
         this.subject = subject;
+        this.studentsClass = studentClass;
     }
 
 
-    public TeacherQuiz(Set<Exercise> exercises,
-                       Boolean countsToAvg, LocalDateTime start,
+    public TeacherQuiz(Boolean countsToAvg, LocalDateTime start,
                        LocalDateTime end, Integer quizTimeInMinutes,
                        Teacher teacher, String subject, Class studentsClass) {
 
-        super(exercises);
+        super();
         this.countsToAvg = countsToAvg;
-        this.start = start;
-        this.end = end;
+        /*this.start = start;
+        this.end = end;*/
         this.quizTimeInMinutes = quizTimeInMinutes;
         this.teacher = teacher;
         this.subject = subject;

@@ -48,10 +48,6 @@ public class QuizAppApplication {
 	@Bean
 	CommandLineRunner run(UserService service, ExerciseService exerciseService, QuizService quizService, ClassService classService,QuizResultService quizResultService) {
 		return args -> {
-			service.deleteAll();
-			quizService.deleteAll();
-			exerciseService.deleteAll();
-			classService.deleteAll();
 			Class studentClass = new Class();
 			classService.insert(studentClass);
 			Class studentClass2 = new Class();
@@ -73,7 +69,14 @@ public class QuizAppApplication {
 					"password",
 					"login",studentClass);
 			service.insert(student2);
-			Exercise ex1 = new ABCDExercise("A",
+
+			Quiz quiz = new TeacherQuiz(false,teacher,"sub",studentClass);
+			quizService.insert(quiz);
+			Quiz quiz2 = new TeacherQuiz(false,teacher,"sub",studentClass2);
+			quizService.insert(quiz2);
+
+			Exercise ex1 = new ABCDExercise(quiz,
+					"A",
 					2,
 					2,
 					"A",
@@ -83,19 +86,12 @@ public class QuizAppApplication {
 					(short) 1,
 					(short) 1);
 			exerciseService.insert(ex1);
-			Exercise ex2 = new WrittenExercise("AW",
+			Exercise ex2 = new WrittenExercise(quiz,
+					"AW",
 					2,
 					2,
 					"Ans");
 			exerciseService.insert(ex2);
-			Set<Exercise> set = new HashSet<>();
-
-			set.add(ex1);
-			set.add(ex2);
-			Quiz quiz = new TeacherQuiz(set,false,teacher,"sub",studentClass);
-			quizService.insert(quiz);
-			Quiz quiz2 = new TeacherQuiz(null,false,teacher,"sub",studentClass2);
-			quizService.insert(quiz2);
 
 			QuizResult quizResult = new QuizResult(4.5F,QuizStatus.SUBMITTED,30,quiz,student);
 			quizResultService.insert(quizResult);

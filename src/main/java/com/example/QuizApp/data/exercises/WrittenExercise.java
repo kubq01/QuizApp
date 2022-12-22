@@ -1,6 +1,7 @@
 package com.example.QuizApp.data.exercises;
 
 
+import com.example.QuizApp.data.quizes.Quiz;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,8 +21,8 @@ public class WrittenExercise extends Exercise {
 
     private String answer;
 
-    public WrittenExercise(String question, Integer points, Integer pointsGained, String answer) {
-        super(question, points, pointsGained);
+    public WrittenExercise(Quiz quiz, String question, Integer points, Integer pointsGained, String answer) {
+        super(question, points, pointsGained, quiz);
         this.answer = answer;
     }
 }

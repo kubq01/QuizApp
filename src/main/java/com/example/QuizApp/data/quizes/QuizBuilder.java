@@ -62,10 +62,10 @@ public class QuizBuilder {
     public Quiz build(QuizType type) {
         switch (type) {
             case TEACHER:
-                return new TeacherQuiz(exercises, countsToAvg,
-                        start, end, quizTimeInMinutes, teacher, subject);
+                return new TeacherQuiz(countsToAvg, start, end,
+                        quizTimeInMinutes, teacher, subject, null); //TODO change null to class instance.
             case STUDENT:
-                return new StudentQuiz(exercises);
+                return new StudentQuiz();
             default:
                 return null; //throw exception?
         }

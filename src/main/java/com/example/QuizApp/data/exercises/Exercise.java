@@ -1,5 +1,6 @@
 package com.example.QuizApp.data.exercises;
 
+import com.example.QuizApp.data.quizes.Quiz;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.*;
@@ -28,9 +29,16 @@ public abstract class Exercise {    //TODO sposób na spisywanie poprawnych odpo
     private Integer points;
     private Integer pointsGained;
 
-    public Exercise(String question, Integer points, Integer pointsGained) {
+    @Getter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
+    @ManyToOne
+    @JoinColumn(name = "quiz_id")
+    private Quiz quiz;
+
+    public Exercise(String question, Integer points, Integer pointsGained, Quiz quiz) {
         this.question = question;
         this.points = points;
         this.pointsGained = pointsGained;
+        this.quiz = quiz;
     }
 }

@@ -30,20 +30,4 @@ public abstract class Quiz {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @OneToMany(orphanRemoval = true)
-    private Set<Exercise> exercises = new LinkedHashSet<>();
-
-  //  @OneToMany(mappedBy = "quiz", orphanRemoval = true)
-   // private Set<QuizResult> quizResults = new LinkedHashSet<>();
-
-    public Quiz(Set<Exercise> exercises) {
-        this.exercises = exercises;
-    }
-
-    public void hideExercises()
-    {
-        exercises = null;
-    }
-
-
 }
