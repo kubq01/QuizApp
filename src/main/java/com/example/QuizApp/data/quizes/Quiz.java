@@ -39,4 +39,11 @@ public abstract class Quiz {
     public Quiz(Set<Exercise> exercises) {
         this.exercises = exercises;
     }
+
+    public void hideExercises()
+    {
+        exercises = null;
+    }
+
+
 }

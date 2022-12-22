@@ -39,4 +39,9 @@ public class UserService {
         user.setPassword(encoder.encode(password));
         return user;
     }
+
+    public void deleteAll()
+    {
+        repo.deleteAll();
+    }
 }

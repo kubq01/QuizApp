@@ -35,6 +35,30 @@ public class QuizController {
         }
     }
 
+    @GetMapping("/class")
+    public List<Quiz> getQuizesWithoutunnecessaryData(@RequestParam(name = "class") int classID)
+    {
+        try {
+            return service.showWithoutExercises(classID);
+        }
+        catch (IllegalArgumentException exception){
+            exception.printStackTrace();
+            return List.of();   //TODO przerobić na zwrócenie 400 Bad Request
+        }
+    }
+
+    @GetMapping("/quizID")
+    public Quiz getSafeByID(@RequestParam(name = "quizID") Long quizID)
+    {
+        try {
+            return service.showSafeByID(quizID);
+        }
+        catch (IllegalArgumentException exception){
+            exception.printStackTrace();
+            return null;   //TODO przerobić na zwrócenie 400 Bad Request
+        }
+    }
+
     @PostMapping("/insert")
     public Quiz insertExercise(@RequestBody Quiz newQuiz){
         service.insert(newQuiz);

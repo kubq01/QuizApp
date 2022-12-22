@@ -32,4 +32,10 @@ public abstract class User {
     private String login;
     private String password;
 
+    public User(String firstName, String lastName, String login, String password) {
+        this.firstName = firstName;
+        LastName = lastName;
+        this.login = login;
+        this.password = password;
+    }
 }

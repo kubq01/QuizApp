@@ -1,5 +1,6 @@
 package com.example.QuizApp.data.quizes;
 
+import com.example.QuizApp.data.Class.Class;
 import com.example.QuizApp.data.exercises.ABCDExercise;
 import com.example.QuizApp.data.exercises.Exercise;
 import com.example.QuizApp.data.exercises.WrittenExercise;
@@ -34,10 +35,14 @@ public class TeacherQuiz extends Quiz {
     private Integer quizTimeInMinutes;
 
     @ManyToOne
-    @JoinColumn(name = "id", insertable=false, updatable=false)
+    @JoinColumn(name = "idT")
     private Teacher teacher;
 
     private String subject;
+
+    @ManyToOne
+    @JoinColumn(name = "students_class_id")
+    private Class studentsClass;
 
 
     public TeacherQuiz(Boolean countsToAvg, Teacher teacher, String subject) {
@@ -46,10 +51,12 @@ public class TeacherQuiz extends Quiz {
         this.subject = subject;
     }
 
+
     public TeacherQuiz(Set<Exercise> exercises,
                        Boolean countsToAvg, LocalDateTime start,
                        LocalDateTime end, Integer quizTimeInMinutes,
-                       Teacher teacher, String subject) {
+                       Teacher teacher, String subject, Class studentsClass) {
+
         super(exercises);
         this.countsToAvg = countsToAvg;
         this.start = start;
@@ -57,5 +64,11 @@ public class TeacherQuiz extends Quiz {
         this.quizTimeInMinutes = quizTimeInMinutes;
         this.teacher = teacher;
         this.subject = subject;
+        this.studentsClass = studentsClass;
+    }
+
+    public void hideTeacher()
+    {
+        teacher = null;
     }
 }

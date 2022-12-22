@@ -30,4 +30,8 @@ public class ABCDExercise extends Exercise {
         this.correctAnswer = correctAnswer;
         this.chosenAnswer = chosenAnswer;
     }
+
+    public void hideCorrectAnswer() {
+        this.correctAnswer = -1;
+    }
 }

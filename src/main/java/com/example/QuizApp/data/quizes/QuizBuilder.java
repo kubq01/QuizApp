@@ -1,5 +1,6 @@
 package com.example.QuizApp.data.quizes;
 
+import com.example.QuizApp.data.Class.Class;
 import com.example.QuizApp.data.exercises.ABCDExercise;
 import com.example.QuizApp.data.exercises.Exercise;
 import com.example.QuizApp.data.exercises.ExerciseType;
@@ -26,9 +27,11 @@ public class QuizBuilder {
         return this;
     }
 
+
     public QuizBuilder setCountsToAvg(Boolean countsToAvg) {
         this.countsToAvg = countsToAvg;
         return this;
+
     }
 
     public QuizBuilder setStart(LocalDateTime start) {

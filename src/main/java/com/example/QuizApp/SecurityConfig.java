@@ -22,6 +22,8 @@ public class SecurityConfig {
                         .hasAuthority("ADMIN")
                         .antMatchers("/user/list")
                         .hasAuthority("ADMIN")
+                        .antMatchers("/exercise/ID")
+                        .hasAnyAuthority("STUDENT", "ADMIN")
                         .anyRequest()
                         .authenticated()
                 )
