@@ -1,7 +1,5 @@
 package com.example.QuizApp.data.users;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -9,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 public class UserController {
     private final UserService userService;
 
@@ -35,5 +33,15 @@ public class UserController {
     @GetMapping("/list")
     public List<User> getUsers(){
         return userService.showAll();
+    }
+
+    @GetMapping("/list/students")
+    public List<User> getStudents(){
+        return userService.showByType(UserType.STUDENT);
+    }
+
+    @GetMapping("/list/teachers")
+    public List<User> getTeachers(){
+        return userService.showByType(UserType.TEACHER);
     }
 }
