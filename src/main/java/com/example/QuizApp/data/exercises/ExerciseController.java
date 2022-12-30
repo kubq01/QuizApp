@@ -1,3 +1,4 @@
+/*
 package com.example.QuizApp.data.exercises;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,7 @@ public class ExerciseController {
         }
     }
 
-    @GetMapping("/ID")
+    @GetMapping("/{ID")
     public Exercise getExerciseForStudent(@RequestParam(name = "ID") Long id)
     {
         Exercise exercise = exerciseService.getExerciseForStudent(id);
@@ -57,3 +58,4 @@ public class ExerciseController {
 
     //For now we don't modify exercises
 }
+*/

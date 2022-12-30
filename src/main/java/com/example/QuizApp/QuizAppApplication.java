@@ -35,16 +35,6 @@ public class QuizAppApplication {
 		SpringApplication.run(QuizAppApplication.class, args);
 	}
 
-	/*@GetMapping
-	public List<Exercise> test()
-	{
-		Exercise ex1 = new ABCDExercise(1,"ABCD",2,false,"a","b","c","d", (short) 2, (short) 2);
-		Exercise ex2 = new WrittenExercise(2,"written",6,false,"ans",3);
-		exerciseService.insert(ex1);
-		exerciseService.insert(ex2);
-		return exerciseService.showByType(ExerciseType.WRITTEN);
-	}*/
-
 	@Bean
 	CommandLineRunner run(UserService service, ExerciseService exerciseService, QuizService quizService, ClassService classService,QuizResultService quizResultService) {
 		return args -> {

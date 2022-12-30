@@ -18,12 +18,12 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeRequests(authorization -> authorization
-                        .antMatchers("/user/add")
+                        /*.antMatchers("/user/add")
                         .hasAuthority("ADMIN")
                         .antMatchers("/user/list")
                         .hasAuthority("ADMIN")
                         .antMatchers("/exercise/ID")
-                        .hasAnyAuthority("STUDENT", "ADMIN")
+                        .hasAnyAuthority("STUDENT", "ADMIN")*/
                         .anyRequest()
                         .authenticated()
                 )
