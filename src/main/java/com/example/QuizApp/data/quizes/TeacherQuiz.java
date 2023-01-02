@@ -27,6 +27,7 @@ public class TeacherQuiz extends Quiz {
      */
     private Boolean countsToAvg;
 
+    //todo zamienic na localdate
     @Temporal(TemporalType.DATE)
     @Column(name = "startTime")
     private Date startTime;

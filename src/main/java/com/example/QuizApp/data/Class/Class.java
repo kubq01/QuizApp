@@ -2,10 +2,8 @@
 package com.example.QuizApp.data.Class;
 
 import com.example.QuizApp.data.users.Student;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.example.QuizApp.data.users.Teacher;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.LinkedHashSet;
@@ -21,6 +19,22 @@ public class Class {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private Long id;
+
+    @Getter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "teacher_id", nullable = false)
+    private Teacher teacher;
+
+
+
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
+    }
 
     /*
     @OneToMany(mappedBy = "studentsClass", orphanRemoval = true)

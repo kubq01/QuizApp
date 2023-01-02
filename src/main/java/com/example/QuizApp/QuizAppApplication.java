@@ -52,12 +52,12 @@ public class QuizAppApplication {
 			Student student = new Student("Bartosz",
 					"Walaszek",
 					"student",
-					"student",studentClass);
+					"student");
 			service.insert(student);
 			Student student2 = new Student("Bartosz nr2",
 					"Walaszek nr2",
 					"password",
-					"login",studentClass);
+					"login");
 			service.insert(student2);
 
 			Quiz quiz = new TeacherQuiz(false,teacher,"sub",studentClass);

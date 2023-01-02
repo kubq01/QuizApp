@@ -14,17 +14,13 @@ import javax.persistence.*;
 @NoArgsConstructor
 @DiscriminatorValue("STUDENT")
 public class Student extends User {
-    @ManyToOne
-    @JoinColumn(name = "students_class_id")
-    private Class studentsClass;
 
-    public Student(Long id, String firstName, String LastName, String login, String password, Class studentsClass) {
+
+    public Student(Long id, String firstName, String LastName, String login, String password) {
         super(id, firstName, LastName, login, password);
-        this.studentsClass = studentsClass;
     }
 
-    public Student(String firstName, String lastName, String login, String password, Class studentsClass) {
+    public Student(String firstName, String lastName, String login, String password) {
         super(firstName, lastName, login, password);
-        this.studentsClass = studentsClass;
     }
 }
