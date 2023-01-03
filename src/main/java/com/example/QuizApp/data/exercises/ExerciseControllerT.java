@@ -20,7 +20,7 @@ public class ExerciseControllerT {
         return "index";
     }
 
-    @GetMapping("/get")
+    @GetMapping("/user/")
     public String showSelect(Model model){
         model.addAttribute("id", "");
         return "selectWritten";

@@ -28,6 +28,7 @@ public class SecurityConfig {
                         .authenticated()
                 )
                 .formLogin(formLogin -> formLogin
+//                        .loginPage("/login")
                         .permitAll()
                 )
                 .csrf(csrf -> csrf.disable())

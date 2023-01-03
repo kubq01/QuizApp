@@ -38,10 +38,6 @@ public class QuizAppApplication {
 	@Bean
 	CommandLineRunner run(UserService service, ExerciseService exerciseService, QuizService quizService, ClassService classService,QuizResultService quizResultService) {
 		return args -> {
-			Class studentClass = new Class();
-			classService.insert(studentClass);
-			Class studentClass2 = new Class();
-			classService.insert(studentClass2);
 			Teacher teacher = new Teacher("tea","cher","login","password");
 			service.insert(teacher);
 			Admin admin = new Admin(null, "Bartosz",
@@ -60,9 +56,9 @@ public class QuizAppApplication {
 					"login");
 			service.insert(student2);
 
-			Quiz quiz = new TeacherQuiz(false,teacher,"sub",studentClass);
+			Quiz quiz = new TeacherQuiz(false,teacher,"sub",null);
 			quizService.insert(quiz);
-			Quiz quiz2 = new TeacherQuiz(false,teacher,"sub",studentClass2);
+			Quiz quiz2 = new TeacherQuiz(false,teacher,"sub",null);
 			quizService.insert(quiz2);
 
 			Exercise ex1 = new ABCDExercise(quiz,

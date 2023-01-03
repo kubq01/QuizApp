@@ -1,3 +1,4 @@
+/*
 package com.example.QuizApp.data.users;
 
 import org.springframework.security.core.Authentication;
@@ -45,3 +46,4 @@ public class UserController {
         return userService.showByType(UserType.TEACHER);
     }
 }
+*/
