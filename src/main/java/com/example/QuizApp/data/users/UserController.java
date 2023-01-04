@@ -85,7 +85,8 @@ public class UserController {
     @PostMapping("aIndex/adminClasses/addClass/new")
     public String insertClass(@ModelAttribute Teacher teacher)
     {
-        System.out.println("Teacher id "+teacher.getId());
+        System.out.println("Teacher id "+teacher.getId() +" "+ teacher.getLastName());
+        teacher = (Teacher) userService.showByID(teacher.getId());
         classService.insert(new Class(teacher));
         return "redirect:/user/aIndex/adminClasses";
     }

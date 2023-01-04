@@ -57,6 +57,7 @@
                                                     <td style="border-right-width: 1px;" th:text="${teacher.getLastName()}"></td>
                                                     <td style="text-align: center;width: 104.25px;border-right-width: 1px;">
                                                         <form th:action="@{/user/aIndex/adminClasses/addClass/new}" th:object="${teacher}" method="post">
+                                                            <input type="hidden" name="id" th:value="${teacher.getId()}" />
                                                             <button class="btn btn-primary" type="submit" style="font-size: 13px;">Wybierz</button>
                                                         </form>
                                                     </td>
