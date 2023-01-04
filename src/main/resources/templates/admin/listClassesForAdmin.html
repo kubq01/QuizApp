@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="utf-8">
@@ -39,7 +39,7 @@
                         <div class="container position-relative">
                             <div class="row d-flex justify-content-center">
                                 <div class="col">
-                                    <div style="text-align: right;"><button class="btn btn-primary" type="button">Dodaj klasę</button></div>
+                                    <div style="text-align: right;"><a th:href="@{/user/aIndex/adminClasses/addClass}"><button class="btn btn-primary" type="button">Dodaj klasę</button></a></div>
                                 </div>
                             </div>
                             <div class="row d-flex justify-content-center">
