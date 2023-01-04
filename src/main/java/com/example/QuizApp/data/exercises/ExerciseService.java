@@ -1,5 +1,6 @@
 package com.example.QuizApp.data.exercises;
 
+import com.example.QuizApp.data.exercises.enums.ExerciseType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

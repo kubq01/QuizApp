@@ -1,27 +1,21 @@
 package com.example.QuizApp;
 
-import com.example.QuizApp.data.Class.Class;
 import com.example.QuizApp.data.Class.ClassService;
 import com.example.QuizApp.data.exercises.*;
 import com.example.QuizApp.data.quizes.*;
+import com.example.QuizApp.data.quizes.enums.QuizStatus;
+import com.example.QuizApp.data.result.QuizResult;
+import com.example.QuizApp.data.result.QuizResultService;
 import com.example.QuizApp.data.users.Admin;
 import com.example.QuizApp.data.users.Student;
 import com.example.QuizApp.data.users.Teacher;
 import com.example.QuizApp.data.users.UserService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.time.LocalDate;
-import java.time.Month;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 @SpringBootApplication
 @RestController
@@ -36,7 +30,7 @@ public class QuizAppApplication {
 	}
 
 	@Bean
-	CommandLineRunner run(UserService service, ExerciseService exerciseService, QuizService quizService, ClassService classService,QuizResultService quizResultService) {
+	CommandLineRunner run(UserService service, ExerciseService exerciseService, QuizService quizService, ClassService classService, QuizResultService quizResultService) {
 		return args -> {
 			Teacher teacher = new Teacher("tea","cher","login","password");
 			service.insert(teacher);
@@ -79,7 +73,7 @@ public class QuizAppApplication {
 					"Ans");
 			exerciseService.insert(ex2);
 
-			QuizResult quizResult = new QuizResult(4.5F,QuizStatus.SUBMITTED,30,quiz,student);
+			QuizResult quizResult = new QuizResult(4.5F, QuizStatus.SUBMITTED,30,quiz,student);
 			quizResultService.insert(quizResult);
 			QuizResult quizResult2 = new QuizResult(5.5F,QuizStatus.GRADED,10,quiz2,student);
 			quizResultService.insert(quizResult2);

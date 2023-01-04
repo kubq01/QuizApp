@@ -27,7 +27,6 @@ public abstract class Exercise {    //TODO sposób na spisywanie poprawnych odpo
     private Long id;
     private String question;
     private Integer points;
-    private Integer pointsGained;
 
     @ManyToOne
     @JoinColumn(name = "quiz_id")
@@ -36,7 +35,8 @@ public abstract class Exercise {    //TODO sposób na spisywanie poprawnych odpo
     public Exercise(String question, Integer points, Integer pointsGained, Quiz quiz) {
         this.question = question;
         this.points = points;
-        this.pointsGained = pointsGained;
         this.quiz = quiz;
     }
+
+    public abstract String myType();
 }

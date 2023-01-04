@@ -1,6 +1,5 @@
-package com.example.QuizApp.data.quizes;
+package com.example.QuizApp.data.result;
 
-import com.example.QuizApp.data.exercises.Exercise;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

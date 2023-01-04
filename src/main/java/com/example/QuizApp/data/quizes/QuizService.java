@@ -1,31 +1,36 @@
 package com.example.QuizApp.data.quizes;
 
-import com.example.QuizApp.data.exercises.Exercise;
+import com.example.QuizApp.data.quizes.enums.QuizType;
+import com.example.QuizApp.data.users.Teacher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.LinkedHashSet;
 import java.util.List;
 
 import java.util.Optional;
-
-import java.util.Set;
 
 
 @Service
 public class QuizService {
 
     private final QuizRepository repo;
+    private final TeacherQuizRepository repoT;
 
     @Autowired
-    public QuizService(QuizRepository repo) {
+    public QuizService(QuizRepository repo, TeacherQuizRepository repoT) {
         this.repo = repo;
+        this.repoT = repoT;
     }
 
 
     public List<Quiz> showAll()
     {
        return repo.findAll();
+    }
+
+    public List<TeacherQuiz> showAllByTeacher(Teacher teacher)
+    {
+        return repoT.findAllByTeacher(teacher);
     }
 
     public Quiz insert(Quiz quiz) {

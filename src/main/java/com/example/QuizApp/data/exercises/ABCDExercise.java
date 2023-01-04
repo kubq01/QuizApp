@@ -20,7 +20,6 @@ public class ABCDExercise extends Exercise {
     private String answerC;
     private String answerD;
     private Short correctAnswer;
-    private Short chosenAnswer;
 
     public ABCDExercise(Quiz quiz, String question, Integer points, Integer pointsGained, String answerA, String answerB, String answerC, String answerD, Short correctAnswer, Short chosenAnswer) {
         super(question, points, pointsGained, quiz);
@@ -29,10 +28,14 @@ public class ABCDExercise extends Exercise {
         this.answerC = answerC;
         this.answerD = answerD;
         this.correctAnswer = correctAnswer;
-        this.chosenAnswer = chosenAnswer;
     }
 
     public void hideCorrectAnswer() {
         this.correctAnswer = -1;
+    }
+
+    @Override
+    public String myType() {
+        return "ABCD";
     }
 }

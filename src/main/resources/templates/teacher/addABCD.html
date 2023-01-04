@@ -42,12 +42,12 @@
                                     <div class="card mb-5">
                                         <div class="card-body p-sm-5">
                                             <h2 class="text-center mb-4">Dodaj pytanie ABCD</h2>
-                                            <form method="post">
-                                                <div class="mb-3"><input class="form-control" type="text" id="name-5" name="name" placeholder="Treść pytania"></div>
-                                                <div class="mb-3"><input class="form-control" type="text" id="name-2" name="name" placeholder="Odpowiedź A"><input type="radio" name="answer"></div>
-                                                <div class="mb-3"><input class="form-control" type="text" id="name-1" name="lastname" placeholder="Odpowiedź B"><input type="radio" name="answer"></div>
-                                                <div class="mb-3"><input class="form-control" type="text" id="name-3" name="login" placeholder="Odpowiedź C"><input type="radio" name="answer"></div>
-                                                <div class="mb-3" style="margin-bottom: 16px;"><input class="form-control" type="text" id="name-4" name="name" placeholder="Odpowiedź D"><input type="radio" name="answer"></div>
+                                            <form th:action="@{/quiz/addABCD/new}" th:object="${newABCD}" method="post">
+                                                <div class="mb-3"><input th:field="*{question}" class="form-control" type="text" id="name-5" name="name" placeholder="Treść pytania"></div>
+                                                <div class="mb-3"><input th:field="*{answerA}" class="form-control" type="text" id="name-2" name="name" placeholder="Odpowiedź A"><input th:field="*{correctAnswer}" value="0" type="radio" name="answer"></div>
+                                                <div class="mb-3"><input th:field="*{answerB}" class="form-control" type="text" id="name-1" name="lastname" placeholder="Odpowiedź B"><input th:field="*{correctAnswer}" value="1"  type="radio" name="answer"></div>
+                                                <div class="mb-3"><input th:field="*{answerC}" class="form-control" type="text" id="name-3" name="login" placeholder="Odpowiedź C"><input th:field="*{correctAnswer}" value="2"  type="radio" name="answer"></div>
+                                                <div class="mb-3" style="margin-bottom: 16px;"><input th:field="*{answerD}" class="form-control" type="text" id="name-4" name="name" placeholder="Odpowiedź D"><input th:field="*{correctAnswer}" value="3"  type="radio" name="answer"></div>
                                                 <div style="margin-top: 16px;"><button class="btn btn-primary d-block w-100" type="submit">Dodaj</button></div>
                                             </form>
                                         </div>
