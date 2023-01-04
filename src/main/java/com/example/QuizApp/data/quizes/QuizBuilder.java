@@ -1,9 +1,8 @@
+/*
 package com.example.QuizApp.data.quizes;
 
-import com.example.QuizApp.data.Class.Class;
-import com.example.QuizApp.data.exercises.ABCDExercise;
 import com.example.QuizApp.data.exercises.Exercise;
-import com.example.QuizApp.data.exercises.ExerciseType;
+import com.example.QuizApp.data.quizes.enums.QuizType;
 import com.example.QuizApp.data.users.Teacher;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -72,3 +71,4 @@ public class QuizBuilder {
     }
 
 }
+*/

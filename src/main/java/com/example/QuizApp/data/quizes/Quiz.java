@@ -29,5 +29,4 @@ public abstract class Quiz {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private Long id;
-
 }

@@ -1,4 +1,4 @@
-package com.example.QuizApp.data.quizes;
+package com.example.QuizApp.data.result;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
