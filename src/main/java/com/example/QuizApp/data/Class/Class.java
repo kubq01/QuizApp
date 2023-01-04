@@ -27,4 +27,41 @@ public class Class {
     @JoinColumn(name = "teacher_id", nullable = false)
     private Teacher teacher;
 
+
+
+
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public Long getTeacherId()
+    {
+        return teacher.getId();
+    }
+
+    public String getTeacherName()
+    {
+        return (teacher.getFirstName() + " " + teacher.getLastName());
+    }
+
+    public Class(Teacher teacher) {
+        this.teacher = teacher;
+    }
+
+    /*
+    @OneToMany(mappedBy = "studentsClass", orphanRemoval = true)
+    private Set<Student> students = new LinkedHashSet<>();
+
+     */
+
+
+
 }

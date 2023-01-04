@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="utf-8">
@@ -42,9 +42,9 @@
                                     <div class="card mb-5">
                                         <div class="card-body p-sm-5">
                                             <h2 class="text-center mb-4">Dodaj użytkownika</h2>
-                                            <div class="text-center"><button class="btn btn-primary" type="button" style="margin-bottom: 16px;">Dodaj ucznia</button></div>
-                                            <div class="text-center"><button class="btn btn-primary" type="button" style="margin-bottom: 16px;">Dodaj nauczyciela</button></div>
-                                            <div class="text-center" style="margin-bottom: 16px;"><button class="btn btn-primary" type="button">Dodaj administratora</button></div>
+                                            <div class="text-center"><a th:href="@{/user/aIndex/addUserMenu/addStudent}"> <button class="btn btn-primary" type="button" style="margin-bottom: 16px;">Dodaj ucznia</button></a></div>
+                                            <div class="text-center"><a th:href="@{/user/aIndex/addUserMenu/addTeacher}"> <button class="btn btn-primary" type="button" style="margin-bottom: 16px;">Dodaj nauczyciela</button></a></div>
+                                            <div class="text-center" style="margin-bottom: 16px;"><a th:href="@{/user/aIndex/addUserMenu/addAdmin}"> <button class="btn btn-primary" type="button">Dodaj administratora</button></a></div>
                                         </div>
                                     </div>
                                 </div>

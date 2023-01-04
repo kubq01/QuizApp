@@ -80,6 +80,9 @@ public class QuizAppApplication {
 			QuizResult quizResult3 = new QuizResult(2.5F,QuizStatus.GRADED,150,quiz2,student2);
 			quizResultService.insert(quizResult3);
 
+			Class class1 = new Class(teacher);
+			classService.insert(class1);
+
 		};
 	}
 

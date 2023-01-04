@@ -1,6 +1,157 @@
-/*
+
 package com.example.QuizApp.data.users;
 
+import com.example.QuizApp.data.Class.Class;
+import com.example.QuizApp.data.Class.ClassService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Controller
+@RequestMapping("/user")
+public class UserController {
+
+    private UserService userService;
+    private ClassService classService;
+
+    @Autowired
+    public UserController(UserService userService, ClassService classService)
+    {
+        this.userService = userService;
+        this.classService = classService;
+    }
+
+    @GetMapping("/aIndex")
+    public String showAdminIndex( Model model)
+    {
+        return "admin/adminIndex";
+    }
+
+    @GetMapping("/myAccount")
+    public String showAccount(Model model)
+    {
+        return "misc/userSelf";
+    }
+
+    @GetMapping("/myAccount/changePassword")
+    public String changePassword(Model model)
+    {
+        //TODO:add post mapping for changing password
+        return "misc/changePasswordSelf";
+    }
+
+    @GetMapping("/aIndex/userList")
+    public String listUser(Model model)
+    {
+        List<User> users = userService.showAll();
+        model.addAttribute("users", users);
+        return "admin/listUsers";
+    }
+
+    @GetMapping("/aIndex/userList/userInfo")
+    public String userInfo(@RequestParam Long userID, Model model)
+    {
+        User user  = userService.showByID(userID);
+        model.addAttribute("user", user);
+        model.addAttribute("role", getRole(user));
+        return "admin/userInfo";
+    }
+
+
+
+    @GetMapping("aIndex/adminClasses")
+    public String showClassesForAdmin(Model model)
+    {
+        List<Class> classes = classService.showAll();
+        model.addAttribute("classes", classes);
+        return "admin/listClassesForAdmin";
+    }
+
+    @GetMapping("aIndex/adminClasses/addClass")
+    public String addClass(Model model)
+    {
+        List<User> users = userService.showByType(UserType.TEACHER);
+        List<Teacher> teachers = new ArrayList<>();
+        for(User user: users)
+           teachers.add((Teacher) user);
+        model.addAttribute("teachers", teachers);
+        return "admin/addClass";
+    }
+
+    @PostMapping("aIndex/adminClasses/addClass/new")
+    public String insertClass(@ModelAttribute Teacher teacher)
+    {
+        System.out.println("Teacher id "+teacher.getId() +" "+ teacher.getLastName());
+        teacher = (Teacher) userService.showByID(teacher.getId());
+        classService.insert(new Class(teacher));
+        return "redirect:/user/aIndex/adminClasses";
+    }
+
+    @GetMapping("/aIndex/addUserMenu")
+    public String addUserMenu(Model model)
+    {
+        return "admin/addNewUser";
+    }
+
+    @GetMapping("/aIndex/addUserMenu/addStudent")
+    public String addUser(Model model)
+    {
+        model.addAttribute("newStudent", new Student());
+        return "admin/addStudent";
+    }
+
+    @PostMapping("/aIndex/addUserMenu/addStudent/new")
+    public String insertStudent(@ModelAttribute Student student)
+    {
+        userService.insert(student);
+        return "redirect:/user/aIndex/addUserMenu";
+    }
+
+    @PostMapping("/aIndex/addUserMenu/addTeacher/new")
+    public String insertTeacher(@ModelAttribute Teacher teacher)
+    {
+        userService.insert(teacher);
+        return "redirect:/user/aIndex/addUserMenu";
+    }
+
+    @PostMapping("/aIndex/addUserMenu/addAdmin/new")
+    public String insertAdmin(@ModelAttribute Admin admin)
+    {
+        userService.insert(admin);
+        return "redirect:/user/aIndex/addUserMenu";
+    }
+
+    @GetMapping("/aIndex/addUserMenu/addTeacher")
+    public String addTeacher(Model model)
+    {
+        model.addAttribute("newTeacher", new Teacher());
+        return "admin/addTeacher";
+    }
+
+    @GetMapping("/aIndex/addUserMenu/addAdmin")
+    public String addAdmin(Model model)
+    {
+        model.addAttribute("newAdmin", new Admin());
+        return "admin/addAdmin";
+    }
+
+    private String getRole(User user)
+    {
+        if(user instanceof Admin)
+            return "Admin";
+        else if (user instanceof Teacher)
+            return "Teacher";
+        else
+            return "Student";
+    }
+
+}
+
+/*
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;

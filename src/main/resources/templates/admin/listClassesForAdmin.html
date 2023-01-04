@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="utf-8">
@@ -39,7 +39,7 @@
                         <div class="container position-relative">
                             <div class="row d-flex justify-content-center">
                                 <div class="col">
-                                    <div style="text-align: right;"><button class="btn btn-primary" type="button">Dodaj klasę</button></div>
+                                    <div style="text-align: right;"><a th:href="@{/user/aIndex/adminClasses/addClass}"><button class="btn btn-primary" type="button">Dodaj klasę</button></a></div>
                                 </div>
                             </div>
                             <div class="row d-flex justify-content-center">
@@ -54,10 +54,10 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td style="border-right-width: 1px;">Cell 1</td>
-                                                    <td style="border-right-width: 1px;">Cell 2</td>
-                                                    <td style="text-align: left;border-right-width: 1px;width: 333.344px;">Cell 3</td>
+                                                <tr th:each="class: ${classes}">
+                                                    <td style="border-right-width: 1px;" th:text="${class.getId()}"></td>
+                                                    <td style="border-right-width: 1px;" th:text="${class.getTeacherId()}"></td>
+                                                    <td style="text-align: left;border-right-width: 1px;width: 333.344px;" th:text="${class.getTeacherName()}"></td>-->
                                                 </tr>
                                             </tbody>
                                         </table>

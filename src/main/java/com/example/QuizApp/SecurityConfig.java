@@ -28,7 +28,8 @@ public class SecurityConfig {
                         .authenticated()
                 )
                 .formLogin(formLogin -> formLogin
-//                        .loginPage("/login")
+                       .loginPage("/login")
+                        .loginProcessingUrl("/login")
                         .permitAll()
                 )
                 .csrf(csrf -> csrf.disable())
@@ -36,8 +37,8 @@ public class SecurityConfig {
                         .invalidateHttpSession(true)
                         .clearAuthentication(true)
                         .permitAll()
-                )
-                .httpBasic();
+                );
+                //.httpBasic();
         return http.build();
     }
 

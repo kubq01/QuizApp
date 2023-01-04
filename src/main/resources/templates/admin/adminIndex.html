@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="utf-8">
@@ -45,15 +45,16 @@
                                                     <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"></path>
                                                 </svg></div>
                                             <h2 class="text-center mb-4">Witaj</h2>
-                                            <h1 style="margin-top: -12px;">Imie Nazwisko</h1><a th:href="@{/user/}"><button class="btn btn-primary" type="button">Konto</button></a>
+                                            <h1 style="margin-top: -12px;">Imie Nazwisko</h1><a th:href="@{/user/myAccount}"><button class="btn btn-primary" type="button">Konto</button></a>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-8 col-lg-6 col-xl-5 col-xxl-4">
                                     <div class="card mb-5" style="margin-top: 55px;">
                                         <div class="card-body text-center justify-content-center align-items-center align-content-center p-sm-5">
-                                            <div style="margin-bottom: 18px;"><button class="btn btn-primary" type="button">Dodaj użytkownika</button></div>
-                                            <div style="margin-bottom: 18px;"><button class="btn btn-primary" type="button">Wyświetl użytkowników</button></div>
+                                            <div style="margin-bottom: 18px;"><a th:href="@{/user/aIndex/addUserMenu}"> <button class="btn btn-primary" type="button">Dodaj użytkownika</button></a></div>
+                                            <div style="margin-bottom: 18px;"><a th:href="@{/user/aIndex/userList}"><button class="btn btn-primary" type="button">Wyświetl użytkowników</button></a></div>
+                                            <div style="margin-bottom: 18px;"><a th:href="@{/user/aIndex/adminClasses}"><button class="btn btn-primary" type="button">Wyświetl klasy</button></a></div>
                                         </div>
                                     </div>
                                 </div>

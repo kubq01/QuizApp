@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="utf-8">
@@ -51,12 +51,11 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td style="border-right-width: 1px;">Cell 1</td>
-                                                    <td style="border-right-width: 1px;">Cell 2</td>
-                                                    <td style="border-right-width: 1px;">Cell 1</td>
-                                                    <td style="border-right-width: 1px;">Cell 1</td>
-                                                    <td style="text-align: center;width: 104.25px;border-right-width: 1px;"><button class="btn btn-primary" type="button" style="width: 91.641px;height: 39.7812px;font-size: 13px;">Info</button></td>
+                                                <tr th:each="user: ${users}">
+                                                    <td style="border-right-width: 1px;" th:text="${user.getId()}"></td>
+                                                    <td style="border-right-width: 1px;" th:text="${user.getFirstName()}"></td>
+                                                    <td style="border-right-width: 1px;" th:text="${user.getLastName()}"></td>
+                                                    <td style="text-align: center;width: 104.25px;border-right-width: 1px;"><a th:href="@{/user/aIndex/userList/userInfo(userID=${user.getId()})}"><button class="btn btn-primary" type="button" style="width: 91.641px;height: 39.7812px;font-size: 13px;">Info</button></a></td>
                                                 </tr>
                                             </tbody>
                                         </table>

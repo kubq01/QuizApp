@@ -48,4 +48,9 @@ public class ClassService {
     }
 
 
+    public List<Class> showAll()
+    {
+        return repo.findAll();
+    }
+
 }
