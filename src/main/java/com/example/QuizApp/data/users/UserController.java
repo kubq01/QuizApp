@@ -100,18 +100,42 @@ public class UserController {
     @GetMapping("/aIndex/addUserMenu/addStudent")
     public String addUser(Model model)
     {
+        model.addAttribute("newStudent", new Student());
         return "admin/addStudent";
+    }
+
+    @PostMapping("/aIndex/addUserMenu/addStudent/new")
+    public String insertStudent(@ModelAttribute Student student)
+    {
+        userService.insert(student);
+        return "redirect:/user/aIndex/addUserMenu";
+    }
+
+    @PostMapping("/aIndex/addUserMenu/addTeacher/new")
+    public String insertTeacher(@ModelAttribute Teacher teacher)
+    {
+        userService.insert(teacher);
+        return "redirect:/user/aIndex/addUserMenu";
+    }
+
+    @PostMapping("/aIndex/addUserMenu/addAdmin/new")
+    public String insertAdmin(@ModelAttribute Admin admin)
+    {
+        userService.insert(admin);
+        return "redirect:/user/aIndex/addUserMenu";
     }
 
     @GetMapping("/aIndex/addUserMenu/addTeacher")
     public String addTeacher(Model model)
     {
+        model.addAttribute("newTeacher", new Teacher());
         return "admin/addTeacher";
     }
 
     @GetMapping("/aIndex/addUserMenu/addAdmin")
     public String addAdmin(Model model)
     {
+        model.addAttribute("newAdmin", new Admin());
         return "admin/addAdmin";
     }
 

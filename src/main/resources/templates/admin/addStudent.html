@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="utf-8">
@@ -42,11 +42,11 @@
                                     <div class="card mb-5">
                                         <div class="card-body p-sm-5">
                                             <h2 class="text-center mb-4">Dodaj ucznia</h2>
-                                            <form method="post">
-                                                <div class="mb-3"><input class="form-control" type="text" id="name-2" name="name" placeholder="Imię"></div>
-                                                <div class="mb-3"><input class="form-control" type="text" id="name-1" name="lastname" placeholder="Nazwisko"></div>
-                                                <div class="mb-3"><input class="form-control" type="text" id="name-3" name="login" placeholder="Login"></div>
-                                                <div class="mb-3" style="margin-bottom: 16px;"><input class="form-control" type="text" id="name-5" name="namepassword" placeholder="Hasło" style="margin-bottom: 16px;"></div>
+                                            <form method="post" th:action="@{/user/aIndex/addUserMenu/addStudent/new}" th:object="${newStudent}">
+                                                <div class="mb-3"><input class="form-control" type="text" id="name-2" name="name" placeholder="Imię" th:field="*{firstName}"></div>
+                                                <div class="mb-3"><input class="form-control" type="text" id="name-1" name="lastname" placeholder="Nazwisko" th:field="*{lastName}"></div>
+                                                <div class="mb-3"><input class="form-control" type="text" id="name-3" name="login" placeholder="Login" th:field="*{login}"></div>
+                                                <div class="mb-3" style="margin-bottom: 16px;"><input class="form-control" type="text" id="name-5" name="namepassword" placeholder="Hasło" style="margin-bottom: 16px;" th:field="*{password}"></div>
                                                 <div style="margin-top: 16px;"><button class="btn btn-primary d-block w-100" type="submit">Dodaj</button></div>
                                             </form>
                                         </div>
