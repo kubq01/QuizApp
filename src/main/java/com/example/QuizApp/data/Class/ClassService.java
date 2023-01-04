@@ -3,6 +3,8 @@ package com.example.QuizApp.data.Class;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ClassService {
 
@@ -22,5 +24,10 @@ public class ClassService {
     public void deleteAll()
     {
         repo.deleteAll();
+    }
+
+    public List<Class> showAll()
+    {
+        return repo.findAll();
     }
 }

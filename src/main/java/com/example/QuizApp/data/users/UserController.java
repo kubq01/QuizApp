@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -65,19 +66,27 @@ public class UserController {
     @GetMapping("aIndex/adminClasses")
     public String showClassesForAdmin(Model model)
     {
+        List<Class> classes = classService.showAll();
+        model.addAttribute("classes", classes);
         return "admin/listClassesForAdmin";
     }
 
     @GetMapping("aIndex/adminClasses/addClass")
     public String addClass(Model model)
     {
+        List<User> users = userService.showByType(UserType.TEACHER);
+        List<Teacher> teachers = new ArrayList<>();
+        for(User user: users)
+           teachers.add((Teacher) user);
+        model.addAttribute("teachers", teachers);
         return "admin/addClass";
     }
 
     @PostMapping("aIndex/adminClasses/addClass/new")
-    public String insertClass(@ModelAttribute Class newClass)
+    public String insertClass(@ModelAttribute Teacher teacher)
     {
-        classService.insert(newClass);
+        System.out.println("Teacher id "+teacher.getId());
+        classService.insert(new Class(teacher));
         return "redirect:/user/aIndex/adminClasses";
     }
 

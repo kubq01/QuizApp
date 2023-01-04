@@ -54,10 +54,10 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td style="border-right-width: 1px;">Cell 1</td>
-                                                    <td style="border-right-width: 1px;">Cell 2</td>
-                                                    <td style="text-align: left;border-right-width: 1px;width: 333.344px;">Cell 3</td>
+                                                <tr th:each="class: ${classes}">
+                                                    <td style="border-right-width: 1px;" th:text="${class.getId()}"></td>
+                                                    <td style="border-right-width: 1px;" th:text="${class.getTeacherId()}"></td>
+                                                    <td style="text-align: left;border-right-width: 1px;width: 333.344px;" th:text="${class.getTeacherName()}"></td>-->
                                                 </tr>
                                             </tbody>
                                         </table>
