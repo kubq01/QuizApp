@@ -38,4 +38,26 @@ public abstract class User {
         this.login = login;
         this.password = password;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getStringId() {
+        return id.toString();
+    }
+
+
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return LastName;
+    }
+
+    public String getLogin() {
+        return login;
+    }
 }

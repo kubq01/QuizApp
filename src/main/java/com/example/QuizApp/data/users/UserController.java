@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/user")
 public class UserController {
@@ -44,14 +46,21 @@ public class UserController {
     @GetMapping("/aIndex/userList")
     public String listUser(Model model)
     {
+        List<User> users = userService.showAll();
+        model.addAttribute("users", users);
         return "admin/listUsers";
     }
 
     @GetMapping("/aIndex/userList/userInfo")
-    public String userInfo(Model model)
+    public String userInfo(@RequestParam Long userID, Model model)
     {
+        User user  = userService.showByID(userID);
+        model.addAttribute("user", user);
+        model.addAttribute("role", getRole(user));
         return "admin/userInfo";
     }
+
+
 
     @GetMapping("aIndex/adminClasses")
     public String showClassesForAdmin(Model model)
@@ -94,6 +103,16 @@ public class UserController {
     public String addAdmin(Model model)
     {
         return "admin/addAdmin";
+    }
+
+    private String getRole(User user)
+    {
+        if(user instanceof Admin)
+            return "Admin";
+        else if (user instanceof Teacher)
+            return "Teacher";
+        else
+            return "Student";
     }
 
 }

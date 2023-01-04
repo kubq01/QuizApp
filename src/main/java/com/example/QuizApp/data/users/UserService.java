@@ -5,6 +5,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -43,5 +44,14 @@ public class UserService {
     public void deleteAll()
     {
         repo.deleteAll();
+    }
+
+    public User showByID(Long ID)
+    {
+        Optional<User> user = repo.findById(ID);
+        if(user.isPresent())
+            return user.get();
+        else
+            return null;
     }
 }
