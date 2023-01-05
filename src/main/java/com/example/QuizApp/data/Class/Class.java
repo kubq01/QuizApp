@@ -17,10 +17,10 @@ import java.util.Set;
 @NoArgsConstructor
 public class Class {
     @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+   // @GenericGenerator(name = "uuid", strategy = "uuid2")
     @Column(name = "id", nullable = false)
-    private String id;
+    private Long id;
 
 
     @ManyToOne(optional = false)

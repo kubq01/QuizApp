@@ -24,8 +24,13 @@ public class SecurityConfig {
                         .hasAuthority("ADMIN")
                         .antMatchers("/exercise/ID")
                         .hasAnyAuthority("STUDENT", "ADMIN")*/
+                        .antMatchers("/bootstrap/**",
+                                "/css/**",
+                                "/img/**",
+                                "/js/**").permitAll()
                         .anyRequest()
                         .authenticated()
+
                 )
                 .formLogin(formLogin -> formLogin
                        .loginPage("/login")

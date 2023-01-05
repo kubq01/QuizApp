@@ -32,7 +32,7 @@ public class ClassService {
         return toStudentRepo.findAllByStudent(student);
     }
 
-    public void insertClass(Class studentClass)
+    public void insert(Class studentClass)
     {
         repo.save(studentClass);
     }
