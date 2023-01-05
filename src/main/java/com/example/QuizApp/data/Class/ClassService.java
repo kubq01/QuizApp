@@ -5,7 +5,9 @@ import com.example.QuizApp.data.users.Teacher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ClassService {
@@ -30,6 +32,33 @@ public class ClassService {
 
     public List<ClassToStudentRelation> getClassesRelByStudent(Student student){
         return toStudentRepo.findAllByStudent(student);
+    }
+
+    public List<Student> getStudentsByClass(Long classID)
+    {
+        List<ClassToStudentRelation> list = getClassesRelByClass(getClassByID(classID));
+
+        List<Student> students = new ArrayList<>();
+        for(ClassToStudentRelation rel: list)
+        {
+            students.add(rel.getStudent());
+        }
+
+        return students;
+    }
+
+    public void insertRel(ClassToStudentRelation relation)
+    {
+        toStudentRepo.save(relation);
+    }
+
+    public Class getClassByID(Long ID)
+    {
+        Optional<Class> myClass = repo.findById(ID);
+        if(myClass.isPresent())
+            return myClass.get();
+        else
+            return null;
     }
 
     public void insert(Class studentClass)

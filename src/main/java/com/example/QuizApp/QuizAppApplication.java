@@ -2,6 +2,7 @@ package com.example.QuizApp;
 
 import com.example.QuizApp.data.Class.Class;
 import com.example.QuizApp.data.Class.ClassService;
+import com.example.QuizApp.data.Class.ClassToStudentRelation;
 import com.example.QuizApp.data.exercises.*;
 import com.example.QuizApp.data.quizes.*;
 import com.example.QuizApp.data.quizes.enums.QuizStatus;
@@ -83,6 +84,11 @@ public class QuizAppApplication {
 
 			Class class1 = new Class(teacher);
 			classService.insert(class1);
+
+			ClassToStudentRelation relation = new ClassToStudentRelation(student,class1);
+			classService.insertRel(relation);
+			ClassToStudentRelation relation2 = new ClassToStudentRelation(student2,class1);
+			classService.insertRel(relation2);
 
 		};
 	}

@@ -51,6 +51,10 @@ public class UserController {
         DBUserDetails details = (DBUserDetails) auth.getPrincipal();
         User currentUser = (User) details.getUser();
         model.addAttribute("currUser", currentUser);
+        model.addAttribute("role", getRole(currentUser));
+        if(currentUser instanceof Student)
+            return "misc/studentSelf";
+
         return "misc/userSelf";
     }
 
@@ -69,7 +73,6 @@ public class UserController {
     @GetMapping("/self/changePassword")
     public String changePassword(Model model)
     {
-        //TODO:add post mapping for changing password
         return "misc/changePasswordSelf";
     }
 
@@ -81,6 +84,28 @@ public class UserController {
         User currentUser = (User) details.getUser();
         userService.updatePassword(currentUser, password);
         return "redirect:/user/self";
+    }
+
+    @GetMapping("/listClasses")
+    public String listClasses(Model model)
+    {
+        List<Class> classes = classService.showAll();
+        model.addAttribute("classes", classes);
+        return "teacher/listClasses";
+    }
+
+    @GetMapping("/listStudents")
+    public String listStudents(@RequestParam Long classID, Model model)
+    {
+        model.addAttribute("students", classService.getStudentsByClass(classID));
+        return "teacher/listStudents";
+    }
+
+    @GetMapping("/studentInfoTeacher")
+    public String studentInfoTeacher(@RequestParam Long ID, Model model)
+    {
+        model.addAttribute("student", userService.showByID(ID));
+        return "teacher/studentInfoForTeacher";
     }
 
     @GetMapping("/aIndex/userList")
