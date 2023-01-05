@@ -28,6 +28,37 @@ public class UserController {
         this.classService = classService;
     }
 
+    @GetMapping("/index")
+    public String getIndex(Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        DBUserDetails details = (DBUserDetails) auth.getPrincipal();
+        User currentUser = (User) details.getUser();
+        model.addAttribute("currUser", currentUser);
+        switch (currentUser.getClass().getSimpleName()){
+            case "Admin":
+                return "admin/adminIndex";
+            case "Student":
+                return "student/studentIndex";
+            case "Teacher":
+                return "teacher/teacherIndex";
+            default:
+                return "login";
+        }
+    }
+
+    @GetMapping("/self")
+    public String selfInfo(Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        DBUserDetails details = (DBUserDetails) auth.getPrincipal();
+        User currentUser = (User) details.getUser();
+        model.addAttribute("currUser", currentUser);
+        model.addAttribute("role", getRole(currentUser));
+        if(currentUser instanceof Student)
+            return "misc/studentSelf";
+
+        return "misc/userSelf";
+    }
+
     @GetMapping("/aIndex")
     public String showAdminIndex( Model model)
     {
@@ -40,11 +71,42 @@ public class UserController {
         return "misc/userSelf";
     }
 
-    @GetMapping("/myAccount/changePassword")
+    @GetMapping("/self/changePassword")
     public String changePassword(Model model)
     {
-        //TODO:add post mapping for changing password
         return "misc/changePasswordSelf";
+    }
+
+    @PostMapping("/self/newPassword")
+    public String newPassword(@RequestParam String password)
+    {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        DBUserDetails details = (DBUserDetails) auth.getPrincipal();
+        User currentUser = (User) details.getUser();
+        userService.updatePassword(currentUser, password);
+        return "redirect:/user/self";
+    }
+
+    @GetMapping("/listClasses")
+    public String listClasses(Model model)
+    {
+        List<Class> classes = classService.showAll();
+        model.addAttribute("classes", classes);
+        return "teacher/listClasses";
+    }
+
+    @GetMapping("/listStudents")
+    public String listStudents(@RequestParam Long classID, Model model)
+    {
+        model.addAttribute("students", classService.getStudentsByClass(classID));
+        return "teacher/listStudents";
+    }
+
+    @GetMapping("/studentInfoTeacher")
+    public String studentInfoTeacher(@RequestParam Long ID, Model model)
+    {
+        model.addAttribute("student", userService.showByID(ID));
+        return "teacher/studentInfoForTeacher";
     }
 
     @GetMapping("/aIndex/userList")

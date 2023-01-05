@@ -23,8 +23,7 @@
                     <div class="collapse navbar-collapse" id="navcol-2">
                         <ul class="navbar-nav ms-auto">
                             <li class="nav-item"><a class="nav-link active" th:href="@{/home}">Strona główna</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#">Second Item</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#">Third Item</a></li>
+                            <li class="nav-item"><a class="nav-link" th:href="@{/logout}">Wyloguj</a></li>
                         </ul>
                     </div>
                 </div>
@@ -45,7 +44,8 @@
                                                     <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"></path>
                                                 </svg></div>
                                             <h2 class="text-center mb-4">Witaj</h2>
-                                            <h1 style="margin-top: -12px;">Imie Nazwisko</h1><a th:href="@{/user/myAccount}"><button class="btn btn-primary" type="button">Konto</button></a>
+                                            <h1 style="margin-top: -12px;" th:text="${currUser.getFirstName()} + ' ' + ${currUser.getLastName()}">Imie Nazwisko</h1>
+                                            <a th:href="@{/user/self}"><button class="btn btn-primary" type="button">Konto</button></a>
                                         </div>
                                     </div>
                                 </div>

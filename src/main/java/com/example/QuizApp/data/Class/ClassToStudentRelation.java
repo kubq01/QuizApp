@@ -25,4 +25,9 @@ public class ClassToStudentRelation {
     @ManyToOne
     @JoinColumn(name = "my_class_id")
     private Class myClass;
+
+    public ClassToStudentRelation(Student student, Class myClass) {
+        this.student = student;
+        this.myClass = myClass;
+    }
 }

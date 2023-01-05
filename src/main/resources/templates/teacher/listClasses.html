@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="utf-8">
@@ -48,9 +48,10 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td style="border-right-width: 1px;">Cell 1</td>
-                                                    <td style="text-align: center;border-right-width: 1px;width: 333.344px;"><button class="btn btn-primary" type="button" style="font-size: 13px;">Przeglądaj uczniów</button></td>
+                                                <tr th:each="class: ${classes}">
+                                                    <td style="border-right-width: 1px;" th:text="${class.getId()}">Cell 1</td>
+                                                    <td style="text-align: center;border-right-width: 1px;width: 333.344px;"><a th:href="@{/user/listStudents(classID=${class.getId()})}">
+                                                        <button class="btn btn-primary" type="button" style="font-size: 13px;">Przeglądaj uczniów</button></a></td>
                                                 </tr>
                                             </tbody>
                                         </table>

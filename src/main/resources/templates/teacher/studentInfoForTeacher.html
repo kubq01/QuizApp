@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="utf-8">
@@ -46,7 +46,7 @@
                                                 </svg>
                                                 <p>Uczeń</p>
                                             </div>
-                                            <h1 style="margin-top: -12px;">Imie Nazwisko</h1>
+                                            <h1 style="margin-top: -12px;" th:text="${student.getFirstName()} + ' ' + ${student.getLastName()}">Imie Nazwisko</h1>
                                         </div>
                                     </div>
                                 </div>

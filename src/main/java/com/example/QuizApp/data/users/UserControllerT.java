@@ -19,6 +19,7 @@ public class UserControllerT {
         this.userService = userService;
     }
 
+    /*
     @GetMapping("/index")
     public String getIndex(Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -45,5 +46,7 @@ public class UserControllerT {
         model.addAttribute("currUser", currentUser);
         return "misc/userSelf";
     }
+
+     */
 
 }
