@@ -53,4 +53,7 @@ public class ClassService {
         return repo.findAll();
     }
 
+    public Class getClassById(Long code) {
+        return repo.getReferenceById(code);
+    }
 }

@@ -3,7 +3,10 @@ package com.example.QuizApp.data.users;
 
 import com.example.QuizApp.data.Class.Class;
 import com.example.QuizApp.data.Class.ClassService;
+import com.example.QuizApp.data.Class.ClassToStudentRelation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -147,6 +150,25 @@ public class UserController {
             return "Teacher";
         else
             return "Student";
+    }
+
+    @GetMapping("/joinClass")
+    public String showJoinClass(Model model){
+        model.addAttribute("code", "");
+        return "student/joinClass";
+    }
+
+    @PostMapping("/joinClass/join")
+    public String joinClass(@ModelAttribute String code, Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        DBUserDetails details = (DBUserDetails) auth.getPrincipal();
+        Student currentStudent = (Student) details.getUser();
+        Class myClass = classService.getClassById(Long.parseLong(code));
+        ClassToStudentRelation newRel = new ClassToStudentRelation();
+        newRel.setMyClass(myClass);
+        newRel.setStudent(currentStudent);
+        classService.insertClassRel(newRel);
+        return"redirect:/user/myAccount";
     }
 
 }
