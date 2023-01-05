@@ -73,6 +73,16 @@ public class UserController {
         return "misc/changePasswordSelf";
     }
 
+    @PostMapping("/self/newPassword")
+    public String newPassword(@RequestParam String password)
+    {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        DBUserDetails details = (DBUserDetails) auth.getPrincipal();
+        User currentUser = (User) details.getUser();
+        userService.updatePassword(currentUser, password);
+        return "redirect:/user/self";
+    }
+
     @GetMapping("/aIndex/userList")
     public String listUser(Model model)
     {
