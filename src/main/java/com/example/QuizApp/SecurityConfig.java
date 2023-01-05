@@ -28,8 +28,10 @@ public class SecurityConfig {
                         "/css/**",
                         "/img/**",
                         "/js/**").permitAll()
+
                         .anyRequest()
                         .authenticated()
+
                 )
                 .formLogin(formLogin -> formLogin
                        .loginPage("/login")

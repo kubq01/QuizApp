@@ -18,7 +18,9 @@ import java.util.Set;
 public class Class {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+
     //@GenericGenerator(name = "uuid", strategy = "uuid2")
+
     @Column(name = "id", nullable = false)
     private Long id;
 

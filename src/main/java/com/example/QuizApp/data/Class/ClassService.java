@@ -34,6 +34,7 @@ public class ClassService {
         return toStudentRepo.findAllByStudent(student);
     }
 
+
     public List<Student> getStudentsByClass(Long classID)
     {
         List<ClassToStudentRelation> list = getClassesRelByClass(getClassByID(classID));
@@ -61,6 +62,7 @@ public class ClassService {
             return null;
     }
 
+
     public void insert(Class studentClass)
     {
         repo.save(studentClass);
@@ -82,4 +84,7 @@ public class ClassService {
         return repo.findAll();
     }
 
+    public Class getClassById(Long code) {
+        return repo.getReferenceById(code);
+    }
 }
