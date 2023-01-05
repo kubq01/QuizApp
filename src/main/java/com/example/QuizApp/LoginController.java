@@ -13,6 +13,13 @@ public class LoginController {
 
     @GetMapping("/home")
     public String home(){
-        return"redirect:/users/index";
+        return"redirect:/user/index";
     }
+
+    @GetMapping("/loginError")
+    public String wrongLogin()
+    {
+        return "loginError";
+    }
+
 }

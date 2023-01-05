@@ -24,12 +24,18 @@ public class SecurityConfig {
                         .hasAuthority("ADMIN")
                         .antMatchers("/exercise/ID")
                         .hasAnyAuthority("STUDENT", "ADMIN")*/
+                        .antMatchers("/bootstrap/**",
+                        "/css/**",
+                        "/img/**",
+                        "/js/**").permitAll()
                         .anyRequest()
                         .authenticated()
                 )
                 .formLogin(formLogin -> formLogin
                        .loginPage("/login")
-                        .loginProcessingUrl("/login")
+                        //.loginProcessingUrl("/login")
+                        .defaultSuccessUrl("/home", true)
+                        .failureUrl("/loginError")
                         .permitAll()
                 )
                 .csrf(csrf -> csrf.disable())

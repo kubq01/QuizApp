@@ -1,5 +1,6 @@
 package com.example.QuizApp;
 
+import com.example.QuizApp.data.Class.Class;
 import com.example.QuizApp.data.Class.ClassService;
 import com.example.QuizApp.data.exercises.*;
 import com.example.QuizApp.data.quizes.*;
