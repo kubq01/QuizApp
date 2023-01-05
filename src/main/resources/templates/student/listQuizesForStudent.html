@@ -45,20 +45,36 @@
                                                 <tr>
                                                     <th style="width: 155.906px;border-radius: 0px;">ID quizu</th>
                                                     <th>Zagadnienie</th>
-                                                    <th>Rozpoczęcie</th>
-                                                    <th>Zakończenie</th>
+                                                    <th>Data</th>
                                                     <th>Czas</th>
+                                                    <th>Ocena</th>
                                                     <th></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td style="border-right-width: 1px;">Cell 1</td>
-                                                    <td style="border-right-width: 1px;">Cell 2</td>
-                                                    <td style="border-right-width: 1px;">Cell 2</td>
-                                                    <td style="border-right-width: 1px;">Cell 2</td>
-                                                    <td style="border-right-width: 1px;">Cell 2</td>
-                                                    <td style="text-align: center;border-right-width: 1px;"><button class="btn btn-primary" type="button" style="font-size: 13px;">Rozwiąż</button></td>
+                                                <tr th:each="result: ${results}">
+                                                    <td th:text="${result.getTeacherQuiz().getId()}" style="border-right-width: 1px;">Cell 1</td>
+                                                    <td th:text="${result.getTeacherQuiz().getSubject()}" style="border-right-width: 1px;">Cell 2</td>
+                                                    <td th:text="${result.getTeacherQuiz().getStartTime()}" style="border-right-width: 1px;">Cell 2</td>
+                                                    <td th:text="${result.getTeacherQuiz().getQuizTimeInMinutes()}" style="border-right-width: 1px;">Cell 2</td>
+                                                    <td th:text="${result.getAttended()} ? ${result.getMark()} : '-'" style="border-right-width: 1px;">Cell 2</td>
+                                                    <td th:switch="${result.getAttended()}" style="text-align: center;border-right-width: 1px;">
+                                                        <div th:case="true">
+                                                            <a>
+                                                                <button class="btn btn-primary" type="button" style="font-size: 13px;">Wynik</button>
+                                                            </a>
+                                                        </div>
+                                                        <div th:case="false">
+                                                            <div th:if="true">
+                                                                <a>
+                                                                    <button class="btn btn-primary" type="button" style="font-size: 13px;">Wynik</button>
+                                                                </a>
+                                                            </div>
+                                                            <div th:unless="true">  <!--${result.getTeacherQuiz().getStartTime(#dates.createNow()) == '0'}/!-->
+                                                            </div>
+                                                        </div>
+
+                                                    </td>
                                                 </tr>
                                             </tbody>
                                         </table>

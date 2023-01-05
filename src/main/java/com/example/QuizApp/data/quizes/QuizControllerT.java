@@ -1,10 +1,14 @@
 package com.example.QuizApp.data.quizes;
 
+import com.example.QuizApp.data.Class.Class;
+import com.example.QuizApp.data.Class.ClassService;
 import com.example.QuizApp.data.exercises.ABCDExercise;
 import com.example.QuizApp.data.exercises.Exercise;
-import com.example.QuizApp.data.exercises.ExerciseRepository;
 import com.example.QuizApp.data.exercises.ExerciseService;
+import com.example.QuizApp.data.result.QuizResult;
+import com.example.QuizApp.data.result.QuizResultService;
 import com.example.QuizApp.data.users.DBUserDetails;
+import com.example.QuizApp.data.users.Student;
 import com.example.QuizApp.data.users.Teacher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -22,23 +26,25 @@ public class QuizControllerT {
 
     private final QuizService quizService;
     private final ExerciseService exerciseService;
+    private final QuizResultService resultService;
+
+    private final ClassService classService;
 
     private List<Exercise> tempExercises;
 
     private Long tempId;
-    private final ExerciseRepository exerciseRepository;
 
     @Autowired
-    public QuizControllerT(QuizService service, ExerciseService exerciseService,
-                           ExerciseRepository exerciseRepository){
+    public QuizControllerT(QuizService service, ExerciseService exerciseService, QuizResultService resultService, ClassService classService){
         this.quizService = service;
         this.exerciseService = exerciseService;
+        this.resultService = resultService;
+        this.classService = classService;
         tempExercises = new ArrayList<>();
-        this.exerciseRepository = exerciseRepository;
     }
 
     @GetMapping("/listByT")
-    public String getSafeByID(Model model)
+    public String listQuizesByCurrentTeacher(Model model)
     {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         DBUserDetails details = (DBUserDetails) auth.getPrincipal();
@@ -67,15 +73,23 @@ public class QuizControllerT {
     }
 
     @PostMapping("/addTeacherQuiz/new")
-    public String addTeacherQuiz(@ModelAttribute TeacherQuiz quiz ,Model model){
+    public String addTeacherQuiz(@ModelAttribute TeacherQuiz quiz, @RequestParam String code, Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         DBUserDetails details = (DBUserDetails) auth.getPrincipal();
         Teacher currentTeacher = (Teacher) details.getUser();
+        Class studentsClass = classService.getClassById(Long.parseLong(code));
         quiz.setTeacher(currentTeacher);
-        Quiz newQuiz = quizService.insert(quiz);
+        quiz.setStudentsClass(studentsClass);
+        TeacherQuiz newQuiz = (TeacherQuiz) quizService.insert(quiz);
         for (Exercise exercise:tempExercises) {
             exercise.setQuiz(newQuiz);
             exerciseService.insert(exercise);
+        }
+        List<Student> students = classService.getStudentsByClass(studentsClass.getId());
+        for(Student student: students){
+            QuizResult newResult = new QuizResult(null, null, false,
+                    0, 0, newQuiz, student);
+            resultService.insert(newResult);
         }
         return "redirect:/quiz/listByT";
     }
@@ -94,5 +108,15 @@ public class QuizControllerT {
         exercise.setPoints(1);
         tempExercises.add(exercise);
         return "redirect:/quiz/addTeacherQuiz";
+    }
+
+    @GetMapping("/listForStudent")
+    public String listQuizesAsResults(Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        DBUserDetails details = (DBUserDetails) auth.getPrincipal();
+        Student currentStudent = (Student) details.getUser();
+        List<QuizResult> results = resultService.getResultsByStudent(currentStudent);
+        model.addAttribute("results", results);
+        return "student/listQuizesForStudent";
     }
 }

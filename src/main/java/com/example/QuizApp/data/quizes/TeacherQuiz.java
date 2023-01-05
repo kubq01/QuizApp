@@ -10,6 +10,7 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Set;
@@ -29,10 +30,12 @@ public class TeacherQuiz extends Quiz {
     private Boolean countsToAvg;
 
     //todo zamienic na localdate
-    @Temporal(TemporalType.DATE)
-    @Column(name = "startTime")
+
+
+    @Column(name = "start_time")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date startTime;
+    private LocalDate startTime;
+
     private Integer quizTimeInMinutes;
 
     @ManyToOne
@@ -45,6 +48,14 @@ public class TeacherQuiz extends Quiz {
     @JoinColumn(name = "students_class_id")
     private Class studentsClass;
 
+    public LocalDate getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(LocalDate startTime) {
+        this.startTime = startTime;
+    }
+
 
     public TeacherQuiz(Boolean countsToAvg, Teacher teacher, String subject, Class studentClass) {
         this.countsToAvg = countsToAvg;
@@ -54,7 +65,7 @@ public class TeacherQuiz extends Quiz {
     }
 
 
-    public TeacherQuiz(Boolean countsToAvg, Date startTime, Integer quizTimeInMinutes,
+    public TeacherQuiz(Boolean countsToAvg, LocalDate startTime, Integer quizTimeInMinutes,
                        Teacher teacher, String subject, Class studentsClass) {
 
         super();

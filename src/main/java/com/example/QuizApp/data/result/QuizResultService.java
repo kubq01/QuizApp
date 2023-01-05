@@ -1,5 +1,6 @@
 package com.example.QuizApp.data.result;
 
+import com.example.QuizApp.data.users.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,5 +40,9 @@ public class QuizResultService {
     public void deleteAll()
     {
         repo.deleteAll();
+    }
+
+    public List<QuizResult> getResultsByStudent(Student currentStudent) {
+        return repo.findAllByStudent(currentStudent);
     }
 }

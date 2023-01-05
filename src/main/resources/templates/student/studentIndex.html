@@ -52,7 +52,11 @@
                                 <div class="col-md-8 col-lg-6 col-xl-5 col-xxl-4">
                                     <div class="card mb-5" style="margin-top: 55px;">
                                         <div class="card-body text-center justify-content-center align-items-center align-content-center p-sm-5">
-                                            <div style="margin-bottom: 18px;"><button class="btn btn-primary" type="button">Twoje quizy</button></div>
+                                            <div style="margin-bottom: 18px;">
+                                                <a th:href="@{/quiz/listForStudent}">
+                                                   <button class="btn btn-primary" type="button">Twoje quizy</button>
+                                                </a>
+                                            </div>
                                             <div style="margin-bottom: 18px;"></div>
                                         </div>
                                     </div>

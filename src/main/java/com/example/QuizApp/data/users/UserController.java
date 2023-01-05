@@ -221,7 +221,7 @@ public class UserController {
     }
 
     @PostMapping("/joinClass/join")
-    public String joinClass(@ModelAttribute String code, Model model){
+    public String joinClass(@RequestParam String code, Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         DBUserDetails details = (DBUserDetails) auth.getPrincipal();
         Student currentStudent = (Student) details.getUser();
@@ -230,7 +230,7 @@ public class UserController {
         newRel.setMyClass(myClass);
         newRel.setStudent(currentStudent);
         classService.insertClassRel(newRel);
-        return"redirect:/user/myAccount";
+        return"redirect:/user/self";
     }
 
 }
