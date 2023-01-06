@@ -23,8 +23,7 @@
                     <div class="collapse navbar-collapse" id="navcol-2">
                         <ul class="navbar-nav ms-auto">
                             <li class="nav-item"><a class="nav-link active" th:href="@{/home}">Strona główna</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#">Second Item</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#">Third Item</a></li>
+                            <li class="nav-item"><a class="nav-link" th:href="@{/logout}">Wyloguj</a></li>
                         </ul>
                     </div>
                 </div>
@@ -45,13 +44,21 @@
                                             <form th:action="@{/quiz/addTeacherQuiz/new}" th:object="${newQuiz}" method="post">
                                                 <div class="mb-3">
                                                     <p>Data rozpoczęcia:</p><input th:field="*{startTime}" class="form-control" type="date" style="margin-bottom: 16px;">
+                                                    <p th:if="${#fields.hasErrors('startTime')}" style="color:red;" th:errors="*{startTime}"/>
                                                 </div>
                                                 <div style="margin-bottom: 16px;">
                                                     <p>Czas trwania (w minutach):</p><input th:field="*{quizTimeInMinutes}" class="form-control" type="number" placeholder="15">
+                                                    <p th:if="${#fields.hasErrors('quizTimeInMinutes')}" style="color:red;" th:errors="*{quizTimeInMinutes}"/>
                                                 </div>
-                                                <div class="mb-3"><input th:field="*{subject}" class="form-control" type="text" id="name-3" name="login" placeholder="Zagadnienie"></div>
+                                                <div class="mb-3">
+                                                    <input th:field="*{subject}" class="form-control" type="text" id="name-3" name="login" placeholder="Zagadnienie">
+                                                    <p th:if="${#fields.hasErrors('subject')}" style="color:red;" th:errors="*{subject}"/>
+                                                </div>
                                                 <div class="mb-3" style="margin-bottom: 16px;"></div>
-                                                <div class="mb-3" style="margin-bottom: 16px;"><input class="form-control" type="text" id="name-4" name="code" placeholder="ID klasy" style="margin-bottom: 16px;"></div>
+                                                <div class="mb-3" style="margin-bottom: 16px;">
+                                                    <input class="form-control" type="text" id="name-4" name="code" placeholder="ID klasy" style="margin-bottom: 16px;">
+                                                    <p th:if="${classErr == true}" style="color:red;" >Należy podać odpowiedni kod klasy.</p>
+                                                </div>
                                                 <div style="margin-top: 16px;">
                                                     <div class="form-check"><input th:field="*{countsToAvg}" class="form-check-input" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1">Liczy się do średniej.</label></div><button class="btn btn-primary d-block w-100" type="submit">Dodaj</button>
                                                 </div>

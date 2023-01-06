@@ -10,6 +10,9 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -29,33 +32,26 @@ public class TeacherQuiz extends Quiz {
      */
     private Boolean countsToAvg;
 
-    //todo zamienic na localdate
-
-
+    @NotNull(message = "Quiz musi mieć wybraną datę.")
     @Column(name = "start_time")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate startTime;
 
+    @NotNull(message = "Należy podać czas trwania quizu.")
+    @Min(value = 15, message = "Czas na pisanie nie może być mniejszy niż 15 minut.")
     private Integer quizTimeInMinutes;
 
     @ManyToOne
     @JoinColumn(name = "idT")
     private Teacher teacher;
 
+    @NotEmpty(message = "Quiz musi mieć podane zagadnienie.")
     private String subject;
+
 
     @ManyToOne
     @JoinColumn(name = "students_class_id")
     private Class studentsClass;
-
-    public LocalDate getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(LocalDate startTime) {
-        this.startTime = startTime;
-    }
-
 
     public TeacherQuiz(Boolean countsToAvg, Teacher teacher, String subject, Class studentClass) {
         this.countsToAvg = countsToAvg;
@@ -75,10 +71,5 @@ public class TeacherQuiz extends Quiz {
         this.teacher = teacher;
         this.subject = subject;
         this.studentsClass = studentsClass;
-    }
-
-    public void hideTeacher()
-    {
-        teacher = null;
     }
 }

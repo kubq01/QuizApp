@@ -56,21 +56,4 @@ public class QuizService {
     {
          return repo.findByClassId(classID);
     }
-
-    public Quiz showSafeByID(Long quizID)
-    {
-        Optional<Quiz> quiz = repo.findById(quizID);
-
-        if(quiz.isPresent())
-        {
-            if(quiz.get() instanceof TeacherQuiz)
-                ((TeacherQuiz) quiz.get()).hideTeacher();
-
-            return quiz.get();
-        }else
-        {
-            //TODO: throw error
-            return null;
-        }
-    }
 }

@@ -11,12 +11,18 @@ import com.example.QuizApp.data.users.DBUserDetails;
 import com.example.QuizApp.data.users.Student;
 import com.example.QuizApp.data.users.Teacher;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
+import java.sql.SQLDataException;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -70,28 +76,51 @@ public class QuizControllerT {
         }
         model.addAttribute("newQuiz", new TeacherQuiz());
         model.addAttribute("exercises", tempExercises);
+        model.addAttribute("classErr", false);
         return "teacher/addQuiz";
     }
 
     @PostMapping("/addTeacherQuiz/new")
-    public String addTeacherQuiz(@ModelAttribute TeacherQuiz quiz, @RequestParam String code, Model model){
+    public String addTeacherQuiz(@Valid @ModelAttribute("newQuiz") TeacherQuiz quiz,
+                                 BindingResult result,
+                                 @RequestParam @NotEmpty String code,
+                                 Model model){
+        if (result.hasErrors()){
+            model.addAttribute("classErr", false);
+            model.addAttribute("exercises", tempExercises);
+            return"teacher/addQuiz";
+        }
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         DBUserDetails details = (DBUserDetails) auth.getPrincipal();
         Teacher currentTeacher = (Teacher) details.getUser();
-        Class studentsClass = classService.getClassById(Long.parseLong(code));
+        Class studentsClass;
+        try {
+            studentsClass = classService.getClassById(Long.parseLong(code));
+        } catch (NumberFormatException e){
+            model.addAttribute("classErr", true);
+            model.addAttribute("exercises", tempExercises);
+            return"teacher/addQuiz";
+        }
         quiz.setTeacher(currentTeacher);
         quiz.setStudentsClass(studentsClass);
-        TeacherQuiz newQuiz = (TeacherQuiz) quizService.insert(quiz);
-        for (Exercise exercise:tempExercises) {
-            exercise.setQuiz(newQuiz);
-            exerciseService.insert(exercise);
+        try {
+            TeacherQuiz newQuiz = (TeacherQuiz) quizService.insert(quiz);
+            for (Exercise exercise:tempExercises) {
+                exercise.setQuiz(newQuiz);
+                exerciseService.insert(exercise);
+            }
+            List<Student> students = classService.getStudentsByClass(studentsClass.getId());
+            for(Student student: students){
+                QuizResult newResult = new QuizResult(null, null, false,
+                        0, 0, newQuiz, student);
+                resultService.insert(newResult);
+            }
+        } catch (DataIntegrityViolationException e){
+            model.addAttribute("classErr", true);
+            model.addAttribute("exercises", tempExercises);
+            return"teacher/addQuiz";
         }
-        List<Student> students = classService.getStudentsByClass(studentsClass.getId());
-        for(Student student: students){
-            QuizResult newResult = new QuizResult(null, null, false,
-                    0, 0, newQuiz, student);
-            resultService.insert(newResult);
-        }
+
         return "redirect:/quiz/listByT";
     }
 
@@ -104,7 +133,10 @@ public class QuizControllerT {
     }
 
     @PostMapping("/addABCD/new")
-    public String addABCD(@ModelAttribute ABCDExercise exercise ,Model model){
+    public String addABCD(@Valid @ModelAttribute("newABCD") ABCDExercise exercise , BindingResult result, Model model){
+        if(result.hasErrors()){
+            return "teacher/addABCD";
+        }
         exercise.setId(tempId++);
         exercise.setPoints(1);
         tempExercises.add(exercise);

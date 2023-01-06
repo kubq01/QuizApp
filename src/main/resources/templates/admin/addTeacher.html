@@ -43,10 +43,22 @@
                                         <div class="card-body p-sm-5">
                                             <h2 class="text-center mb-4">Dodaj nauczyciela</h2>
                                             <form method="post" th:action="@{/user/aIndex/addUserMenu/addTeacher/new}" th:object="${newTeacher}">
-                                                <div class="mb-3"><input class="form-control" type="text" id="name-2" name="name" placeholder="Imię" th:field="*{firstName}"></div>
-                                                <div class="mb-3"><input class="form-control" type="text" id="name-1" name="lastname" placeholder="Nazwisko" th:field="*{lastName}"></div>
-                                                <div class="mb-3"><input class="form-control" type="text" id="name-3" name="login" placeholder="Login" th:field="*{login}"></div>
-                                                <div class="mb-3" style="margin-bottom: 16px;"><input class="form-control" type="text" id="name-4" name="name" placeholder="Hasło" th:field="*{password}"></div>
+                                                <div class="mb-3">
+                                                    <input class="form-control" type="text" id="name-2" name="name" placeholder="Imię" th:field="*{firstName}">
+                                                    <p th:if="${#fields.hasErrors('firstName')}" style="color:red;" th:errors="*{firstName}"/>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <input class="form-control" type="text" id="name-1" name="lastname" placeholder="Nazwisko" th:field="*{lastName}">
+                                                    <p th:if="${#fields.hasErrors('lastName')}" style="color:red;" th:errors="*{lastName}"/>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <input class="form-control" type="text" id="name-3" name="login" placeholder="Login" th:field="*{login}">
+                                                    <p th:if="${#fields.hasErrors('login')}" style="color:red;" th:errors="*{login}"/>
+                                                </div>
+                                                <div class="mb-3" style="margin-bottom: 16px;">
+                                                    <input class="form-control" type="text" id="name-4" name="name" placeholder="Hasło" th:field="*{password}">
+                                                    <p th:if="${#fields.hasErrors('password')}" style="color:red;" th:errors="*{password}"/>
+                                                </div>
                                                 <div style="margin-top: 16px;"><button class="btn btn-primary d-block w-100" type="submit">Dodaj</button></div>
                                             </form>
                                         </div>

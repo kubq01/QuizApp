@@ -23,8 +23,7 @@
                     <div class="collapse navbar-collapse" id="navcol-2">
                         <ul class="navbar-nav ms-auto">
                             <li class="nav-item"><a class="nav-link active" th:href="@{/home}">Strona główna</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#">Second Item</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#">Third Item</a></li>
+                            <li class="nav-item"><a class="nav-link" th:href="@{/logout}">Wyloguj</a></li>
                         </ul>
                     </div>
                 </div>
@@ -43,12 +42,32 @@
                                         <div class="card-body p-sm-5">
                                             <h2 class="text-center mb-4">Dodaj pytanie ABCD</h2>
                                             <form th:action="@{/quiz/addABCD/new}" th:object="${newABCD}" method="post">
-                                                <div class="mb-3"><input th:field="*{question}" class="form-control" type="text" id="name-5" name="name" placeholder="Treść pytania"></div>
-                                                <div class="mb-3"><input th:field="*{answerA}" class="form-control" type="text" id="name-2" name="name" placeholder="Odpowiedź A"><input th:field="*{correctAnswer}" value="0" type="radio" name="answer"></div>
-                                                <div class="mb-3"><input th:field="*{answerB}" class="form-control" type="text" id="name-1" name="lastname" placeholder="Odpowiedź B"><input th:field="*{correctAnswer}" value="1"  type="radio" name="answer"></div>
-                                                <div class="mb-3"><input th:field="*{answerC}" class="form-control" type="text" id="name-3" name="login" placeholder="Odpowiedź C"><input th:field="*{correctAnswer}" value="2"  type="radio" name="answer"></div>
-                                                <div class="mb-3" style="margin-bottom: 16px;"><input th:field="*{answerD}" class="form-control" type="text" id="name-4" name="name" placeholder="Odpowiedź D"><input th:field="*{correctAnswer}" value="3"  type="radio" name="answer"></div>
+                                                <div class="mb-3">
+                                                    <input th:field="*{question}" class="form-control" type="text" id="name-5" name="name" placeholder="Treść pytania">
+                                                    <p th:if="${#fields.hasErrors('question')}" style="color:red;" th:errors="*{question}"/>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <input th:field="*{answerA}" class="form-control" type="text" id="name-2" name="name" placeholder="Odpowiedź A">
+                                                    <p th:if="${#fields.hasErrors('answerA')}" style="color:red;" th:errors="*{answerA}"/>
+                                                    <input th:field="*{correctAnswer}" value="0" type="radio" name="answer">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <input th:field="*{answerB}" class="form-control" type="text" id="name-1" name="lastname" placeholder="Odpowiedź B">
+                                                    <p th:if="${#fields.hasErrors('answerB')}" style="color:red;" th:errors="*{answerB}"/>
+                                                    <input th:field="*{correctAnswer}" value="1"  type="radio" name="answer">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <input th:field="*{answerC}" class="form-control" type="text" id="name-3" name="login" placeholder="Odpowiedź C"><
+                                                    <p th:if="${#fields.hasErrors('answerC')}" style="color:red;" th:errors="*{answerC}"/>
+                                                    <input th:field="*{correctAnswer}" value="2"  type="radio" name="answer">
+                                                </div>
+                                                <div class="mb-3" style="margin-bottom: 16px;">
+                                                    <input th:field="*{answerD}" class="form-control" type="text" id="name-4" name="name" placeholder="Odpowiedź D">
+                                                    <p th:if="${#fields.hasErrors('answerD')}" style="color:red;" th:errors="*{answerD}"/>
+                                                    <input th:field="*{correctAnswer}" value="3"  type="radio" name="answer">
+                                                </div>
                                                 <div style="margin-top: 16px;"><button class="btn btn-primary d-block w-100" type="submit">Dodaj</button></div>
+                                                <p th:if="${#fields.hasErrors('correctAnswer')}" style="color:red;" th:errors="*{correctAnswer}"/>
                                             </form>
                                         </div>
                                     </div>

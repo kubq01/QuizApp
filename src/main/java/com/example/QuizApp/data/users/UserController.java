@@ -9,8 +9,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -170,22 +172,31 @@ public class UserController {
     }
 
     @PostMapping("/aIndex/addUserMenu/addStudent/new")
-    public String insertStudent(@ModelAttribute Student student)
+    public String insertStudent(@Valid @ModelAttribute("newStudent") Student student, BindingResult result)
     {
+        if (result.hasErrors()){
+            return "admin/addStudent";
+        }
         userService.insert(student);
         return "redirect:/user/aIndex/addUserMenu";
     }
 
     @PostMapping("/aIndex/addUserMenu/addTeacher/new")
-    public String insertTeacher(@ModelAttribute Teacher teacher)
+    public String insertTeacher(@Valid @ModelAttribute("newTeacher") Teacher teacher, BindingResult result)
     {
+        if (result.hasErrors()){
+            return "admin/addTeacher";
+        }
         userService.insert(teacher);
         return "redirect:/user/aIndex/addUserMenu";
     }
 
     @PostMapping("/aIndex/addUserMenu/addAdmin/new")
-    public String insertAdmin(@ModelAttribute Admin admin)
+    public String insertAdmin(@Valid @ModelAttribute("newAdmin") Admin admin, BindingResult result, Model model)
     {
+        if (result.hasErrors()){
+            return "admin/addAdmin";
+        }
         userService.insert(admin);
         return "redirect:/user/aIndex/addUserMenu";
     }
