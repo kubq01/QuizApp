@@ -11,4 +11,7 @@ import java.util.List;
 public interface ExerciseRepository extends JpaRepository<Exercise, Long> {
     @Query("Select u from Exercise u where descriminator_column = :type")
     List<Exercise> findByType(@Param("type") String type);
+
+    @Query("Select u from Exercise u where quiz_id = :quizID")
+    List<Exercise> findByQuizID(@Param("quizID") Long quizID);
 }

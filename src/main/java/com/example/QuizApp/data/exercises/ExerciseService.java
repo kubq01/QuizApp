@@ -56,4 +56,9 @@ public class ExerciseService {
     {
         repo.deleteAll();
     }
+
+    public List<Exercise> getByQuiz(Long ID)
+    {
+        return repo.findByQuizID(ID);
+    }
 }

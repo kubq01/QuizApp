@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="utf-8">
@@ -65,7 +65,7 @@
                                                         </div>
                                                         <div th:case="false">
                                                             <div th:if="${result.getTeacherQuiz().getStartTime() == currDate}">
-                                                                <a>
+                                                                <a th:href="@{/quiz/startQuiz(quizID=${result.getTeacherQuiz().getId()})}">
                                                                     <button class="btn btn-primary" type="button" style="font-size: 13px;">Rozwiąż</button>
                                                                 </a>
                                                             </div>

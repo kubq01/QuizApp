@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="utf-8">
@@ -40,14 +40,14 @@
                                 <div class="col-md-8 col-lg-6 col-xl-5 col-xxl-4">
                                     <div class="card mb-5">
                                         <div class="card-body p-sm-5">
-                                            <h2 class="text-center mb-4">Pytanie x/y</h2>
-                                            <p>Treść zadania</p>
+                                            <h2 class="text-center mb-4" th:text="Pytanie + ' ' + ${counter} + '/' + ${numberOfExercises}">Pytanie x/y</h2>
+                                            <p th:text="${exercise.getQuestion()}">Treść zadania</p>
                                             <form method="post">
                                                 <div class="mb-3">
-                                                    <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-1" name="abcd"><label class="form-check-label" for="formCheck-1">A.</label></div>
-                                                    <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-2" name="abcd"><label class="form-check-label" for="formCheck-2">B.</label></div>
-                                                    <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-3" name="abcd"><label class="form-check-label" for="formCheck-3">C.</label></div>
-                                                    <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-4" name="abcd"><label class="form-check-label" for="formCheck-4">D.</label></div>
+                                                    <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-1" name="abcd"><label class="form-check-label" for="formCheck-1" th:text="${exercise.getAnswerA()}">A.</label></div>
+                                                    <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-2" name="abcd"><label class="form-check-label" for="formCheck-2" th:text="${exercise.getAnswerB()}">B.</label></div>
+                                                    <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-3" name="abcd"><label class="form-check-label" for="formCheck-3" th:text="${exercise.getAnswerC()}">C.</label></div>
+                                                    <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-4" name="abcd"><label class="form-check-label" for="formCheck-4" th:text="${exercise.getAnswerD()}">D.</label></div>
                                                 </div>
                                                 <div style="margin-top: 16px;"><button class="btn btn-primary d-block w-100" type="submit">Następne pytanie</button></div>
                                             </form>

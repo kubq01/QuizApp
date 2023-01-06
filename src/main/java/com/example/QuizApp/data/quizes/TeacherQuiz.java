@@ -58,6 +58,7 @@ public class TeacherQuiz extends Quiz {
         this.teacher = teacher;
         this.subject = subject;
         this.studentsClass = studentClass;
+        this.startTime = LocalDate.now();
     }
 
 

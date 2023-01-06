@@ -45,4 +45,20 @@ public class ABCDExercise extends Exercise {
     public String myType() {
         return "ABCD";
     }
+
+    public String getAnswerA() {
+        return answerA;
+    }
+
+    public String getAnswerB() {
+        return answerB;
+    }
+
+    public String getAnswerC() {
+        return answerC;
+    }
+
+    public String getAnswerD() {
+        return answerD;
+    }
 }
