@@ -32,8 +32,12 @@ public class QuizControllerT {
     private final ClassService classService;
 
     private List<Exercise> tempExercises;
+    private List<ABCDExercise> tempABCDExercises = new ArrayList<>();
 
     private Long tempId;
+
+    private TeacherQuiz tempQuiz;
+    private int exerciseCounter = -1;
 
     @Autowired
     public QuizControllerT(QuizService service, ExerciseService exerciseService, QuizResultService resultService, ClassService classService){
@@ -120,5 +124,33 @@ public class QuizControllerT {
         model.addAttribute("results", results);
         model.addAttribute("currDate", LocalDate.now());
         return "student/listQuizesForStudent";
+    }
+
+    @GetMapping("/startQuiz")
+    public String startQuiz(@RequestParam Long quizID, Model model)
+    {
+        tempQuiz = (TeacherQuiz) quizService.showSafeByID(quizID);
+        tempExercises = exerciseService.getByQuiz(tempQuiz.getId());
+        for (Exercise exercise:tempExercises)
+        {
+            if(exercise instanceof ABCDExercise)
+                tempABCDExercises.add((ABCDExercise) exercise);
+        }
+        return "student/quizStart";
+    }
+
+    @GetMapping("/solveABCD")
+    public String solveABDC(@RequestParam int exerciseID,Model model)
+    {
+        if(exerciseID<tempABCDExercises.size())
+        {
+            model.addAttribute("exercise", tempABCDExercises.get(exerciseID));
+            exerciseID++;
+            model.addAttribute("counter", exerciseID);
+            model.addAttribute("numberOfExercises",tempABCDExercises.size());
+            return "student/solveABCD";
+        }
+
+        return "student/quizFinish";
     }
 }

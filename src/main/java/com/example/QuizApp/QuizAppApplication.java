@@ -52,10 +52,16 @@ public class QuizAppApplication {
 					"login");
 			service.insert(student2);
 
-			Quiz quiz = new TeacherQuiz(false,teacher,"sub",null);
+			Class class1 = new Class(teacher);
+			classService.insert(class1);
+
+			Quiz quiz = new TeacherQuiz(false,teacher,"sub",class1);
 			quizService.insert(quiz);
-			Quiz quiz2 = new TeacherQuiz(false,teacher,"sub",null);
+			Quiz quiz2 = new TeacherQuiz(false,teacher,"sub",class1);
 			quizService.insert(quiz2);
+
+			QuizResult result = new QuizResult(10, (TeacherQuiz) quiz,student);
+			quizResultService.insert(result);
 
 			Exercise ex1 = new ABCDExercise(quiz,
 					"A",
@@ -76,8 +82,7 @@ public class QuizAppApplication {
 			exerciseService.insert(ex2);
 
 
-			Class class1 = new Class(teacher);
-			classService.insert(class1);
+
 
 			ClassToStudentRelation relation = new ClassToStudentRelation(student,class1);
 			classService.insertRel(relation);

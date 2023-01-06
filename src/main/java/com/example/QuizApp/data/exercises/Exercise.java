@@ -39,4 +39,16 @@ public abstract class Exercise {    //TODO sposób na spisywanie poprawnych odpo
     }
 
     public abstract String myType();
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getQuestion() {
+        return question;
+    }
+
+    public Integer getPoints() {
+        return points;
+    }
 }

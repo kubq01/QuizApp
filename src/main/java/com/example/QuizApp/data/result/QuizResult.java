@@ -33,4 +33,13 @@ public class QuizResult {
     @ManyToOne
     @JoinColumn(name = "student_id")
     private Student student;
+
+    public QuizResult( Integer pointsMax, TeacherQuiz teacherQuiz, Student student) {
+        this.mark = null;
+        this.attended = false;
+        this.pointsGained = 0;
+        this.pointsMax = pointsMax;
+        this.teacherQuiz = teacherQuiz;
+        this.student = student;
+    }
 }
