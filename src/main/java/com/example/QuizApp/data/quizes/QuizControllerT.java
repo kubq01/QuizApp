@@ -17,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -117,6 +118,7 @@ public class QuizControllerT {
         Student currentStudent = (Student) details.getUser();
         List<QuizResult> results = resultService.getResultsByStudent(currentStudent);
         model.addAttribute("results", results);
+        model.addAttribute("currDate", LocalDate.now());
         return "student/listQuizesForStudent";
     }
 }
