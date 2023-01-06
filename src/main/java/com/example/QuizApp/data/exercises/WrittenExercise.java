@@ -21,8 +21,10 @@ public class WrittenExercise extends Exercise {
 
     private String answer;
 
-    public WrittenExercise(Quiz quiz, String question, Integer points, Integer pointsGained, String answer) {
-        super(question, points, pointsGained, quiz);
-        this.answer = answer;
+
+
+    @Override
+    public String myType() {
+        return "Written";
     }
 }

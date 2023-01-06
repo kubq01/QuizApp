@@ -7,6 +7,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -25,18 +26,31 @@ public abstract class Exercise {    //TODO sposób na spisywanie poprawnych odpo
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @NotEmpty(message = "Pytanie nie może być puste.")
     private String question;
     private Integer points;
-    private Integer pointsGained;
 
     @ManyToOne
     @JoinColumn(name = "quiz_id")
     private Quiz quiz;
 
-    public Exercise(String question, Integer points, Integer pointsGained, Quiz quiz) {
+    public Exercise(String question, Quiz quiz) {
         this.question = question;
-        this.points = points;
-        this.pointsGained = pointsGained;
+        this.points = 1;
         this.quiz = quiz;
+    }
+
+    public abstract String myType();
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getQuestion() {
+        return question;
+    }
+
+    public Integer getPoints() {
+        return points;
     }
 }

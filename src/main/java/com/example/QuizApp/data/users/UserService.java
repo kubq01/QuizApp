@@ -5,6 +5,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -29,6 +30,13 @@ public class UserService {
         repo.save(encodedUser);
     }
 
+    public void updatePassword(User user, String password)
+    {
+        user.setPassword(password);
+        User encodedUser = encodePassword(user);
+        repo.save(encodedUser);
+    }
+
     public List<User> showByType(UserType type)
     {
         return repo.findByType(type.name());
@@ -43,5 +51,14 @@ public class UserService {
     public void deleteAll()
     {
         repo.deleteAll();
+    }
+
+    public User showByID(Long ID)
+    {
+        Optional<User> user = repo.findById(ID);
+        if(user.isPresent())
+            return user.get();
+        else
+            return null;
     }
 }

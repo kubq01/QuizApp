@@ -1,6 +1,6 @@
-package com.example.QuizApp.data.quizes;
+package com.example.QuizApp.data.result;
 
-import com.example.QuizApp.data.exercises.Exercise;
+import com.example.QuizApp.data.users.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -16,4 +16,6 @@ public interface QuizResultRepository extends JpaRepository<QuizResult, Long> {
 
     @Query("Select u from QuizResult u where quiz_id = :quizID and student_id = :studentID")
     QuizResult showByQuizIDAndStudentID(@Param("quizID") Long quizID,@Param("studentID") Long studentID);
+
+    List<QuizResult> findAllByStudent(Student student);
 }

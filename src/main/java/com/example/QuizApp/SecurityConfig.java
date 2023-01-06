@@ -18,16 +18,26 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeRequests(authorization -> authorization
-                        .antMatchers("/user/add")
+                        /*.antMatchers("/user/add")
                         .hasAuthority("ADMIN")
                         .antMatchers("/user/list")
                         .hasAuthority("ADMIN")
                         .antMatchers("/exercise/ID")
-                        .hasAnyAuthority("STUDENT", "ADMIN")
+                        .hasAnyAuthority("STUDENT", "ADMIN")*/
+                        .antMatchers("/bootstrap/**",
+                        "/css/**",
+                        "/img/**",
+                        "/js/**").permitAll()
+
                         .anyRequest()
                         .authenticated()
+
                 )
                 .formLogin(formLogin -> formLogin
+                       .loginPage("/login")
+                        //.loginProcessingUrl("/login")
+                        .defaultSuccessUrl("/home", true)
+                        .failureUrl("/loginError")
                         .permitAll()
                 )
                 .csrf(csrf -> csrf.disable())
@@ -35,8 +45,8 @@ public class SecurityConfig {
                         .invalidateHttpSession(true)
                         .clearAuthentication(true)
                         .permitAll()
-                )
-                .httpBasic();
+                );
+                //.httpBasic();
         return http.build();
     }
 

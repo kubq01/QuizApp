@@ -8,6 +8,8 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -27,14 +29,26 @@ public abstract class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private Long id;
+
+    @NotEmpty(message = "Imie nie może być puste.")
+    @Size(min = 2, max = 25, message = "Imie może zawierać od 2 do 25 znaków.")
     private String firstName;
-    private String LastName;
+    @NotEmpty(message = "Nazwisko nie może być puste.")
+    @Size(min = 2, max = 35, message = "Nazwisko może zawierać od 2 do 35 znaków.")
+    private String lastName;
+
+    @NotEmpty(message = "Login nie może być pusty.")
+    @Size(min = 2, max = 50, message = "Login może zawierać od 2 do 50 znaków.")
+    @Column(name = "login", unique = true)
     private String login;
+
+    @NotEmpty(message = "Hasło nie może być puste.")
+    //@Size(min = 2, max = 30, message = "Hasło może zawierać od 6 do 20 znaków.")    //TODO zamienić na 6 przy działającej aplikacji
     private String password;
 
     public User(String firstName, String lastName, String login, String password) {
         this.firstName = firstName;
-        LastName = lastName;
+        lastName = lastName;
         this.login = login;
         this.password = password;
     }

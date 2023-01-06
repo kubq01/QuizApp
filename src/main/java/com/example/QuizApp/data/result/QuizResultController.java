@@ -1,4 +1,4 @@
-package com.example.QuizApp.data.quizes;
+package com.example.QuizApp.data.result;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/quiz/results")
+@RequestMapping("/results")
 public class QuizResultController {
 
     private final QuizResultService service;
@@ -16,7 +16,9 @@ public class QuizResultController {
         this.service = service;
     }
 
-    @GetMapping("/list")
+
+
+    /*@GetMapping("/list")
     public List<QuizResult> getAll()
     {
         return service.getAll();
@@ -48,5 +50,5 @@ public class QuizResultController {
     public QuizResult insertResult(@RequestBody QuizResult newQuizResult){
         service.insert(newQuizResult);
         return newQuizResult;
-    }
+    }*/
 }

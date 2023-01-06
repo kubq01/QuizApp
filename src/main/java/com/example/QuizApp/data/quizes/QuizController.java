@@ -1,3 +1,4 @@
+/*
 package com.example.QuizApp.data.quizes;
 
 import com.example.QuizApp.data.exercises.Exercise;
@@ -87,3 +88,4 @@ public class QuizController {
         return quizService.deleteById(id);
     }
 }
+*/
