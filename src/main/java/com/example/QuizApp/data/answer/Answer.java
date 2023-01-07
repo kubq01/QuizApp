@@ -6,6 +6,7 @@ import com.example.QuizApp.data.users.Student;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "Answer")
@@ -34,9 +35,10 @@ public class Answer {
     @JoinColumn(name = "quiz_result_id")
     private QuizResult quizResult;
 
-    private short userAnswer;
+    @NotNull
+    private Short userAnswer;
 
-    public Answer(Exercise exercise, QuizResult quizResult, short userAnswer) {
+    public Answer(Exercise exercise, QuizResult quizResult, Short userAnswer) {
         this.exercise = exercise;
         this.quizResult = quizResult;
         this.userAnswer = userAnswer;

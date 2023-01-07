@@ -50,6 +50,7 @@
                                                     <div class="form-check"><input class="form-check-input" th:value=4 type="radio" id="formCheck-4" name="studentAnswer"><label class="form-check-label" for="formCheck-4" th:text="${exercise.getAnswerD()}">D.</label></div>
                                                 </div>
                                                 <div style="margin-top: 16px;"><button class="btn btn-primary d-block w-100" type="submit">Następne pytanie</button></div>
+                                                <p th:if="${answerErr == true}" style="color:red;" >Należy wybrać odpowiedź.</p>
                                             </form>
                                         </div>
                                     </div>

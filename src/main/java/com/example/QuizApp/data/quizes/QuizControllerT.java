@@ -205,7 +205,7 @@ public class QuizControllerT {
             exerciseID++;
             model.addAttribute("counter", exerciseID);
             model.addAttribute("numberOfExercises",tempABCDExercises.size());
-
+            model.addAttribute("answerErr", false);
             return "student/solveABCD";
         }
 
@@ -213,9 +213,20 @@ public class QuizControllerT {
     }
 
     @PostMapping("/sendABCD")
-    public String sendABCD(@RequestParam("studentAnswer") int studentAnswer, RedirectAttributes redirectAttributes)
+    public String sendABCD(
+            @RequestParam(name = "studentAnswer",
+                    required = false, defaultValue = "0") int studentAnswer,
+            Model model, RedirectAttributes redirectAttributes)
     {
-        ABCDExercise tempExercise = (ABCDExercise) exerciseService.getExerciseByID(tempExercises.get(exerciseCounter).getId());
+        if (studentAnswer == 0){
+            model.addAttribute("exercise", tempABCDExercises.get(exerciseCounter));
+            model.addAttribute("counter", exerciseCounter+1);
+            model.addAttribute("numberOfExercises",tempABCDExercises.size());
+            model.addAttribute("answerErr", true);
+            return "student/solveABCD";
+        }
+        ABCDExercise tempExercise = (ABCDExercise) exerciseService
+                .getExerciseByID(tempExercises.get(exerciseCounter).getId());
         Answer answer = new Answer(tempExercise,
                 tempQuizResult,
                 (short) studentAnswer);
@@ -242,6 +253,7 @@ public class QuizControllerT {
     @GetMapping("/finishQuiz")
     public String finishQuiz(Model model)
     {
+        tempQuizResult.setPointsMax(tempABCDExercises.size());
         tempQuizResult.finishQuiz();
         resultService.insert(tempQuizResult);
         model.addAttribute("result", tempQuizResult);

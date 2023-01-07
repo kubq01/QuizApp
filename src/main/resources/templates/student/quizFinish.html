@@ -44,7 +44,8 @@
                                             <div class="mb-3">
                                                 <p style="text-align: justify;">Dziękujemy za rozwiązanie quizu. Twoje odpowiedzi zostały zapisane.<br><br></p>
                                                 <p style="text-align: justify;" >Twój wynik to:</p>
-                                                <p style="text-align: justify;" th:text="${result.getMark()} + '%'"><br></p>
+                                                <p th:if="${result.getMark() >= 0.5}" style="text-align: justify; color:lawngreen;" th:text="${result.getMark()} + '%'"><br></p>
+                                                <p th:unless="${result.getMark() >= 0.5}" style="text-align: justify; color:indianred;" th:text="${result.getMark()} + '%'"><br></p>
                                             </div>
                                             <div style="margin-top: 16px;">
                                                 <a th:href="@{/quiz/listForStudent}">

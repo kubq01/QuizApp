@@ -43,7 +43,7 @@
                     <tbody>
                       <tr th:each="wrapper: ${wrapperList}">
                         <h4 th:text="${wrapper.getExercise().getQuestion()}">Treść zadania</h4>
-
+                        <!--TODO pokolorować!!!/-->
                           <td style="border-right-width: 1px;" th:text="A. + ' ' + ${wrapper.getExercise().getAnswerA()}">A.</td><br>
                           <td style="border-right-width: 1px;" th:text="B. + ' ' + ${wrapper.getExercise().getAnswerB()}">B</td><br>
                           <td style="border-right-width: 1px;" th:text="C. + ' ' + ${wrapper.getExercise().getAnswerC()}">C.</td><br>
