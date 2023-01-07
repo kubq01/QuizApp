@@ -23,11 +23,22 @@ public class Answer {
     @JoinColumn(name = "exercise_id")
     private Exercise exercise;
 
+    /*
     @ManyToOne
     @JoinColumn(name = "student_id")
     private Student student;
 
+     */
+
     @ManyToOne
     @JoinColumn(name = "quiz_result_id")
     private QuizResult quizResult;
+
+    private short userAnswer;
+
+    public Answer(Exercise exercise, QuizResult quizResult, short userAnswer) {
+        this.exercise = exercise;
+        this.quizResult = quizResult;
+        this.userAnswer = userAnswer;
+    }
 }

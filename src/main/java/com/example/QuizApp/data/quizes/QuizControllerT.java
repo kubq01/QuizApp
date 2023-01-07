@@ -2,6 +2,8 @@ package com.example.QuizApp.data.quizes;
 
 import com.example.QuizApp.data.Class.Class;
 import com.example.QuizApp.data.Class.ClassService;
+import com.example.QuizApp.data.answer.Answer;
+import com.example.QuizApp.data.answer.AnswerService;
 import com.example.QuizApp.data.exercises.ABCDExercise;
 import com.example.QuizApp.data.exercises.Exercise;
 import com.example.QuizApp.data.exercises.ExerciseService;
@@ -18,6 +20,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
@@ -45,13 +48,20 @@ public class QuizControllerT {
     private TeacherQuiz tempQuiz;
     private int exerciseCounter = -1;
 
+    private QuizResult tempQuizResult;
+
+    private AnswerService answerService;
+
+
     @Autowired
-    public QuizControllerT(QuizService service, ExerciseService exerciseService, QuizResultService resultService, ClassService classService){
+    public QuizControllerT(QuizService service, ExerciseService exerciseService, QuizResultService resultService,
+                           ClassService classService, AnswerService answerService){
         this.quizService = service;
         this.exerciseService = exerciseService;
         this.resultService = resultService;
         this.classService = classService;
         tempExercises = new ArrayList<>();
+        this.answerService = answerService;
     }
 
     @GetMapping("/listByT")
@@ -161,6 +171,9 @@ public class QuizControllerT {
     @GetMapping("/startQuiz")
     public String startQuiz(@RequestParam Long quizID, Model model)
     {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        DBUserDetails details = (DBUserDetails) auth.getPrincipal();
+        Student currentStudent = (Student) details.getUser();
         tempQuiz = (TeacherQuiz) quizService.showSafeByID(quizID);
         tempExercises = exerciseService.getByQuiz(tempQuiz.getId());
         for (Exercise exercise:tempExercises)
@@ -168,6 +181,7 @@ public class QuizControllerT {
             if(exercise instanceof ABCDExercise)
                 tempABCDExercises.add((ABCDExercise) exercise);
         }
+        tempQuizResult = resultService.getByQuizIDAndStudentID(tempQuiz.getId(), currentStudent.getId());
         return "student/quizStart";
     }
 
@@ -177,12 +191,50 @@ public class QuizControllerT {
         if(exerciseID<tempABCDExercises.size())
         {
             model.addAttribute("exercise", tempABCDExercises.get(exerciseID));
+            exerciseCounter = exerciseID;
             exerciseID++;
             model.addAttribute("counter", exerciseID);
             model.addAttribute("numberOfExercises",tempABCDExercises.size());
+
             return "student/solveABCD";
         }
 
+        return "redirect:/quiz/finishQuiz";
+    }
+
+    @PostMapping("/sendABCD")
+    public String sendABCD(@RequestParam("studentAnswer") int studentAnswer, RedirectAttributes redirectAttributes)
+    {
+        ABCDExercise tempExercise = (ABCDExercise) exerciseService.getExerciseByID(tempExercises.get(exerciseCounter).getId());
+        Answer answer = new Answer(tempExercise,
+                tempQuizResult,
+                (short) studentAnswer);
+
+        if (studentAnswer == tempExercise.getCorrectAnswer())
+            tempQuizResult.addPoints(tempExercise.getPoints());
+
+        answerService.insert(answer);
+
+        exerciseCounter++;
+
+        redirectAttributes.addAttribute("exerciseID", exerciseCounter);
+        return "redirect:/quiz/solveABCD";
+
+        /*
+        model.addAttribute("exercise", tempABCDExercises.get(exerciseCounter));
+        model.addAttribute("counter", (exerciseCounter + 1));
+        model.addAttribute("numberOfExercises",tempABCDExercises.size());
+
+         */
+
+    }
+
+    @GetMapping("/finishQuiz")
+    public String finishQuiz(Model model)
+    {
+        tempQuizResult.finishQuiz();
+        resultService.insert(tempQuizResult);
+        model.addAttribute("result", tempQuizResult);
         return "student/quizFinish";
     }
 }

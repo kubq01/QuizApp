@@ -73,4 +73,9 @@ public class TeacherQuiz extends Quiz {
         this.subject = subject;
         this.studentsClass = studentsClass;
     }
+
+    public void hideTeacher()
+    {
+        this.teacher = null;
+    }
 }

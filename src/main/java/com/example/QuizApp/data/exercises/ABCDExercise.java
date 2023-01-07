@@ -37,6 +37,8 @@ public class ABCDExercise extends Exercise {
         this.correctAnswer = correctAnswer;
     }
 
+
+
     public void hideCorrectAnswer() {
         this.correctAnswer = -1;
     }
@@ -60,5 +62,9 @@ public class ABCDExercise extends Exercise {
 
     public String getAnswerD() {
         return answerD;
+    }
+
+    public Short getCorrectAnswer() {
+        return correctAnswer;
     }
 }

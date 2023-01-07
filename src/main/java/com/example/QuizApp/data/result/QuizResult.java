@@ -42,4 +42,17 @@ public class QuizResult {
         this.teacherQuiz = teacherQuiz;
         this.student = student;
     }
+
+    public void addPoints(int points)
+    {
+        pointsGained += points;
+    }
+
+    public void finishQuiz()
+    {
+        mark = pointsGained*1.0F/pointsMax*100;
+        attended = true;
+    }
+
+
 }

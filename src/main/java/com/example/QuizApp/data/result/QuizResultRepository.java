@@ -11,10 +11,10 @@ import java.util.List;
 @Repository
 public interface QuizResultRepository extends JpaRepository<QuizResult, Long> {
 
-    @Query("Select u from QuizResult u where quiz_id = :ID")
+    @Query("Select u from QuizResult u where teacher_quiz_id = :ID")
     List<QuizResult> showByQuizID(@Param("ID") Long quizID);
 
-    @Query("Select u from QuizResult u where quiz_id = :quizID and student_id = :studentID")
+    @Query("Select u from QuizResult u where teacher_quiz_id = :quizID and student_id = :studentID")
     QuizResult showByQuizIDAndStudentID(@Param("quizID") Long quizID,@Param("studentID") Long studentID);
 
     List<QuizResult> findAllByStudent(Student student);

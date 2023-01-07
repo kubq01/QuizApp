@@ -19,6 +19,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDate;
+
 @SpringBootApplication
 @RestController
 @AllArgsConstructor
@@ -60,6 +62,17 @@ public class QuizAppApplication {
 			ClassToStudentRelation relation2 = new ClassToStudentRelation(student2,class1);
 			classService.insertRel(relation2);
 
+			Quiz quiz = new TeacherQuiz(false, LocalDate.now(),30,teacher,"subject",class1);
+			quizService.insert(quiz);
+
+			Exercise exercise1 = new ABCDExercise("q1", quiz,"aa","b","c","d", (short) 1);
+			Exercise exercise2 = new ABCDExercise("q2",  quiz,"aa","bb","c","dd", (short) 3);
+
+			exerciseService.insert(exercise1);
+			exerciseService.insert(exercise2);
+
+			QuizResult result = new QuizResult(2, (TeacherQuiz) quiz,student);
+			quizResultService.insert(result);
 		};
 	}
 

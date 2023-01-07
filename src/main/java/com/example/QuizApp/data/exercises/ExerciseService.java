@@ -52,6 +52,17 @@ public class ExerciseService {
         return null;
     }
 
+    public Exercise getExerciseByID(Long ID)
+    {
+        Optional<Exercise> exercise = repo.findById(ID);
+        if(exercise.isPresent())
+        {
+            return exercise.get();
+        }
+
+        return null;
+    }
+
     public void deleteAll()
     {
         repo.deleteAll();
