@@ -91,4 +91,7 @@ public class ClassService {
     public Class getClassById(Long code) {
         return repo.getReferenceById(code);
     }
+    public Class getClassByIdAndTeacher(Long code, Teacher currentTeacher) {
+        return repo.findByIdAndTeacher(code, currentTeacher);
+    }
 }

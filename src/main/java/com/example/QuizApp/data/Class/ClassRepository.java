@@ -10,4 +10,6 @@ import java.util.List;
 @Repository
 public interface ClassRepository extends JpaRepository<Class, Long> {
     public List<Class> findAllByTeacher(Teacher teacher);
+
+    public Class findByIdAndTeacher(Long id, Teacher teacher);
 }
