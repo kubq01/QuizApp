@@ -109,7 +109,10 @@ public class QuizControllerT {
         Teacher currentTeacher = (Teacher) details.getUser();
         Class studentsClass;
         try {
-            studentsClass = classService.getClassById(Long.parseLong(code));
+            studentsClass = classService.getClassByIdAndTeacher(Long.parseLong(code), currentTeacher);
+            if (studentsClass == null){
+                throw new NumberFormatException("shh, it works");
+            }
         } catch (NumberFormatException e){
             model.addAttribute("classErr", true);
             model.addAttribute("exercises", tempExercises);
@@ -134,7 +137,7 @@ public class QuizControllerT {
             model.addAttribute("exercises", tempExercises);
             return"teacher/addQuiz";
         }
-
+        tempExercises.clear();
         return "redirect:/quiz/listByT";
     }
 
@@ -175,6 +178,7 @@ public class QuizControllerT {
         DBUserDetails details = (DBUserDetails) auth.getPrincipal();
         Student currentStudent = (Student) details.getUser();
         tempQuiz = (TeacherQuiz) quizService.showSafeByID(quizID);
+        tempABCDExercises.clear();
         tempExercises = exerciseService.getByQuiz(tempQuiz.getId());
         for (Exercise exercise:tempExercises)
         {
