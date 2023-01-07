@@ -59,7 +59,7 @@
                                                     <td th:text="${result.getAttended()} ? ${result.getMark()} : '-'" style="border-right-width: 1px;">Cell 2</td>
                                                     <td th:switch="${result.getAttended()}" style="text-align: center;border-right-width: 1px;">
                                                         <div th:case="true">
-                                                            <a>
+                                                            <a th:href="@{/quiz/viewQuiz(quizID=${result.getTeacherQuiz().getId()})}">
                                                                 <button class="btn btn-primary" type="button" style="font-size: 13px;">Wynik</button>
                                                             </a>
                                                         </div>

@@ -12,6 +12,7 @@ import com.example.QuizApp.data.result.QuizResultService;
 import com.example.QuizApp.data.users.DBUserDetails;
 import com.example.QuizApp.data.users.Student;
 import com.example.QuizApp.data.users.Teacher;
+import com.example.QuizApp.data.wrappers.ExerciseAnswerWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.Authentication;
@@ -51,6 +52,11 @@ public class QuizControllerT {
     private QuizResult tempQuizResult;
 
     private AnswerService answerService;
+
+    private List<String> answers;
+    private List<String> studentAnswers;
+
+
 
 
     @Autowired
@@ -236,5 +242,61 @@ public class QuizControllerT {
         resultService.insert(tempQuizResult);
         model.addAttribute("result", tempQuizResult);
         return "student/quizFinish";
+    }
+
+    @GetMapping("/viewQuiz")
+    public String viewQuiz(@RequestParam("quizID") Long quizID, Model model)
+    {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        DBUserDetails details = (DBUserDetails) auth.getPrincipal();
+        Student currentStudent = (Student) details.getUser();
+        tempQuiz = (TeacherQuiz) quizService.showSafeByID(quizID);
+        tempExercises = exerciseService.getByQuiz(tempQuiz.getId());
+        answers = new ArrayList<>();
+        List<ExerciseAnswerWrapper> wrapperList = new ArrayList<>();
+        for (Exercise exercise:tempExercises)
+        {
+            if(exercise instanceof ABCDExercise)
+            {
+                tempABCDExercises.add((ABCDExercise) exercise);
+                short ans = ((ABCDExercise) exercise).getCorrectAnswer();
+                String answer = "N";
+                switch (ans)
+                {
+                    case 1: answer = "A"; break;
+                    case 2: answer = "B"; break;
+                    case 3: answer = "C"; break;
+                    case 4: answer = "D"; break;
+
+                }
+
+                Answer studentAnswer = answerService.showByExerciseAndQuizResult(exercise,
+                        resultService.getByQuizIDAndStudentID(tempQuiz.getId(), currentStudent.getId()));
+                ans = studentAnswer.getUserAnswer();
+                String studentAnswerString = "N";
+                switch (ans)
+                {
+                    case 1: studentAnswerString = "A"; break;
+                    case 2: studentAnswerString = "B"; break;
+                    case 3: studentAnswerString = "C"; break;
+                    case 4: studentAnswerString = "D"; break;
+
+                }
+
+
+                ExerciseAnswerWrapper wrapper = new ExerciseAnswerWrapper(exercise,answer,studentAnswerString);
+                wrapperList.add(wrapper);
+            }
+
+
+        }
+
+        model.addAttribute("result", resultService.getByQuizIDAndStudentID(tempQuiz.getId(),currentStudent.getId()));
+
+        model.addAttribute("wrapperList", wrapperList);
+
+        tempExercises.clear();
+        return "student/viewQuiz";
+
     }
 }

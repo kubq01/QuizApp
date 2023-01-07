@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <title>Home - Quiz.io</title>
+  <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&amp;display=swap">
+  <link rel="stylesheet" th:href="@{/css/Navbar-Right-Links-icons.css}">
+</head>
+
+<body>
+<nav class="navbar navbar-dark navbar-expand-md sticky-top py-3" id="mainNav">
+  <div class="container"><a class="navbar-brand d-flex align-items-center" th:href="@{/home}"><span class="bs-icon-sm bs-icon-circle bs-icon-primary shadow d-flex justify-content-center align-items-center me-2 bs-icon"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-check-square-fill">
+                        <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm10.03 4.97a.75.75 0 0 1 .011 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.75.75 0 0 1 1.08-.022z"></path>
+                    </svg></span><span>Quiz.io</span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+    <div class="collapse navbar-collapse" id="navcol-1">
+      <ul class="navbar-nav mx-auto"></ul>
+    </div>
+    <nav class="navbar navbar-light navbar-expand-md py-3">
+      <div class="container">
+        <div class="collapse navbar-collapse" id="navcol-2">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link active" th:href="@{/home}">Strona główna</a></li>
+            <li class="nav-item"><a class="nav-link" th:href="@{/logout}">Wyloguj</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+</nav>
+<header class="bg-dark">
+  <div class="container py-5">
+    <div class="row py-5">
+      <div class="col">
+        <section class="position-relative py-4 py-xl-5">
+          <div class="container position-relative">
+            <div class="row d-flex justify-content-center">
+              <div class="col-md-8 col-lg-6 col-xl-5 col-xxl-4">
+                <div class="card mb-5">
+                  <div class="card-body p-sm-5">
+                    <tbody>
+                      <tr th:each="wrapper: ${wrapperList}">
+                        <h4 th:text="${wrapper.getExercise().getQuestion()}">Treść zadania</h4>
+
+                          <td style="border-right-width: 1px;" th:text="A. + ' ' + ${wrapper.getExercise().getAnswerA()}">A.</td><br>
+                          <td style="border-right-width: 1px;" th:text="B. + ' ' + ${wrapper.getExercise().getAnswerB()}">B</td><br>
+                          <td style="border-right-width: 1px;" th:text="C. + ' ' + ${wrapper.getExercise().getAnswerC()}">C.</td><br>
+                          <td style="border-right-width: 1px;" th:text="D. + ' ' + ${wrapper.getExercise().getAnswerD()}">D.</td><br><br>
+                          <td style="border-right-width: 1px;" >Poprawna odpowiedź: </td>
+                          <td style="border-right-width: 1px;" th:text="${wrapper.getAnswer()}">D.</td><br>
+                          <td style="border-right-width: 1px;" >Odpowiedź ucznia: </td>
+                          <td style="border-right-width: 1px;" th:text="${wrapper.getStudentAnswer()}">D.</td><br><br>
+
+                      </tr>
+                    </tbody>
+                    <tfoot>
+                    <h3 th:text="'Wynik: ' + ${result.getMark()} + '%'">Treść zadania</h3><br><br>
+                    </tfoot>
+                    <div>
+                    <a th:href="@{/quiz/listForStudent}">
+                      <button class="btn btn-primary" type="button" style="font-size: 13px;">Powrót</button></a>
+                    </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+</header>
+<footer class="bg-dark">
+  <div class="container py-4 py-lg-5">
+    <hr>
+    <div class="text-muted d-flex justify-content-between align-items-center pt-3">
+      <p class="mb-0">Wykonali Jakub Brzeżański i Tomasz Zapadliński</p>
+    </div>
+  </div>
+</footer>
+<script src="../assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="../assets/js/bold-and-dark.js"></script>
+</body>
+
+</html>
