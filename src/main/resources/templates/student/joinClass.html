@@ -43,6 +43,8 @@
                                             <h2 class="text-center mb-4">Dołącz do klasy</h2>
                                             <form th:action="@{/user/joinClass/join}" method="post">
                                                 <div class="mb-3"><input class="form-control" type="text" id="name-2" name="code" placeholder="Kod klasy"></div>
+                                                <p th:if="${classErr == true}" style="color:red;" >Należy podać odpowiedni kod klasy.</p>
+                                                <p th:if="${existsErr == true}" style="color:red;" >Już jesteś w tej klasie.</p>
                                                 <div style="margin-top: 16px;"><button class="btn btn-primary d-block w-100" type="submit">Dołącz</button></div>
                                             </form>
                                         </div>

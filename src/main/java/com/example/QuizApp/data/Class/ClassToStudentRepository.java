@@ -12,5 +12,7 @@ public interface ClassToStudentRepository extends JpaRepository<ClassToStudentRe
 
     public List<ClassToStudentRelation> findAllByStudent(Student student);
 
+    public List<ClassToStudentRelation> findAllByStudentAndMyClass(Student student, Class myClass);
+
     public void deleteAllByMyClass(Class myClass);
 }

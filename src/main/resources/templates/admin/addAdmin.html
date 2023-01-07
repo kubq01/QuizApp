@@ -53,6 +53,7 @@
                                                 <div class="mb-3">
                                                     <input class="form-control" type="text" id="name-3" name="login" placeholder="Login" th:field="*{login}">
                                                     <p th:if="${#fields.hasErrors('login')}" style="color:red;" th:errors="*{login}"/>
+                                                    <p th:if="${loginTakenErr == true}" style="color:red;" >Login jest zajęty.</p>
                                                 </div>
                                                 <div class="mb-3" style="margin-bottom: 16px;">
                                                     <input class="form-control" type="text" id="name-4" name="name" placeholder="Hasło" th:field="*{password}">

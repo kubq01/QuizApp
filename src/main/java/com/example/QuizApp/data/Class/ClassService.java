@@ -69,6 +69,10 @@ public class ClassService {
     }
 
     public void insertClassRel(ClassToStudentRelation relation){
+        List checker = toStudentRepo.findAllByStudentAndMyClass(relation.getStudent(), relation.getMyClass());
+        if (!checker.isEmpty()){
+            throw new IllegalStateException();
+        }
         toStudentRepo.save(relation);
     }
 

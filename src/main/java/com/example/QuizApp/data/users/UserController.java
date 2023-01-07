@@ -5,6 +5,7 @@ import com.example.QuizApp.data.Class.Class;
 import com.example.QuizApp.data.Class.ClassService;
 import com.example.QuizApp.data.Class.ClassToStudentRelation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,12 +78,17 @@ public class UserController {
     @GetMapping("/self/changePassword")
     public String changePassword(Model model)
     {
+        model.addAttribute("passwordEmptyErr", false);
         return "misc/changePasswordSelf";
     }
 
     @PostMapping("/self/newPassword")
-    public String newPassword(@RequestParam String password)
+    public String newPassword(@RequestParam @NotEmpty String password, Model model)
     {
+        if(password.isEmpty()){
+            model.addAttribute("passwordEmptyErr", true);
+            return "misc/changePasswordSelf";
+        }
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         DBUserDetails details = (DBUserDetails) auth.getPrincipal();
         User currentUser = (User) details.getUser();
@@ -168,36 +175,52 @@ public class UserController {
     public String addUser(Model model)
     {
         model.addAttribute("newStudent", new Student());
+        model.addAttribute("loginTakenErr", false);
         return "admin/addStudent";
     }
 
     @PostMapping("/aIndex/addUserMenu/addStudent/new")
-    public String insertStudent(@Valid @ModelAttribute("newStudent") Student student, BindingResult result)
-    {
+    public String insertStudent(@Valid @ModelAttribute("newStudent") Student student,
+                                BindingResult result, Model model) {
         if (result.hasErrors()){
             return "admin/addStudent";
         }
-        userService.insert(student);
+        try {
+            userService.insert(student);
+        } catch (DataIntegrityViolationException e){
+            model.addAttribute("loginTakenErr", true);
+            return "admin/addStudent";
+        }
         return "redirect:/user/aIndex/addUserMenu";
     }
 
     @PostMapping("/aIndex/addUserMenu/addTeacher/new")
-    public String insertTeacher(@Valid @ModelAttribute("newTeacher") Teacher teacher, BindingResult result)
-    {
+    public String insertTeacher(@Valid @ModelAttribute("newTeacher") Teacher teacher,
+                                BindingResult result, Model model) {
         if (result.hasErrors()){
             return "admin/addTeacher";
         }
-        userService.insert(teacher);
+        try {
+            userService.insert(teacher);
+        } catch (DataIntegrityViolationException e){
+        model.addAttribute("loginTakenErr", true);
+        return "admin/addTeacher";
+    }
         return "redirect:/user/aIndex/addUserMenu";
     }
 
     @PostMapping("/aIndex/addUserMenu/addAdmin/new")
-    public String insertAdmin(@Valid @ModelAttribute("newAdmin") Admin admin, BindingResult result, Model model)
-    {
+    public String insertAdmin(@Valid @ModelAttribute("newAdmin") Admin admin,
+                              BindingResult result, Model model) {
         if (result.hasErrors()){
             return "admin/addAdmin";
         }
-        userService.insert(admin);
+        try {
+            userService.insert(admin);
+        } catch (DataIntegrityViolationException e){
+            model.addAttribute("loginTakenErr", true);
+            return "admin/addAdmin";
+        }
         return "redirect:/user/aIndex/addUserMenu";
     }
 
@@ -205,6 +228,7 @@ public class UserController {
     public String addTeacher(Model model)
     {
         model.addAttribute("newTeacher", new Teacher());
+        model.addAttribute("loginTakenErr", false);
         return "admin/addTeacher";
     }
 
@@ -212,6 +236,7 @@ public class UserController {
     public String addAdmin(Model model)
     {
         model.addAttribute("newAdmin", new Admin());
+        model.addAttribute("loginTakenErr", false);
         return "admin/addAdmin";
     }
 
@@ -228,6 +253,8 @@ public class UserController {
     @GetMapping("/joinClass")
     public String showJoinClass(Model model){
         model.addAttribute("code", "");
+        model.addAttribute("classErr", false);
+        model.addAttribute("existsErr", false);
         return "student/joinClass";
     }
 
@@ -236,12 +263,24 @@ public class UserController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         DBUserDetails details = (DBUserDetails) auth.getPrincipal();
         Student currentStudent = (Student) details.getUser();
+        try {
         Class myClass = classService.getClassById(Long.parseLong(code));
         ClassToStudentRelation newRel = new ClassToStudentRelation();
         newRel.setMyClass(myClass);
         newRel.setStudent(currentStudent);
         classService.insertClassRel(newRel);
         return"redirect:/user/self";
+        } catch (DataIntegrityViolationException | NumberFormatException e){
+            model.addAttribute("code", "");
+            model.addAttribute("classErr", true);
+            model.addAttribute("existsErr", false);
+            return "student/joinClass";
+        } catch (IllegalStateException e){
+            model.addAttribute("code", "");
+            model.addAttribute("classErr", false);
+            model.addAttribute("existsErr", true);
+            return "student/joinClass";
+        }
     }
 
 }
