@@ -5,6 +5,7 @@ import com.example.QuizApp.data.users.Student;
 import com.example.QuizApp.data.users.Teacher;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.OnDelete;
 
 import javax.persistence.*;
 import java.util.LinkedHashSet;
@@ -25,8 +26,8 @@ public class Class {
     private Long id;
 
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "teacher_id", nullable = false)
+    @ManyToOne(optional = true)
+    @JoinColumn(name = "teacher_id", nullable = true)
     private Teacher teacher;
 
 

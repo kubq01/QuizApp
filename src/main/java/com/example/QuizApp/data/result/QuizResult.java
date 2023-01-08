@@ -5,6 +5,8 @@ import com.example.QuizApp.data.quizes.TeacherQuiz;
 import com.example.QuizApp.data.quizes.enums.QuizStatus;
 import com.example.QuizApp.data.users.Student;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
@@ -32,6 +34,7 @@ public class QuizResult {
 
     @ManyToOne
     @JoinColumn(name = "student_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Student student;
 
     public QuizResult( Integer pointsMax, TeacherQuiz teacherQuiz, Student student) {

@@ -2,6 +2,8 @@ package com.example.QuizApp.data.Class;
 
 import com.example.QuizApp.data.users.Student;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
@@ -18,6 +20,7 @@ public class ClassToStudentRelation {
 
     @ManyToOne
     @JoinColumn(name = "student_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Student student;
 
 
