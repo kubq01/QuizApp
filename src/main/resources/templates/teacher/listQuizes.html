@@ -60,7 +60,7 @@
                                                 <tr th:each="quiz: ${quizList}">
                                                     <td th:text="${quiz.getId()}" style="border-right-width: 1px;">Cell 1</td>
                                                     <td th:text="${quiz.getSubject()}" style="border-right-width: 1px;">Cell 2</td>
-                                                    <td style="text-align: center;width: 104.25px;border-right-width: 1px;"><a th:href="@{|/quiz/info?id=${quiz.getId()}|}"><button class="btn btn-primary" type="button" style="width: 91.641px;height: 39.7812px;font-size: 13px;">Info</button></a></td>
+                                                    <td style="text-align: center;width: 104.25px;border-right-width: 1px;"><a th:href="@{|/quiz/viewQuizT?quizID=${quiz.getId()}|}"><button class="btn btn-primary" type="button" style="width: 91.641px;height: 39.7812px;font-size: 13px;">Info</button></a></td>
                                                 </tr>
                                             </tbody>
                                         </table>
