@@ -28,6 +28,8 @@ public class ABCDExercise extends Exercise {
     @NotNull(message = "Jedna z odpowiedzi musi zostać zaznaczona.")
     private Short correctAnswer;
 
+    private String answerString;
+
     public ABCDExercise(String question, Quiz quiz, String answerA, String answerB, String answerC, String answerD, Short correctAnswer) {
         super(question, quiz);
         this.answerA = answerA;
@@ -35,6 +37,16 @@ public class ABCDExercise extends Exercise {
         this.answerC = answerC;
         this.answerD = answerD;
         this.correctAnswer = correctAnswer;
+
+        switch (correctAnswer)
+        {
+            case 1: answerString="A";break;
+            case 2: answerString="B";break;
+            case 3: answerString="C";break;
+            case 4: answerString="D";break;
+            default: answerString="ERROR";break;
+        }
+
     }
 
 
@@ -66,5 +78,9 @@ public class ABCDExercise extends Exercise {
 
     public Short getCorrectAnswer() {
         return correctAnswer;
+    }
+
+    public String getAnswerString() {
+        return answerString;
     }
 }

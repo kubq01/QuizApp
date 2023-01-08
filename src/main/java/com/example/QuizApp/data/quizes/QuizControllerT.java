@@ -13,6 +13,7 @@ import com.example.QuizApp.data.users.DBUserDetails;
 import com.example.QuizApp.data.users.Student;
 import com.example.QuizApp.data.users.Teacher;
 import com.example.QuizApp.data.wrappers.ExerciseAnswerWrapper;
+import com.example.QuizApp.data.wrappers.QuizExerciseWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.Authentication;
@@ -302,5 +303,24 @@ public class QuizControllerT {
         tempExercises.clear();
         return "student/viewQuiz";
 
+    }
+
+    @GetMapping("/viewQuizT")
+    public String viewQuizT(@RequestParam("quizID") Long quizID, Model model)
+    {
+        TeacherQuiz quiz = (TeacherQuiz) quizService.showSafeByID(quizID);
+        List<Exercise> exerciseList = exerciseService.getByQuiz(quizID);
+        List<ABCDExercise> ABCDExercises = new ArrayList<>();
+
+        for(Exercise exercise : exerciseList)
+        {
+            if(exercise instanceof ABCDExercise)
+                ABCDExercises.add((ABCDExercise) exercise);
+        }
+
+        model.addAttribute("quiz", quiz);
+        model.addAttribute("exercises", ABCDExercises);
+
+        return "teacher/viewQuizForTeacher";
     }
 }

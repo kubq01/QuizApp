@@ -78,4 +78,28 @@ public class TeacherQuiz extends Quiz {
     {
         this.teacher = null;
     }
+
+    public Boolean getCountsToAvg() {
+        return countsToAvg;
+    }
+
+    public LocalDate getStartTime() {
+        return startTime;
+    }
+
+    public Integer getQuizTimeInMinutes() {
+        return quizTimeInMinutes;
+    }
+
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public Class getStudentsClass() {
+        return studentsClass;
+    }
 }
