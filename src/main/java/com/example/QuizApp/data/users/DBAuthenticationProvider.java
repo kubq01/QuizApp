@@ -23,7 +23,8 @@ public class DBAuthenticationProvider implements AuthenticationProvider {
         DBUserDetails userDetails = (DBUserDetails) userDetailsService.loadUserByUsername(givenUsername);
         String username = userDetails.getUsername();
         String password = userDetails.getPassword();
-        if (passwordEncoder.matches(givenPassword, password)){
+        boolean activeCondition = userDetails.getUser().isActive();
+        if (passwordEncoder.matches(givenPassword, password) && activeCondition){
             UsernamePasswordAuthenticationToken token =
                     new UsernamePasswordAuthenticationToken(username, password, userDetails.getAuthorities());
             return token;

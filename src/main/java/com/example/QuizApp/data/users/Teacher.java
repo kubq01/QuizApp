@@ -17,10 +17,15 @@ import javax.persistence.Table;
 public class Teacher extends User{
 
     public Teacher(Long id, String firstName, String LastName, String login, String password) {
-        super(id, firstName, LastName, login, password);
+        super(id, firstName, LastName, login, password, true);
     }
 
     public Teacher(String firstName, String lastName, String login, String password) {
         super(firstName, lastName, login, password);
+    }
+
+    @Override
+    public String showRoleInPolish() {
+        return "Nauczyciel";
     }
 }

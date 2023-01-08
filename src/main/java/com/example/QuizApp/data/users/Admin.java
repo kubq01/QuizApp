@@ -18,6 +18,11 @@ import javax.persistence.Table;
 public class Admin extends User {
 
     public Admin(Long id, String firstName, String LastName, String login, String password) {
-        super(id, firstName, LastName, login, password);
+        super(id, firstName, LastName, login, password, true);
+    }
+
+    @Override
+    public String showRoleInPolish() {
+        return "Administrator";
     }
 }

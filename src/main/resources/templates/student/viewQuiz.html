@@ -43,11 +43,47 @@
                     <tbody>
                       <tr th:each="wrapper: ${wrapperList}">
                         <h4 th:text="${wrapper.getExercise().getQuestion()}">Treść zadania</h4>
-
-                          <td style="border-right-width: 1px;" th:text="A. + ' ' + ${wrapper.getExercise().getAnswerA()}">A.</td><br>
-                          <td style="border-right-width: 1px;" th:text="B. + ' ' + ${wrapper.getExercise().getAnswerB()}">B</td><br>
-                          <td style="border-right-width: 1px;" th:text="C. + ' ' + ${wrapper.getExercise().getAnswerC()}">C.</td><br>
-                          <td style="border-right-width: 1px;" th:text="D. + ' ' + ${wrapper.getExercise().getAnswerD()}">D.</td><br><br>
+                        <!--TODO pokolorować!!!/-->
+                        <td th:switch="${wrapper.getStudentS()}">
+                          <div th:case="${1}">
+                            <p th:if="${1 == wrapper.getCorrectS()}" style="border-right-width: 1px; color: lawngreen;" th:text="A. + ' ' + ${wrapper.getExercise().getAnswerA()}">A.</p>
+                            <p th:unless="${1 == wrapper.getCorrectS()}" style="border-right-width: 1px; color: indianred;" th:text="A. + ' ' + ${wrapper.getExercise().getAnswerA()}">A.</p>
+                          </div>
+                          <div th:case="*">
+                            <p th:if="${1 == wrapper.getCorrectS()}" style="border-right-width: 1px; color: lawngreen;" th:text="A. + ' ' + ${wrapper.getExercise().getAnswerA()}">A.</p>
+                            <p th:unless="${1 == wrapper.getCorrectS()}" style="border-right-width: 1px;" th:text="A. + ' ' + ${wrapper.getExercise().getAnswerA()}">A.</p><br>
+                          </div>
+                        </td>
+                        <td th:switch="${wrapper.getStudentS()}">
+                          <div th:case="${2}">
+                            <p th:if="${2 == wrapper.getCorrectS()}" style="border-right-width: 1px; color: lawngreen;" th:text="B. + ' ' + ${wrapper.getExercise().getAnswerB()}">B.</p>
+                            <p th:unless="${2 == wrapper.getCorrectS()}" style="border-right-width: 1px; color: indianred;" th:text="B. + ' ' + ${wrapper.getExercise().getAnswerB()}">B.</p>
+                          </div>
+                          <div th:case="*">
+                            <p th:if="${2 == wrapper.getCorrectS()}" style="border-right-width: 1px; color: lawngreen;" th:text="B. + ' ' + ${wrapper.getExercise().getAnswerB()}">B.</p>
+                            <p th:unless="${2 == wrapper.getCorrectS()}" style="border-right-width: 1px;" th:text="B. + ' ' + ${wrapper.getExercise().getAnswerB()}">B.</p>
+                          </div>
+                        </td>
+                        <td th:switch="${wrapper.getStudentS()}">
+                          <div th:case="${3}">
+                            <p th:if="${3 == wrapper.getCorrectS()}" style="border-right-width: 1px; color: lawngreen;" th:text="C. + ' ' + ${wrapper.getExercise().getAnswerC()}">C.</p>
+                            <p th:unless="${3 == wrapper.getCorrectS()}" style="border-right-width: 1px; color: indianred;" th:text="C. + ' ' + ${wrapper.getExercise().getAnswerC()}">C.</p>
+                          </div>
+                          <div th:case="*">
+                            <p th:if="${3 == wrapper.getCorrectS()}" style="border-right-width: 1px; color: lawngreen;" th:text="C. + ' ' + ${wrapper.getExercise().getAnswerC()}">C.</p>
+                            <p th:unless="${3 == wrapper.getCorrectS()}" style="border-right-width: 1px;" th:text="C. + ' ' + ${wrapper.getExercise().getAnswerC()}">C.</p>
+                          </div>
+                        </td>
+                        <td th:switch="${wrapper.getStudentS()}">
+                          <div th:case="${4}">
+                            <p th:if="${4 == wrapper.getCorrectS()}" style="border-right-width: 1px; color: lawngreen;" th:text="D. + ' ' + ${wrapper.getExercise().getAnswerD()}">D.</p>
+                            <p th:unless="${4 == wrapper.getCorrectS()}" style="border-right-width: 1px; color: indianred;" th:text="D. + ' ' + ${wrapper.getExercise().getAnswerD()}">D.</p>
+                          </div>
+                          <div th:case="*">
+                            <p th:if="${4 == wrapper.getCorrectS()}" style="border-right-width: 1px; color: lawngreen;" th:text="D. + ' ' + ${wrapper.getExercise().getAnswerD()}">D.</p>
+                            <p th:unless="${4 == wrapper.getCorrectS()}" style="border-right-width: 1px;" th:text="D. + ' ' + ${wrapper.getExercise().getAnswerD()}">D.</p>
+                          </div>
+                          <br>
                           <td style="border-right-width: 1px;" >Poprawna odpowiedź: </td>
                           <td style="border-right-width: 1px;" th:text="${wrapper.getAnswer()}">D.</td><br>
                           <td style="border-right-width: 1px;" >Odpowiedź ucznia: </td>

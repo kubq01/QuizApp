@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
@@ -24,12 +25,15 @@ public class UserController {
 
     private UserService userService;
     private ClassService classService;
+    private final UserRepository userRepository;
 
     @Autowired
-    public UserController(UserService userService, ClassService classService)
+    public UserController(UserService userService, ClassService classService,
+                          UserRepository userRepository)
     {
         this.userService = userService;
         this.classService = classService;
+        this.userRepository = userRepository;
     }
 
     @GetMapping("/index")
@@ -136,6 +140,12 @@ public class UserController {
     }
 
 
+    @PostMapping("/aIndex/userList/delete")
+    public String deleteUser(@RequestParam Long userID, Model model){
+        userService.deleteUserById(userID);
+
+        return "redirect:/user/aIndex/userList";
+    }
 
     @GetMapping("aIndex/adminClasses")
     public String showClassesForAdmin(Model model)
@@ -151,7 +161,7 @@ public class UserController {
         List<User> users = userService.showByType(UserType.TEACHER);
         List<Teacher> teachers = new ArrayList<>();
         for(User user: users)
-           teachers.add((Teacher) user);
+            teachers.add((Teacher) user);
         model.addAttribute("teachers", teachers);
         return "admin/addClass";
     }
