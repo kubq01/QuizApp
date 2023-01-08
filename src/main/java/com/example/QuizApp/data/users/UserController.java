@@ -79,7 +79,8 @@ public class UserController {
                     nuberOfQuizes++;
                 }
             }
-            mean = mean/quizResultList.size();
+            if(mean>0)
+                mean = mean/quizResultList.size();
             model.addAttribute("mean", mean);
             model.addAttribute("numberOfQuizes",nuberOfQuizes);
             return "misc/studentSelf";
@@ -139,6 +140,22 @@ public class UserController {
     @GetMapping("/studentInfoTeacher")
     public String studentInfoTeacher(@RequestParam Long ID, Model model)
     {
+        Student student = (Student) userService.showByID(ID);
+        List<QuizResult> quizResultList = quizResultService.getResultsByStudent(student);
+        Float mean = 0.0F;
+        int nuberOfQuizes = 0;
+        for(QuizResult result: quizResultList)
+        {
+            if(result.getAttended())
+            {
+                mean += result.getMark();
+                nuberOfQuizes++;
+            }
+        }
+        if(mean>0)
+            mean = mean/quizResultList.size();
+        model.addAttribute("mean", mean);
+        model.addAttribute("numberOfQuizes",nuberOfQuizes);
         model.addAttribute("student", userService.showByID(ID));
         return "teacher/studentInfoForTeacher";
     }
