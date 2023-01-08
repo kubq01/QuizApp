@@ -46,8 +46,6 @@ public abstract class User {
     //@Size(min = 2, max = 30, message = "Hasło może zawierać od 6 do 20 znaków.")    //TODO zamienić na 6 przy działającej aplikacji
     private String password;
 
-    private boolean active = true;
-
     public User(String firstName, String lastName, String login, String password) {
         this.firstName = firstName;
         lastName = lastName;

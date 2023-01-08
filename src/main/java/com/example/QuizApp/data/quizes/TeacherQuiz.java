@@ -41,8 +41,8 @@ public class TeacherQuiz extends Quiz {
     @Min(value = 15, message = "Czas na pisanie nie może być mniejszy niż 15 minut.")
     private Integer quizTimeInMinutes;
 
-    @ManyToOne
-    @JoinColumn(name = "idT")
+    @ManyToOne(optional = true)
+    @JoinColumn(name = "idT", nullable = true)
     private Teacher teacher;
 
     @NotEmpty(message = "Quiz musi mieć podane zagadnienie.")

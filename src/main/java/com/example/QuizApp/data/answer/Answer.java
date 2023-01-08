@@ -4,6 +4,8 @@ import com.example.QuizApp.data.exercises.Exercise;
 import com.example.QuizApp.data.result.QuizResult;
 import com.example.QuizApp.data.users.Student;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -33,6 +35,7 @@ public class Answer {
 
     @ManyToOne
     @JoinColumn(name = "quiz_result_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private QuizResult quizResult;
 
     @NotNull

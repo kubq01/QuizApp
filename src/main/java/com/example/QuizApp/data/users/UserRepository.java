@@ -21,6 +21,6 @@ public interface UserRepository extends JpaRepository<User,Long> {
     @Query("select u from User u where u.login = ?1")
     Optional<User> findByLogin(String login);
 
-    List<User> findAllByActive(boolean active);
+    List<User> findAll();
 
 }
