@@ -25,8 +25,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
-import java.sql.SQLDataException;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -300,7 +298,10 @@ public class QuizControllerT {
                 }
 
 
-                ExerciseAnswerWrapper wrapper = new ExerciseAnswerWrapper(exercise,answer,studentAnswerString);
+                ExerciseAnswerWrapper wrapper =
+                        new ExerciseAnswerWrapper(exercise, answer,
+                                studentAnswerString, ((ABCDExercise) exercise).getCorrectAnswer(),
+                                studentAnswer.getUserAnswer());
                 wrapperList.add(wrapper);
             }
 
