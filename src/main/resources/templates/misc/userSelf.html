@@ -53,7 +53,7 @@
                                     <div class="card mb-5">
                                         <div class="card-body text-center justify-content-center align-items-center align-content-center p-sm-5">
                                             <div style="margin-bottom: 18px;">
-                                                <p>Login</p>
+                                                <p th:text="${currUser.getLogin()}">Login</p>
                                             </div>
                                             <div><a th:href="@{/user/self/changePassword}"><button class="btn btn-primary" type="button" style="font-size: 12px;">Zmień hasło</button></a></div>
                                         </div>

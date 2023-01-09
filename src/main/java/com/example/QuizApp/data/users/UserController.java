@@ -4,6 +4,8 @@ package com.example.QuizApp.data.users;
 import com.example.QuizApp.data.Class.Class;
 import com.example.QuizApp.data.Class.ClassService;
 import com.example.QuizApp.data.Class.ClassToStudentRelation;
+import com.example.QuizApp.data.result.QuizResult;
+import com.example.QuizApp.data.result.QuizResultService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.Authentication;
@@ -27,13 +29,16 @@ public class UserController {
     private ClassService classService;
     private final UserRepository userRepository;
 
+    private QuizResultService quizResultService;
+
     @Autowired
     public UserController(UserService userService, ClassService classService,
-                          UserRepository userRepository)
+                          UserRepository userRepository, QuizResultService quizResultService)
     {
         this.userService = userService;
         this.classService = classService;
         this.userRepository = userRepository;
+        this.quizResultService = quizResultService;
     }
 
     @GetMapping("/index")
@@ -62,7 +67,24 @@ public class UserController {
         model.addAttribute("currUser", currentUser);
         model.addAttribute("role", getRole(currentUser));
         if(currentUser instanceof Student)
+        {
+            List<QuizResult> quizResultList = quizResultService.getResultsByStudent((Student) currentUser);
+            Float mean = 0.0F;
+            int nuberOfQuizes = 0;
+            for(QuizResult result: quizResultList)
+            {
+                if(result.getAttended())
+                {
+                    mean += result.getMark();
+                    nuberOfQuizes++;
+                }
+            }
+            if(mean>0)
+                mean = mean/quizResultList.size();
+            model.addAttribute("mean", mean);
+            model.addAttribute("numberOfQuizes",nuberOfQuizes);
             return "misc/studentSelf";
+        }
 
         return "misc/userSelf";
     }
@@ -118,6 +140,22 @@ public class UserController {
     @GetMapping("/studentInfoTeacher")
     public String studentInfoTeacher(@RequestParam Long ID, Model model)
     {
+        Student student = (Student) userService.showByID(ID);
+        List<QuizResult> quizResultList = quizResultService.getResultsByStudent(student);
+        Float mean = 0.0F;
+        int nuberOfQuizes = 0;
+        for(QuizResult result: quizResultList)
+        {
+            if(result.getAttended())
+            {
+                mean += result.getMark();
+                nuberOfQuizes++;
+            }
+        }
+        if(mean>0)
+            mean = mean/quizResultList.size();
+        model.addAttribute("mean", mean);
+        model.addAttribute("numberOfQuizes",nuberOfQuizes);
         model.addAttribute("student", userService.showByID(ID));
         return "teacher/studentInfoForTeacher";
     }
