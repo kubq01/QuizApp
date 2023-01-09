@@ -34,24 +34,29 @@ public class QuizAppApplication {
 	}
 
 	@Bean
-	CommandLineRunner run(UserService service, ExerciseService exerciseService, QuizService quizService, ClassService classService, QuizResultService quizResultService) {
+	CommandLineRunner run(UserService service,
+						  ExerciseService exerciseService,
+						  QuizService quizService,
+						  ClassService classService,
+						  QuizResultService quizResultService) {
 		return args -> {
-			Teacher teacher = new Teacher(null,"Janusz","Kowalski","login","password");
+			Teacher teacher = new Teacher(null,"Janusz",
+					"Kowalski","Janusz","Kowal123");
 			service.insert(teacher);
 			Admin admin = new Admin(null, "Bartosz",
 					"Walaszek",
-					"abcd",
-					"efgh");
+					"admin",
+					"admin");
 			service.insert(admin);
-			Student student = new Student(null, "Bartosz",
-					"Maciaszek",
+			Student student = new Student(null, "Marcin",
+					"Nowak",
 					"student",
 					"student");
 			service.insert(student);
-			Student student2 = new Student(null, "Bartosz",
-					"Gagatek",
-					"password",
-					"login");
+			Student student2 = new Student(null, "Grzegorz",
+					"Niedziela",
+					"g-niedziela",
+					"haslo123");
 			service.insert(student2);
 
 			Class class1 = new Class(teacher);
@@ -62,23 +67,30 @@ public class QuizAppApplication {
 			ClassToStudentRelation relation2 = new ClassToStudentRelation(student2,class1);
 			classService.insertRel(relation2);
 
-			Quiz quiz = new TeacherQuiz(false, LocalDate.now(),30,teacher,"subject",class1);
+			Quiz quiz = new TeacherQuiz(false,
+					LocalDate.now(),30,teacher,"Historia",class1);
 			quizService.insert(quiz);
 
-			Exercise exercise1 = new ABCDExercise("Treść pytania nr 1", quiz,"aa","b","c","d", (short) 1);
-			Exercise exercise2 = new ABCDExercise("Treść pytania nr 2",  quiz,"aa","bb","c","dd", (short) 3);
+			Exercise exercise1 = new ABCDExercise("Podaj rok zakończenia I Wojny Światowej.", quiz,
+					"1918","1992","1914","1920", (short) 1);
+			Exercise exercise2 = new ABCDExercise("Kto odkrył Amerykę.",
+					quiz,"Mikołaj Kopernik","Amerigo Vespucci",
+					"Krzysztof Kolumb","Krzysztof Gonciarz", (short) 3);
 
 			exerciseService.insert(exercise1);
 			exerciseService.insert(exercise2);
 
-			QuizResult result = new QuizResult(2, (TeacherQuiz) quiz,student);
+			QuizResult result = new QuizResult(null, null, false,
+					0, 2, true, (TeacherQuiz) quiz,student);
 			quizResultService.insert(result);
 
-			Quiz quiz1 = new StudentQuiz("qwerty",student);
+			Quiz quiz1 = new StudentQuiz("Programowanie w języku Java.",student);
 			quizService.insert(quiz1);
 
-			Exercise exercise3 = new ABCDExercise("Treść pytania nr 111", quiz1,"aa2","b2","c2","d2", (short) 1);
-			Exercise exercise4 = new ABCDExercise("Treść pytania nr 222",  quiz1,"a1a","b1b","c1","dd1", (short) 3);
+			Exercise exercise3 = new ABCDExercise("Operator inkrementacji",
+					quiz1,"++","+-","inc()","+", (short) 1);
+			Exercise exercise4 = new ABCDExercise("Mechanizm współdzielenia funkcjonalności między klasami nazwyamy.",
+					quiz1,"polimorfizm","konstruktor","dziedziczenie","enkapsulacja", (short) 3);
 
 			exerciseService.insert(exercise3);
 			exerciseService.insert(exercise4);

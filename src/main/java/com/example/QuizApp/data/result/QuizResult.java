@@ -27,6 +27,8 @@ public class QuizResult {
 
     private Integer pointsMax;
 
+    private Boolean countsToAvg;
+
 
     @ManyToOne
     @JoinColumn(name = "teacher_quiz_id")
@@ -36,15 +38,6 @@ public class QuizResult {
     @JoinColumn(name = "student_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Student student;
-
-    public QuizResult( Integer pointsMax, TeacherQuiz teacherQuiz, Student student) {
-        this.mark = null;
-        this.attended = false;
-        this.pointsGained = 0;
-        this.pointsMax = pointsMax;
-        this.teacherQuiz = teacherQuiz;
-        this.student = student;
-    }
 
     public void addPoints(int points)
     {
@@ -57,5 +50,7 @@ public class QuizResult {
         attended = true;
     }
 
-
+    public QuizResult(Integer pointsGained) {
+        this.pointsGained = pointsGained;
+    }
 }

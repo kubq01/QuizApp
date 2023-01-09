@@ -56,15 +56,15 @@
                     <tfoot>
                     <td style="border-right-width: 1px;" >-----------------------</td><br>
                     <td style="border-right-width: 1px;" >Liczony do średniej: </td>
-                    <td style="border-right-width: 1px;" th:text="A. + ' ' + ${quiz.getCountsToAvg()}"></td><br>
+                    <td style="border-right-width: 1px;" th:text="${quiz.getCountsToAvg()}"></td><br>
                     <td style="border-right-width: 1px;" >Data quizu: </td>
-                    <td style="border-right-width: 1px;" th:text="A. + ' ' + ${quiz.getStartTime() }"></td><br>
+                    <td style="border-right-width: 1px;" th:text="${quiz.getStartTime() }"></td><br>
                     <td style="border-right-width: 1px;" >Czas quizu w minutach: </td>
-                    <td style="border-right-width: 1px;" th:text="A. + ' ' + ${quiz.getQuizTimeInMinutes() }"></td><br>
+                    <td style="border-right-width: 1px;" th:text="${quiz.getQuizTimeInMinutes() }"></td><br>
                     <td style="border-right-width: 1px;" >Zagadnienie: </td>
-                    <td style="border-right-width: 1px;" th:text="A. + ' ' + ${quiz.getSubject() }"></td><br>
+                    <td style="border-right-width: 1px;" th:text="${quiz.getSubject() }"></td><br>
                     <td style="border-right-width: 1px;" >ID klasy: </td>
-                    <td style="border-right-width: 1px;" th:text="A. + ' ' + ${quiz.getStudentsClass().getId()}"></td><br><br>
+                    <td style="border-right-width: 1px;" th:text="${quiz.getStudentsClass().getId()}"></td><br><br>
                     </tfoot>
                     <div>
                       <a th:href="@{/quiz/listByT}">

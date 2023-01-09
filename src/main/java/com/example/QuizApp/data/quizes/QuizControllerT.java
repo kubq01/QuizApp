@@ -148,7 +148,7 @@ public class QuizControllerT {
             List<Student> students = classService.getStudentsByClass(studentsClass.getId());
             for(Student student: students){
                 QuizResult newResult = new QuizResult(null, null, false,
-                        0, 0, newQuiz, student);
+                        0, 0, newQuiz.getCountsToAvg(), newQuiz, student);
                 resultService.insert(newResult);
             }
         } catch (DataIntegrityViolationException e){
@@ -308,7 +308,7 @@ public class QuizControllerT {
             if(exercise instanceof ABCDExercise)
                 tempABCDExercises.add((ABCDExercise) exercise);
         }
-        tempQuizResult = new QuizResult(null,null,null);
+        tempQuizResult = new QuizResult(0);
         return "student/quizStudentStart";
     }
 
