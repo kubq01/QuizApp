@@ -1,11 +1,12 @@
 package com.example.QuizApp.data.users;
 
 
-import com.example.QuizApp.data.exercises.ABCDExercise;
-import com.example.QuizApp.data.exercises.WrittenExercise;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;

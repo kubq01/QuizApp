@@ -2,8 +2,10 @@ package com.example.QuizApp.data.answer;
 
 import com.example.QuizApp.data.exercises.Exercise;
 import com.example.QuizApp.data.result.QuizResult;
-import com.example.QuizApp.data.users.Student;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 

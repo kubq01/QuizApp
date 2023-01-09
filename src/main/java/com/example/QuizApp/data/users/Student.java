@@ -1,15 +1,12 @@
 package com.example.QuizApp.data.users;
 
-import com.example.QuizApp.data.Class.Class;
-import com.example.QuizApp.data.quizes.StudentQuiz;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "Student")

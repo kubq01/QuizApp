@@ -1,8 +1,6 @@
 package com.example.QuizApp.data.exercises;
 
 
-import com.example.QuizApp.data.quizes.Quiz;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

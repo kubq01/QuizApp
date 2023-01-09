@@ -2,7 +2,6 @@ package com.example.QuizApp.data.users;
 
 import com.example.QuizApp.data.Class.Class;
 import com.example.QuizApp.data.Class.ClassRepository;
-import com.example.QuizApp.data.quizes.Quiz;
 import com.example.QuizApp.data.quizes.TeacherQuiz;
 import com.example.QuizApp.data.quizes.TeacherQuizRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 

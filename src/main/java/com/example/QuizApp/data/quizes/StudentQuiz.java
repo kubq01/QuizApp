@@ -1,10 +1,6 @@
 package com.example.QuizApp.data.quizes;
 
-import com.example.QuizApp.data.exercises.ABCDExercise;
-import com.example.QuizApp.data.exercises.Exercise;
-import com.example.QuizApp.data.exercises.WrittenExercise;
 import com.example.QuizApp.data.users.Student;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,7 +9,6 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-import java.util.Set;
 
 @Entity
 @Table(name = "studentQuiz")

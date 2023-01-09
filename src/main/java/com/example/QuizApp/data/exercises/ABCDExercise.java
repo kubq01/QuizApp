@@ -1,7 +1,9 @@
 package com.example.QuizApp.data.exercises;
 
 import com.example.QuizApp.data.quizes.Quiz;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;

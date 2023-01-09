@@ -1,15 +1,13 @@
 
 package com.example.QuizApp.data.Class;
 
-import com.example.QuizApp.data.users.Student;
 import com.example.QuizApp.data.users.Teacher;
-import lombok.*;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.OnDelete;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.LinkedHashSet;
-import java.util.Set;
 
 @Entity
 @Getter

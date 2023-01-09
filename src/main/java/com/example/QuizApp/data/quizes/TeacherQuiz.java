@@ -1,9 +1,7 @@
 package com.example.QuizApp.data.quizes;
 
 import com.example.QuizApp.data.Class.Class;
-import com.example.QuizApp.data.exercises.Exercise;
 import com.example.QuizApp.data.users.Teacher;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,9 +12,6 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.Set;
 
 @Entity
 @Table(name = "teacher_quiz")

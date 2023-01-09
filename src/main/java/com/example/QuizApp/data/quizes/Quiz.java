@@ -1,16 +1,13 @@
 package com.example.QuizApp.data.quizes;
 
-import com.example.QuizApp.data.exercises.ABCDExercise;
-import com.example.QuizApp.data.exercises.Exercise;
-import com.example.QuizApp.data.exercises.WrittenExercise;
-import com.example.QuizApp.data.users.Teacher;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.LinkedHashSet;
-import java.util.Set;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)

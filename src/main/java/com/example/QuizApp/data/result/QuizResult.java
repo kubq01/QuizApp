@@ -1,10 +1,11 @@
 package com.example.QuizApp.data.result;
 
-import com.example.QuizApp.data.quizes.Quiz;
 import com.example.QuizApp.data.quizes.TeacherQuiz;
-import com.example.QuizApp.data.quizes.enums.QuizStatus;
 import com.example.QuizApp.data.users.Student;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 

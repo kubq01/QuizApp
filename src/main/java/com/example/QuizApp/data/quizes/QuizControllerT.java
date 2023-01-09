@@ -14,7 +14,6 @@ import com.example.QuizApp.data.users.Student;
 import com.example.QuizApp.data.users.Teacher;
 import com.example.QuizApp.data.users.User;
 import com.example.QuizApp.data.wrappers.ExerciseAnswerWrapper;
-import com.example.QuizApp.data.wrappers.QuizExerciseWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.Authentication;
