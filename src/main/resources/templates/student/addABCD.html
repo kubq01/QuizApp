@@ -39,28 +39,36 @@
                             <div class="row d-flex justify-content-center">
                                 <div class="col-md-8 col-lg-6 col-xl-5 col-xxl-4">
                                     <div class="card mb-5">
-                                        <div class="card-body justify-content-center align-items-center align-content-center p-sm-5" style="text-align: center;">
-                                            <div style="color: var(--bs-blue);background: var(--bs-card-cap-bg);"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-person-fill" style="width: 72px;height: 72px;">
-                                                    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"></path>
-                                                </svg></div>
-                                            <h2 class="text-center mb-4">Witaj</h2>
-                                            <h1 style="margin-top: -12px;" th:text="${currUser.getFirstName()} + ' ' + ${currUser.getLastName()}">Imie Nazwisko</h1>
-                                            <a th:href="@{/user/self}"><button class="btn btn-primary" type="button">Konto</button></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-8 col-lg-6 col-xl-5 col-xxl-4">
-                                    <div class="card mb-5" style="margin-top: 55px;">
-                                        <div class="card-body text-center justify-content-center align-items-center align-content-center p-sm-5">
-                                            <div style="margin-bottom: 18px;">
-                                                <a th:href="@{/quiz/listForStudent}">
-                                                   <button class="btn btn-primary" type="button">Quizy obowiązkowe</button>
-                                                </a>
-                                                <a th:href="@{/quiz/listByS}">
-                                                    <button class="btn btn-primary" type="button">Quizy ucznia</button>
-                                                </a>
-                                            </div>
-                                            <div style="margin-bottom: 18px;"></div>
+                                        <div class="card-body p-sm-5">
+                                            <h2 class="text-center mb-4">Dodaj pytanie ABCD</h2>
+                                            <form th:action="@{/quiz/addABCD/new}" th:object="${newABCD}" method="post">
+                                                <div class="mb-3">
+                                                    <input th:field="*{question}" class="form-control" type="text" id="name-5" name="name" placeholder="Treść pytania">
+                                                    <p th:if="${#fields.hasErrors('question')}" style="color:red;" th:errors="*{question}"/>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <input th:field="*{answerA}" class="form-control" type="text" id="name-2" name="name" placeholder="Odpowiedź A">
+                                                    <p th:if="${#fields.hasErrors('answerA')}" style="color:red;" th:errors="*{answerA}"/>
+                                                    <input th:field="*{correctAnswer}" value="1" type="radio" name="answer">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <input th:field="*{answerB}" class="form-control" type="text" id="name-1" name="lastname" placeholder="Odpowiedź B">
+                                                    <p th:if="${#fields.hasErrors('answerB')}" style="color:red;" th:errors="*{answerB}"/>
+                                                    <input th:field="*{correctAnswer}" value="2"  type="radio" name="answer">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <input th:field="*{answerC}" class="form-control" type="text" id="name-3" name="login" placeholder="Odpowiedź C">
+                                                    <p th:if="${#fields.hasErrors('answerC')}" style="color:red;" th:errors="*{answerC}"/>
+                                                    <input th:field="*{correctAnswer}" value="3"  type="radio" name="answer">
+                                                </div>
+                                                <div class="mb-3" style="margin-bottom: 16px;">
+                                                    <input th:field="*{answerD}" class="form-control" type="text" id="name-4" name="name" placeholder="Odpowiedź D">
+                                                    <p th:if="${#fields.hasErrors('answerD')}" style="color:red;" th:errors="*{answerD}"/>
+                                                    <input th:field="*{correctAnswer}" value="4"  type="radio" name="answer">
+                                                </div>
+                                                <div style="margin-top: 16px;"><button class="btn btn-primary d-block w-100" type="submit">Dodaj</button></div>
+                                                <p th:if="${#fields.hasErrors('correctAnswer')}" style="color:red;" th:errors="*{correctAnswer}"/>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>

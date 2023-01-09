@@ -8,8 +8,11 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.util.Set;
 
 @Entity
@@ -20,4 +23,24 @@ import java.util.Set;
 @DiscriminatorValue("STUDENT")
 public class StudentQuiz extends Quiz {
 
+    @NotEmpty(message = "Quiz musi mieć podane zagadnienie.")
+    private String subject;
+
+    @ManyToOne
+    @JoinColumn(name = "student_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Student student;
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
+    public StudentQuiz(Long id, String subject) {
+        super(id);
+        this.subject = subject;
+    }
 }

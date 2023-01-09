@@ -1,6 +1,7 @@
 package com.example.QuizApp.data.quizes;
 
 import com.example.QuizApp.data.quizes.enums.QuizType;
+import com.example.QuizApp.data.users.Student;
 import com.example.QuizApp.data.users.Teacher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,10 +17,13 @@ public class QuizService {
     private final QuizRepository repo;
     private final TeacherQuizRepository repoT;
 
+    private final StudentQuizRepository repoS;
+
     @Autowired
-    public QuizService(QuizRepository repo, TeacherQuizRepository repoT) {
+    public QuizService(QuizRepository repo, TeacherQuizRepository repoT, StudentQuizRepository repoS) {
         this.repo = repo;
         this.repoT = repoT;
+        this.repoS = repoS;
     }
 
 
@@ -75,4 +79,7 @@ public class QuizService {
         return null;
     }
 
+    public List<StudentQuiz> showAllByStudent(Student currentStudent) {
+        return repoS.findAllByStudent(currentStudent);
+    }
 }

@@ -12,6 +12,7 @@ import com.example.QuizApp.data.result.QuizResultService;
 import com.example.QuizApp.data.users.DBUserDetails;
 import com.example.QuizApp.data.users.Student;
 import com.example.QuizApp.data.users.Teacher;
+import com.example.QuizApp.data.users.User;
 import com.example.QuizApp.data.wrappers.ExerciseAnswerWrapper;
 import com.example.QuizApp.data.wrappers.QuizExerciseWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,17 +73,17 @@ public class QuizControllerT {
     @GetMapping("/listByT")
     public String listQuizesByCurrentTeacher(Model model)
     {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        DBUserDetails details = (DBUserDetails) auth.getPrincipal();
-        Teacher currentTeacher = (Teacher) details.getUser();
+        Teacher currentTeacher = (Teacher) getCurrentUser();
         model.addAttribute("quizList", quizService.showAllByTeacher(currentTeacher));
-        try {
-            return "teacher/listQuizes";
-        }
-        catch (IllegalArgumentException exception){
-            exception.printStackTrace();
-            return null;   //TODO przerobić na zwrócenie 400 Bad Request
-        }
+        return "teacher/listQuizes";
+    }
+
+    @GetMapping("/listByS")
+    public String listQuizesByCurrentStudent(Model model)
+    {
+        Student currentStudent = (Student) getCurrentUser();
+        model.addAttribute("quizList", quizService.showAllByStudent(currentStudent));
+        return "student/listStudentQuizes";
     }
 
     @GetMapping("/addTeacherQuiz")
@@ -99,6 +100,19 @@ public class QuizControllerT {
         return "teacher/addQuiz";
     }
 
+    @GetMapping("/addStudentQuiz")
+    public String showAddStudentQuiz(
+            @RequestParam(name="reset", required = false, defaultValue = "false")
+                                         Boolean reset,Model model){
+        if (reset){
+            tempExercises.clear();
+            tempId = 0L;
+        }
+        model.addAttribute("newQuiz", new TeacherQuiz());
+        model.addAttribute("exercises", tempExercises);
+        return "student/addStudentQuiz";
+    }
+
     @PostMapping("/addTeacherQuiz/new")
     public String addTeacherQuiz(@Valid @ModelAttribute("newQuiz") TeacherQuiz quiz,
                                  BindingResult result,
@@ -109,9 +123,7 @@ public class QuizControllerT {
             model.addAttribute("exercises", tempExercises);
             return"teacher/addQuiz";
         }
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        DBUserDetails details = (DBUserDetails) auth.getPrincipal();
-        Teacher currentTeacher = (Teacher) details.getUser();
+        Teacher currentTeacher = (Teacher) getCurrentUser();
         Class studentsClass;
         try {
             studentsClass = classService.getClassByIdAndTeacher(Long.parseLong(code), currentTeacher);
@@ -146,6 +158,25 @@ public class QuizControllerT {
         return "redirect:/quiz/listByT";
     }
 
+    @PostMapping("/addStudentQuiz/new")
+    public String addStudentQuiz(@Valid @ModelAttribute("newQuiz") StudentQuiz newQuiz,
+                                 BindingResult result, Model model){
+        if (result.hasErrors()){
+            model.addAttribute("classErr", false);
+            model.addAttribute("exercises", tempExercises);
+            return"student/addStudentQuiz";
+        }
+        Student currentStudent = (Student) getCurrentUser();
+        newQuiz.setStudent(currentStudent);
+        StudentQuiz addedQuiz = (StudentQuiz) quizService.insert(newQuiz);
+        for (Exercise exercise:tempExercises) {
+            exercise.setQuiz(addedQuiz);
+            exerciseService.insert(exercise);
+        }
+        tempExercises.clear();
+        return "redirect:/quiz/listByS";
+    }
+
 
 
     @GetMapping("/addABCD")
@@ -162,14 +193,19 @@ public class QuizControllerT {
         exercise.setId(tempId++);
         exercise.setPoints(1);
         tempExercises.add(exercise);
-        return "redirect:/quiz/addTeacherQuiz";
+        switch(getCurrentUser().getClass().getSimpleName()){
+            case "Student":
+                return "redirect:/quiz/addStudentQuiz";
+            case "Teacher":
+                return "redirect:/quiz/addTeacherQuiz";
+            default:
+                return "redirect:/logout";
+        }
     }
 
     @GetMapping("/listForStudent")
     public String listQuizesAsResults(Model model){
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        DBUserDetails details = (DBUserDetails) auth.getPrincipal();
-        Student currentStudent = (Student) details.getUser();
+        Student currentStudent = (Student) getCurrentUser();
         List<QuizResult> results = resultService.getResultsByStudent(currentStudent);
         model.addAttribute("results", results);
         model.addAttribute("currDate", LocalDate.now());
@@ -179,9 +215,7 @@ public class QuizControllerT {
     @GetMapping("/startQuiz")
     public String startQuiz(@RequestParam Long quizID, Model model)
     {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        DBUserDetails details = (DBUserDetails) auth.getPrincipal();
-        Student currentStudent = (Student) details.getUser();
+        Student currentStudent = (Student) getCurrentUser();
         tempQuiz = (TeacherQuiz) quizService.showSafeByID(quizID);
         tempABCDExercises.clear();
         tempExercises = exerciseService.getByQuiz(tempQuiz.getId());
@@ -262,9 +296,7 @@ public class QuizControllerT {
     @GetMapping("/viewQuiz")
     public String viewQuiz(@RequestParam("quizID") Long quizID, Model model)
     {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        DBUserDetails details = (DBUserDetails) auth.getPrincipal();
-        Student currentStudent = (Student) details.getUser();
+        Student currentStudent = (Student) getCurrentUser();
         tempQuiz = (TeacherQuiz) quizService.showSafeByID(quizID);
         tempExercises = exerciseService.getByQuiz(tempQuiz.getId());
         answers = new ArrayList<>();
@@ -335,5 +367,11 @@ public class QuizControllerT {
         model.addAttribute("exercises", ABCDExercises);
 
         return "teacher/viewQuizForTeacher";
+    }
+
+    private User getCurrentUser(){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        DBUserDetails details = (DBUserDetails) auth.getPrincipal();
+        return details.getUser();
     }
 }

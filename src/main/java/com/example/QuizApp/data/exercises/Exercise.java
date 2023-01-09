@@ -4,6 +4,8 @@ import com.example.QuizApp.data.quizes.Quiz;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -32,6 +34,7 @@ public abstract class Exercise {    //TODO sposób na spisywanie poprawnych odpo
 
     @ManyToOne
     @JoinColumn(name = "quiz_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Quiz quiz;
 
     public Exercise(String question, Quiz quiz) {
