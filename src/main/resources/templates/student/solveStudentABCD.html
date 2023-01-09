@@ -32,42 +32,27 @@
     </nav>
     <header class="bg-dark">
         <div class="container py-5">
-            <div class="row">
-                <div class="col">
-                    <div style="text-align: right;">
-                        <a th:href="@{/quiz/addStudentQuiz?reset=true}">
-                        <button class="btn btn-primary" type="button">Dodaj quiz</button>
-                        </a>
-                    </div>
-                </div>
-            </div>
             <div class="row py-5">
                 <div class="col">
                     <section class="position-relative py-4 py-xl-5">
                         <div class="container position-relative">
                             <div class="row d-flex justify-content-center">
-                                <div class="col">
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-                                                    <th style="width: 155.906px;border-radius: 0px;">ID quizu</th>
-                                                    <th>Zagadnienie</th>
-                                                    <th></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr th:each="quiz: ${quizList}">
-                                                    <td th:text="${quiz.getId()}" style="border-right-width: 1px;">Cell 1</td>
-                                                    <td th:text="${quiz.getSubject()}" style="border-right-width: 1px;">Cell 2</td>
-                                                    <td style="text-align: center;width: 140px;border-right-width: 1px;">
-                                                        <a  th:href="@{/quiz/startStudentQuiz(quizID=${quiz.getId()})}">
-                                                            <button class="btn btn-primary d-block w-100" type="button" style="width: 91.641px;height: 39.7812px;font-size: 13px;">Rozwiąż</button>
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                <div class="col-md-8 col-lg-6 col-xl-5 col-xxl-4">
+                                    <div class="card mb-5">
+                                        <div class="card-body p-sm-5">
+                                            <h2 class="text-center mb-4" th:text="Pytanie + ' ' + ${counter} + '/' + ${numberOfExercises}">Pytanie x/y</h2>
+                                            <p th:text="${exercise.getQuestion()}">Treść zadania</p>
+                                            <form method="post" th:action="@{/quiz/sendStudentABCD}">
+                                                <div class="mb-3">
+                                                    <div class="form-check"><input class="form-check-input" th:value=1 type="radio" id="formCheck-1" name="studentAnswer"><label class="form-check-label" for="formCheck-1" th:text="${exercise.getAnswerA()}">A.</label></div>
+                                                    <div class="form-check"><input class="form-check-input" th:value=2 type="radio" id="formCheck-2" name="studentAnswer"><label class="form-check-label" for="formCheck-2" th:text="${exercise.getAnswerB()}">B.</label></div>
+                                                    <div class="form-check"><input class="form-check-input" th:value=3 type="radio" id="formCheck-3" name="studentAnswer"><label class="form-check-label" for="formCheck-3" th:text="${exercise.getAnswerC()}">C.</label></div>
+                                                    <div class="form-check"><input class="form-check-input" th:value=4 type="radio" id="formCheck-4" name="studentAnswer"><label class="form-check-label" for="formCheck-4" th:text="${exercise.getAnswerD()}">D.</label></div>
+                                                </div>
+                                                <div style="margin-top: 16px;"><button class="btn btn-primary d-block w-100" type="submit">Następne pytanie</button></div>
+                                                <p th:if="${answerErr == true}" style="color:red;" >Należy wybrać odpowiedź.</p>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

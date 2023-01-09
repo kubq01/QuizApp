@@ -73,6 +73,16 @@ public class QuizAppApplication {
 
 			QuizResult result = new QuizResult(2, (TeacherQuiz) quiz,student);
 			quizResultService.insert(result);
+
+			Quiz quiz1 = new StudentQuiz("qwerty",student);
+			quizService.insert(quiz1);
+
+			Exercise exercise3 = new ABCDExercise("Treść pytania nr 111", quiz1,"aa2","b2","c2","d2", (short) 1);
+			Exercise exercise4 = new ABCDExercise("Treść pytania nr 222",  quiz1,"a1a","b1b","c1","dd1", (short) 3);
+
+			exerciseService.insert(exercise3);
+			exerciseService.insert(exercise4);
+
 		};
 	}
 

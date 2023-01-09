@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:text-align="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="utf-8">
@@ -32,42 +32,25 @@
     </nav>
     <header class="bg-dark">
         <div class="container py-5">
-            <div class="row">
-                <div class="col">
-                    <div style="text-align: right;">
-                        <a th:href="@{/quiz/addStudentQuiz?reset=true}">
-                        <button class="btn btn-primary" type="button">Dodaj quiz</button>
-                        </a>
-                    </div>
-                </div>
-            </div>
             <div class="row py-5">
                 <div class="col">
                     <section class="position-relative py-4 py-xl-5">
                         <div class="container position-relative">
                             <div class="row d-flex justify-content-center">
-                                <div class="col">
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-                                                    <th style="width: 155.906px;border-radius: 0px;">ID quizu</th>
-                                                    <th>Zagadnienie</th>
-                                                    <th></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr th:each="quiz: ${quizList}">
-                                                    <td th:text="${quiz.getId()}" style="border-right-width: 1px;">Cell 1</td>
-                                                    <td th:text="${quiz.getSubject()}" style="border-right-width: 1px;">Cell 2</td>
-                                                    <td style="text-align: center;width: 140px;border-right-width: 1px;">
-                                                        <a  th:href="@{/quiz/startStudentQuiz(quizID=${quiz.getId()})}">
-                                                            <button class="btn btn-primary d-block w-100" type="button" style="width: 91.641px;height: 39.7812px;font-size: 13px;">Rozwiąż</button>
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                <div class="col-md-8 col-lg-6 col-xl-5 col-xxl-4">
+                                    <div class="card mb-5">
+                                        <div class="card-body p-sm-5">
+                                            <h2 class="text-center mb-4">Koniec</h2>
+                                            <div class="mb-3">
+                                                <p style="text-align: justify;">Quiz został rozwiązany.<br><br></p>
+                                                <p style="text-align: justify;" >Twój wynik to:</p>
+                                                <p th:if="${result.getMark() >= 0.5}" style="text-align: justify; color:lawngreen;" th:text="${result.getMark()} + '%'"><br></p>
+                                                <p th:unless="${result.getMark() >= 0.5}" style="text-align: justify; color:indianred;" th:text="${result.getMark()} + '%'"><br></p>
+                                            </div>
+                                            <div style="margin-top: 16px;">
+                                                <a th:href="@{/quiz/listByS}">
+                                                    <button class="btn btn-primary d-block w-100" type="submit" style="margin-top: 50px;">Zakończ</button></a></div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

@@ -43,4 +43,9 @@ public class StudentQuiz extends Quiz {
         super(id);
         this.subject = subject;
     }
+
+    public StudentQuiz(String subject, Student student) {
+        this.subject = subject;
+        this.student = student;
+    }
 }

@@ -67,7 +67,7 @@ public class QuizService {
 
         if(quiz.isPresent())
         {
-            if(quiz.get() instanceof TeacherQuiz)
+           // if(quiz.get() instanceof TeacherQuiz)
              //   ((TeacherQuiz) quiz.get()).hideTeacher();
 
             return quiz.get();
@@ -76,7 +76,7 @@ public class QuizService {
             //TODO: throw error
             return null;
         }
-        return null;
+
     }
 
     public List<StudentQuiz> showAllByStudent(Student currentStudent) {

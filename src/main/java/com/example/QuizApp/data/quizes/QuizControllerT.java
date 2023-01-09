@@ -47,6 +47,7 @@ public class QuizControllerT {
     private Long tempId;
 
     private TeacherQuiz tempQuiz;
+    private StudentQuiz tempStudentQuiz;
     private int exerciseCounter = -1;
 
     private QuizResult tempQuizResult;
@@ -55,6 +56,7 @@ public class QuizControllerT {
 
     private List<String> answers;
     private List<String> studentAnswers;
+    private QuizResult tempResult;
 
 
 
@@ -292,6 +294,83 @@ public class QuizControllerT {
         model.addAttribute("result", tempQuizResult);
         return "student/quizFinish";
     }
+
+    /////
+    @GetMapping("/startStudentQuiz")
+    public String startStudentQuiz(@RequestParam Long quizID, Model model)
+    {
+        Student currentStudent = (Student) getCurrentUser();
+        tempStudentQuiz = (StudentQuiz) quizService.showSafeByID(quizID);
+        tempABCDExercises.clear();
+        tempExercises = exerciseService.getByQuiz(tempStudentQuiz.getId());
+        for (Exercise exercise:tempExercises)
+        {
+            if(exercise instanceof ABCDExercise)
+                tempABCDExercises.add((ABCDExercise) exercise);
+        }
+        tempQuizResult = new QuizResult(null,null,null);
+        return "student/quizStudentStart";
+    }
+
+    @GetMapping("/solveStudentABCD")
+    public String solveStudentABDC(@RequestParam int exerciseID,Model model)
+    {
+        if(exerciseID<tempABCDExercises.size())
+        {
+            model.addAttribute("exercise", tempABCDExercises.get(exerciseID));
+            exerciseCounter = exerciseID;
+            exerciseID++;
+            model.addAttribute("counter", exerciseID);
+            model.addAttribute("numberOfExercises",tempABCDExercises.size());
+            model.addAttribute("answerErr", false);
+            return "student/solveStudentABCD";
+        }
+
+        return "redirect:/quiz/finishStudentQuiz";
+    }
+
+    @PostMapping("/sendStudentABCD")
+    public String sendStudentABCD(
+            @RequestParam(name = "studentAnswer",
+                    required = false, defaultValue = "0") int studentAnswer,
+            Model model, RedirectAttributes redirectAttributes)
+    {
+        if (studentAnswer == 0){
+            model.addAttribute("exercise", tempABCDExercises.get(exerciseCounter));
+            model.addAttribute("counter", exerciseCounter+1);
+            model.addAttribute("numberOfExercises",tempABCDExercises.size());
+            model.addAttribute("answerErr", true);
+            return "student/solveStudentABCD";
+        }
+        ABCDExercise tempExercise = (ABCDExercise) exerciseService
+                .getExerciseByID(tempExercises.get(exerciseCounter).getId());
+
+        if (studentAnswer == tempExercise.getCorrectAnswer())
+            tempQuizResult.addPoints(tempExercise.getPoints());
+
+        exerciseCounter++;
+
+        redirectAttributes.addAttribute("exerciseID", exerciseCounter);
+        return "redirect:/quiz/solveStudentABCD";
+
+        /*
+        model.addAttribute("exercise", tempABCDExercises.get(exerciseCounter));
+        model.addAttribute("counter", (exerciseCounter + 1));
+        model.addAttribute("numberOfExercises",tempABCDExercises.size());
+
+         */
+
+    }
+
+    @GetMapping("/finishStudentQuiz")
+    public String finishStudentQuiz(Model model)
+    {
+        tempQuizResult.setPointsMax(tempABCDExercises.size());
+        tempQuizResult.finishQuiz();
+        model.addAttribute("result", tempQuizResult);
+        return "student/quizStudentFinish";
+    }
+    /////
 
     @GetMapping("/viewQuiz")
     public String viewQuiz(@RequestParam("quizID") Long quizID, Model model)
