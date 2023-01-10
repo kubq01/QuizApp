@@ -72,7 +72,7 @@ public class QuizAppApplication {
 			classService.insertRel(relation2);
 
 			Quiz quiz = new TeacherQuiz(false,
-					LocalDate.now(),30,teacher,"Historia",class1);
+					LocalDate.now(),2,teacher,"Historia",class1);
 			quizService.insert(quiz);
 
 			Exercise exercise1 = new ABCDExercise("Podaj rok zakończenia I Wojny Światowej.", quiz,
@@ -101,5 +101,4 @@ public class QuizAppApplication {
 
 		};
 	}
-
 }

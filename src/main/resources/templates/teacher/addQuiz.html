@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Home - Quiz.io</title>
+    <title>Quiz.io</title>
     <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&amp;display=swap">
     <link rel="stylesheet" th:href="@{/css/Navbar-Right-Links-icons.css}">
@@ -77,7 +77,6 @@
                                                         <tr>
                                                             <th>ID pytania</th>
                                                             <th>Typ</th>
-                                                            <th></th>
 <!--                                                            <th></th>-->
                                                         </tr>
                                                     </thead>
@@ -85,7 +84,6 @@
                                                         <tr th:each="exercise: ${exercises}">
                                                             <td th:text="${exercise.getId()}" style="border-right-width: 1px;">Cell 1</td>
                                                             <td th:text="${exercise.myType()}" style="border-right-width: 1px;">Cell 2</td>
-                                                            <td style="width: 120.047px;"><button class="btn btn-primary" type="button" style="font-size: 12px;">Edytuj</button></td>
 <!--                                                            <td style="width: 110.984px;"><button class="btn btn-primary" type="button" style="background: var(&#45;&#45;bs-pink);font-size: 12px;">Usuń</button></td>-->
                                                         </tr>
                                                     </tbody>

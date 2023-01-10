@@ -29,6 +29,8 @@ import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 @Controller
 @RequestMapping("/quiz")
@@ -57,6 +59,10 @@ public class QuizControllerT {
     private List<String> studentAnswers;
     private QuizResult tempResult;
 
+    private Timer quizTimer;
+
+    private Boolean timeUp;
+
 
 
 
@@ -69,6 +75,7 @@ public class QuizControllerT {
         this.classService = classService;
         tempExercises = new ArrayList<>();
         this.answerService = answerService;
+        this.quizTimer = new Timer("Quiz Timer.");
     }
 
     @GetMapping("/listByT")
@@ -226,12 +233,23 @@ public class QuizControllerT {
                 tempABCDExercises.add((ABCDExercise) exercise);
         }
         tempQuizResult = resultService.getByQuizIDAndStudentID(tempQuiz.getId(), currentStudent.getId());
+        timeUp = false;
+        startTimer(tempQuiz.getQuizTimeInMinutes());
         return "student/quizStart";
     }
 
     @GetMapping("/solveABCD")
     public String solveABDC(@RequestParam int exerciseID,Model model)
     {
+        if (timeUp){
+            for (int i = exerciseID; i < tempExercises.size(); i++) {
+                Answer answer = new Answer(tempExercises.get(i),
+                        tempQuizResult,
+                        (short) 0);
+                answerService.insert(answer);
+                return "redirect:/quiz/finishQuiz";
+            }
+        }
         if(exerciseID<tempABCDExercises.size())
         {
             model.addAttribute("exercise", tempABCDExercises.get(exerciseID));
@@ -287,6 +305,9 @@ public class QuizControllerT {
     @GetMapping("/finishQuiz")
     public String finishQuiz(Model model)
     {
+        if (!timeUp){
+            quizTimer.cancel();
+        }
         tempQuizResult.setPointsMax(tempABCDExercises.size());
         tempQuizResult.finishQuiz();
         resultService.insert(tempQuizResult);
@@ -451,5 +472,15 @@ public class QuizControllerT {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         DBUserDetails details = (DBUserDetails) auth.getPrincipal();
         return details.getUser();
+    }
+
+    private void startTimer(int time){
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                timeUp = true;
+            }
+        };
+        quizTimer.schedule(task, time * 60 * 1000);
     }
 }

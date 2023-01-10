@@ -33,7 +33,7 @@ public class TeacherQuiz extends Quiz {
     private LocalDate startTime;
 
     @NotNull(message = "Należy podać czas trwania quizu.")
-    @Min(value = 15, message = "Czas na pisanie nie może być mniejszy niż 15 minut.")
+    @Min(value = 2, message = "Czas na pisanie nie może być mniejszy niż 15 minut.")
     private Integer quizTimeInMinutes;
 
     @ManyToOne(optional = true)
