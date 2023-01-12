@@ -92,7 +92,7 @@ public class UserController {
         return "misc/userSelf";
     }
 
-    @GetMapping("/aIndex")
+    /*@GetMapping("/aIndex")
     public String showAdminIndex( Model model)
     {
         return "admin/adminIndex";
@@ -103,7 +103,7 @@ public class UserController {
     {
         return "misc/userSelf";
     }
-
+*/
     @GetMapping("/self/changePassword")
     public String changePassword(Model model)
     {
@@ -125,7 +125,7 @@ public class UserController {
         return "redirect:/user/self";
     }
 
-    @GetMapping("/listClasses")
+    @GetMapping("/listClasses")         //todo przerobić żeby były widoczne tylko klasy zalogowanego nauczyciela
     public String listClasses(Model model)
     {
         List<Class> classes = classService.showAll();
@@ -188,7 +188,7 @@ public class UserController {
         return "redirect:/user/aIndex/userList";
     }
 
-    @GetMapping("aIndex/adminClasses")
+    @GetMapping("/aIndex/adminClasses")
     public String showClassesForAdmin(Model model)
     {
         List<Class> classes = classService.showAll();
@@ -196,7 +196,7 @@ public class UserController {
         return "admin/listClassesForAdmin";
     }
 
-    @GetMapping("aIndex/adminClasses/addClass")
+    @GetMapping("/aIndex/adminClasses/addClass")
     public String addClass(Model model)
     {
         List<User> users = userService.showByType(UserType.TEACHER);
@@ -207,7 +207,7 @@ public class UserController {
         return "admin/addClass";
     }
 
-    @PostMapping("aIndex/adminClasses/addClass/new")
+    @PostMapping("/aIndex/adminClasses/addClass/new")
     public String insertClass(@ModelAttribute Teacher teacher)
     {
         System.out.println("Teacher id "+teacher.getId() +" "+ teacher.getLastName());

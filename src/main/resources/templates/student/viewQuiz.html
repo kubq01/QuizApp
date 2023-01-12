@@ -51,7 +51,7 @@
                           </div>
                           <div th:case="*">
                             <p th:if="${1 == wrapper.getCorrectS()}" style="border-right-width: 1px; color: lawngreen;" th:text="A. + ' ' + ${wrapper.getExercise().getAnswerA()}">A.</p>
-                            <p th:unless="${1 == wrapper.getCorrectS()}" style="border-right-width: 1px;" th:text="A. + ' ' + ${wrapper.getExercise().getAnswerA()}">A.</p><br>
+                            <p th:unless="${1 == wrapper.getCorrectS()}" style="border-right-width: 1px;" th:text="A. + ' ' + ${wrapper.getExercise().getAnswerA()}">A.</p>
                           </div>
                         </td>
                         <td th:switch="${wrapper.getStudentS()}">
