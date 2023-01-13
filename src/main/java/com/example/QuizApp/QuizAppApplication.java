@@ -47,6 +47,9 @@ public class QuizAppApplication {
 			Teacher teacher = new Teacher(null,"Janusz",
 					"Kowalski","Janusz","Kowal123");
 			service.insert(teacher);
+			Teacher teacher2 = new Teacher(null,"Mariusz",
+					"Kowal","Mariusz","Mar111");
+			service.insert(teacher2);
 			Admin admin = new Admin(null, "Bartosz",
 					"Walaszek",
 					"admin",
@@ -65,6 +68,12 @@ public class QuizAppApplication {
 
 			Class class1 = new Class(teacher);
 			classService.insert(class1);
+
+			Class class2 = new Class(teacher2);
+			classService.insert(class2);
+
+			Class class3 = new Class(teacher);
+			classService.insert(class3);
 
 			ClassToStudentRelation relation = new ClassToStudentRelation(student,class1);
 			classService.insertRel(relation);

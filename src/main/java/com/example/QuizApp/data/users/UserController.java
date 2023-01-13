@@ -128,7 +128,10 @@ public class UserController {
     @GetMapping("/listClasses")         //todo przerobić żeby były widoczne tylko klasy zalogowanego nauczyciela
     public String listClasses(Model model)
     {
-        List<Class> classes = classService.showAll();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        DBUserDetails details = (DBUserDetails) auth.getPrincipal();
+        Teacher teacher = (Teacher) details.getUser();
+        List<Class> classes = classService.getClassesByTeacher(teacher);
         model.addAttribute("classes", classes);
         return "teacher/listClasses";
     }
