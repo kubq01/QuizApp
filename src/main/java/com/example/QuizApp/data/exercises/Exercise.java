@@ -14,6 +14,9 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 
 @Entity
+@Table(name = "Exercise", indexes = {
+        @Index(name = "idx_exercise_quiz_id", columnList = "quiz_id")
+})
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name="descriminatorColumn")
 @Getter

@@ -14,7 +14,9 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "teacher_quiz")
+@Table(name = "teacher_quiz", indexes = {
+        @Index(name = "idx_teacherquiz", columnList = "students_class_id")
+})
 @Getter
 @Setter
 @NoArgsConstructor

@@ -10,6 +10,9 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "Class", indexes = {
+        @Index(name = "idx_class_teacher_id", columnList = "teacher_id")
+})
 @Getter
 @Setter
 @AllArgsConstructor

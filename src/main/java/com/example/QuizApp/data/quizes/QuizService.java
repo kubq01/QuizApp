@@ -55,10 +55,10 @@ public class QuizService {
         repo.deleteAll();
     }
 
-    public List<Quiz> showByClass(int classID)
+    /*public List<Quiz> showByClass(int classID)
     {
          return repo.findByClassId(classID);
-    }
+    }*/
 
     public Quiz showSafeByID(Long quizID)
     {
@@ -72,7 +72,6 @@ public class QuizService {
             return quiz.get();
         }else
         {
-            //TODO: throw error
             return null;
         }
 

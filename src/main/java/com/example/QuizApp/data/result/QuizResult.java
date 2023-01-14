@@ -12,7 +12,9 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "QuizResult")
+@Table(name = "QuizResult", indexes = {
+        @Index(name = "idx_quizresult_student_id", columnList = "student_id")
+})
 @Getter
 @Setter
 @NoArgsConstructor
