@@ -80,7 +80,7 @@ public class QuizAppApplication {
 			ClassToStudentRelation relation2 = new ClassToStudentRelation(student2,class1);
 			classService.insertRel(relation2);
 
-			Quiz quiz = new TeacherQuiz(false,
+			Quiz quiz = new TeacherQuiz(true,
 					LocalDate.now(),2,teacher,"Historia",class1);
 			quizService.insert(quiz);
 
@@ -96,6 +96,53 @@ public class QuizAppApplication {
 			QuizResult result = new QuizResult(null, null, false,
 					0, 2, true, (TeacherQuiz) quiz,student);
 			quizResultService.insert(result);
+
+
+			Quiz quizMath = new TeacherQuiz(true,
+					LocalDate.now(),15,teacher,"Matematyka",class1);
+			quizService.insert(quizMath);
+
+			Exercise exercise5 = new ABCDExercise("10+10=", quizMath,
+					"1","2","0","20", (short) 4);
+			Exercise exercise6 = new ABCDExercise("Wzór na pole trójkąta",
+					quizMath,"a*h/2","a+b*h",
+					"(a+b)*h","10", (short) 1);
+			Exercise exercise7 = new ABCDExercise("100*100", quizMath,
+					"10","10000","20","1", (short) 2);
+			Exercise exercise8 = new ABCDExercise("Wzór na pole kwadratu",
+					quizMath,"a^3","a*h",
+					"a*a","a*b", (short) 3);
+			Exercise exercise9 = new ABCDExercise("2+5*10", quizMath,
+					"70","52","2510","0", (short) 2);
+			Exercise exercise10 = new ABCDExercise("25/0",
+					quizMath,"Nie można dzielić przez zero","5",
+					"25","0", (short) 1);
+			Exercise exercise11 = new ABCDExercise("Wzór na deltę", quizMath,
+					"x+y","a+b+c","b^2-4ac","a^2-b+c", (short) 3);
+			Exercise exercise12 = new ABCDExercise("Kto wymyślił twierdzenie Pitagorasa",
+					quizMath,"Mikołaj Kopernik","Homer",
+					"Pitagoras","Tales", (short) 3);
+			Exercise exercise13 = new ABCDExercise("Jakie jest przybliżenie liczby pi do 4 cyfry po przecinku", quizMath,
+					"3.1415","3.14","2.7813","3.1411", (short) 1);
+			Exercise exercise14 = new ABCDExercise("Ile wynosi pierwiastek z 2",
+					quizMath,"4","2",
+					"1.4142","1.222", (short) 3);
+
+			exerciseService.insert(exercise5);
+			exerciseService.insert(exercise6);
+			exerciseService.insert(exercise7);
+			exerciseService.insert(exercise8);
+			exerciseService.insert(exercise9);
+			exerciseService.insert(exercise10);
+			exerciseService.insert(exercise11);
+			exerciseService.insert(exercise12);
+			exerciseService.insert(exercise13);
+			exerciseService.insert(exercise14);
+
+
+			QuizResult result3 = new QuizResult(null, null, false,
+					0, 2, true, (TeacherQuiz) quizMath,student);
+			quizResultService.insert(result3);
 
 			Quiz quiz1 = new StudentQuiz("Programowanie w języku Java.",student);
 			quizService.insert(quiz1);

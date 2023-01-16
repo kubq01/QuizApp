@@ -40,6 +40,11 @@ public class ABCDExercise extends Exercise {
         this.answerD = answerD;
         this.correctAnswer = correctAnswer;
 
+        saveAnswer();
+
+    }
+
+    public void saveAnswer() {
         switch (correctAnswer)
         {
             case 1: answerString="A";break;
@@ -48,9 +53,7 @@ public class ABCDExercise extends Exercise {
             case 4: answerString="D";break;
             default: answerString="ERROR";break;
         }
-
     }
-
 
 
     public void hideCorrectAnswer() {

@@ -75,7 +75,7 @@ public class QuizControllerT {
         this.classService = classService;
         tempExercises = new ArrayList<>();
         this.answerService = answerService;
-        this.quizTimer = new Timer("Quiz Timer.");
+        //this.quizTimer = new Timer("Quiz Timer.");
     }
 
     @GetMapping("/listByT")
@@ -200,6 +200,7 @@ public class QuizControllerT {
         }
         exercise.setId(tempId++);
         exercise.setPoints(1);
+        exercise.saveAnswer();
         tempExercises.add(exercise);
         switch(getCurrentUser().getClass().getSimpleName()){
             case "Student":
@@ -475,6 +476,7 @@ public class QuizControllerT {
     }
 
     private void startTimer(int time){
+        quizTimer = new Timer("Quiz Timer.");
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
