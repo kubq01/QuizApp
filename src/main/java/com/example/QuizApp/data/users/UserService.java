@@ -97,7 +97,7 @@ public class UserService {
                 return null;
         }
 
-        private User encodePassword(User user){
+        User encodePassword(User user){
             String password = user.getPassword();
             user.setPassword(encoder.encode(password));
             return user;
