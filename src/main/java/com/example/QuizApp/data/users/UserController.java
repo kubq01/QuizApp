@@ -150,16 +150,20 @@ public class UserController {
         List<QuizResult> quizResultList = quizResultService.getResultsByStudent(student);
         Float mean = 0.0F;
         int nuberOfQuizes = 0;
+        int numberOfScoredQuizes = 0;
         for(QuizResult result: quizResultList)
         {
             if(result.getAttended())
             {
-                mean += result.getMark();
+                if (result.getCountsToAvg()) {
+                    mean += result.getMark();
+                    numberOfScoredQuizes++;
+                }
                 nuberOfQuizes++;
             }
         }
         if(mean>0)
-            mean = mean/quizResultList.size();
+            mean = mean/numberOfScoredQuizes;
         model.addAttribute("mean", mean);
         model.addAttribute("numberOfQuizes",nuberOfQuizes);
         model.addAttribute("student", userService.showByID(ID));
